@@ -1,0 +1,31 @@
+{"$jsonSchema": {
+    "bsonType": "object",
+    "title": "Application Users",
+    "required": ["email", "password"],
+    "properties": {
+        "email": {
+            "bsonType": "string",
+            "description": "User email"
+        },
+        "firstName": {
+            "bsonType": "string",
+            "description": "User's first name"
+        },
+        "lastName": {
+            "bsonType": "string",
+            "description": "User's last name"
+        },
+        "birthday": {
+            "bsonType": "number",
+            "description": "Unix timestamp representing client's birthday"
+        },
+        "password": {
+            "bsonType": "string",
+            "description": "Hashed user password"
+        },
+        "salt": {
+            "bsonType": "string",
+            "description": "Salt for password hash"
+        }
+    }
+}}
