@@ -6,7 +6,7 @@ import { collections } from '../db';
 import { User } from '../models/user';
 
 const users = Router();
-const filter = { projection: { password: 0, salt: 0 }};
+const filter = { projection: { password: 0, salt: 0 }}; // make sure not to show these
 
 // API v1: /users/create
 //      method: POST

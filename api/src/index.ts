@@ -2,7 +2,6 @@
 import session from 'express-session';
 import express from 'express';
 import { Db } from 'mongodb';
-
 // local imports
 import { connectToDatabase } from './db';
 import users from './routes/users';
@@ -15,11 +14,10 @@ connectToDatabase("testing") // specify database
 		// MAIN: API SERVER
 		const app = express(); // grab a handle to the main express object
 		const api = [ // we've defined this array of objects here to make the code more
-			{ name: "/auth", route: auth }, // readable, and to make extending the API
-			{ name: "/users", route: users }, // more manageable
+			{ path: "/auth", router: auth }, // readable, and to make extending the API
+			{ path: "/users", router: users }, // more manageable
+			{ path: "/public", router: express.static("./public") }
 		];
-
-		app.use(express.static("./public")); // serve static files for the frontend like "workouts.json"
 		app.use(express.json()); // this is a JSON API
 		app.use(session({ // set up sessions for user authentication
 			secret: "fitness",
@@ -27,9 +25,8 @@ connectToDatabase("testing") // specify database
 			saveUninitialized: true,
 			cookie: {} // in release this should be { secure = true }
 		}));
-
 		// setup the routes we defined above
-		api.forEach(({name, route}) => app.use(name, route));
+		api.forEach(({path, router}) => app.use(path, router));
 		app.listen(3000, "127.0.0.1", () => { // start the server, the callback function is 
 			console.log("listening on localhost:3000"); // just going to show us the server's running
 		});

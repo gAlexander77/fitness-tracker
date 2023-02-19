@@ -40,9 +40,9 @@ auth.post("/sign-in", async (req: Request, res: Response) => {
             if (error) throw error;
             if (user.password == password.toString("hex")) {
                 req.session.userID = user._id;
-                res.status(200);
+                res.status(200).send("signed in successfully");
             }
-        }) : res.status(404);
+        }) : res.status(404).send("user not found");
     } catch (error) {
         res.status(400).send(error.message);
     }
@@ -56,7 +56,7 @@ auth.post("/sign-in", async (req: Request, res: Response) => {
 auth.post("/sign-out", async (req: Request, res: Response) => {
     req.session.userID = undefined;
     req.session.destroy((error: Error) => res.status(500).send(error.message));
-    res.status(200);
+    res.status(200).send("signed out successfully");
 });
 
 export default auth;

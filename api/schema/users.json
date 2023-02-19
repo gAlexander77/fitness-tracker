@@ -16,7 +16,7 @@
             "description": "User's last name"
         },
         "birthday": {
-            "bsonType": "number",
+            "bsonType": "int",
             "description": "Unix timestamp representing client's birthday"
         },
         "password": {
