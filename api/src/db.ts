@@ -4,8 +4,14 @@ import fs from 'fs';
 
 const DB_URL = "mongodb://testing:testing@127.0.0.1:27017/testing";
 
+interface Collections {
+	users?: Collection;
+	splits?: Collection;
+	macros?: Collection;
+}
+
 // collections table, declaring master list of collections in our database
-export const collections: { users?: Collection } = {}; // initialize it to empty before populating
+export const collections: Collections = {}; // initialize it to empty before populating
 
 // connects to the mongo instance, and attaches to the supplied database
 export const connectToDatabase = async (dbName: string) => {
@@ -16,6 +22,8 @@ export const connectToDatabase = async (dbName: string) => {
 
 	// populate our collections table with handles to their mongo objects
 	collections.users = db.collection("users");
+	collections.splits = db.collection("splits");
+	collections.macros = db.collection("macros");
 
 	return db; // return a handle to the database in case we need it (we do)
 };
@@ -28,10 +36,12 @@ export const deleteCollections = async (db: Db) => {
 
 // loads the schemas from the ./schema folder and initializes collections based off of them
 export const createCollections = async (db: Db) => {
-	const userSchema = fs.readFileSync("./schema/users.json");
-	const users = await db.createCollection("users", { 
-		validator: JSON.parse(userSchema.toString()) 
-	});
 
-	users.createIndex({ email: 1 }, { unique: true });
+	for (let collection in collections) {
+		const schema = fs.readFileSync(`./schema/${collection}.json`).toString();
+		await db.createCollection(collection, { validator: JSON.parse(schema) })
+	}
+
+	// define unique indicies (this can probably be moved to schema folder somehow)
+	db.createIndex("users", { email: 1 }, { unique: true });
 };
