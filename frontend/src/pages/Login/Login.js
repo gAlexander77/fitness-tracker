@@ -2,8 +2,8 @@ import React from 'react';
 
 function Login(){
     return(
-        <div>
-            Home
+        <div className="login-page">
+            Login
         </div>
     );
 }
