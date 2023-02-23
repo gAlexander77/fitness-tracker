@@ -11,7 +11,7 @@ const filter = { projection: { password: 0, salt: 0 }}; // make sure not to show
 // API v1: /users/create
 //      method: POST
 // description: Create a new user
-//      params: *email: string, *password: string, firstName: string, lastName: string, birthday: number
+//      params: *username: string, *password: string, email: string, firstName: string, lastName: string, birthday: number
 //      output: 200 + userID on success, 500 on mongo error, 400 on exception
 users.post("/create", async (req: Request, res: Response) => {
     const salt = randomBytes(16).toString("hex");
@@ -19,10 +19,11 @@ users.post("/create", async (req: Request, res: Response) => {
         if (error) throw error;
         
         const user: User = {
-            email: req.body.email,
-            firstName: req.body.firstName || '',
-            lastName: req.body.lastName || '',
-            birthday: req.body.birthday || 0,
+            username: req.body.username,
+            email: req.body.email || '', // optional field 
+            firstName: req.body.firstName || '', // optional
+            lastName: req.body.lastName || '', // optional
+            birthday: req.body.birthday || 0, // optional
             password: password.toString("hex"),
             salt: salt
         };

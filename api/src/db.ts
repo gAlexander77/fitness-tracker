@@ -43,5 +43,5 @@ export const createCollections = async (db: Db) => {
 	}
 
 	// define unique indicies (this can probably be moved to schema folder somehow)
-	db.createIndex("users", { email: 1 }, { unique: true });
+	db.createIndex("users", { username: 1, email: 1 }, { unique: true });
 };

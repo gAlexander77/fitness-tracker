@@ -35,7 +35,7 @@ auth.get("/", async (req: Request, res: Response) => {
 //      output: 200 response on successful authentication, 400 on exception, 404 on email not found
 auth.post("/sign-in", async (req: Request, res: Response) => {
     try {
-        const user = await collections.users.findOne({email: req.body.email});
+        const user = await collections.users.findOne({username: req.body.username});
         user ? scrypt(req.body.password, user.salt, 64, (error: Error, password: Buffer) => {
             if (error) throw error;
             if (user.password == password.toString("hex")) {
