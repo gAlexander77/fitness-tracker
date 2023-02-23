@@ -50,18 +50,19 @@ Ensure you have __MongoDB__ installed locally or have a remote instance set up, 
   - __Sign In__: `/api/auth/sign-in`
     - method: POST
     - description: Authenticate a user and update their session
-    - parameters: `*email: string, *password: string`
+    - parameters: `*username: string, *password: string`
     - output: `200` response on successful authentication, `400` on exception, `404` on email not found
   - __Sign Out__: `/api/auth/sign-out`
     - method: POST
     - description: Drop an authenticated session
     - parameters: `none`
     - output: `200` on successful sign out, `500` + error message on error
+
 - __Users__: `/api/users`
   - __Create User__: `/api/users/create`
     - method: POST
     - description: Create a new user
-    - parameters: `*email: string, *password: string, firstName: string, lastName: string, birthday: int`
+    - parameters: `*username: string, *password: string, email: string, firstName: string, lastName: string, birthday: int`
     - output: newly created user's ID
   - __Select User__: `/api/users/<id>`
     - method: GET
