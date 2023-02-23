@@ -34,12 +34,14 @@ connectToDatabase(process.env.SS_API_DB || "testing") // specify database
 		// setup the routes we defined above
 		api.forEach(({path, router}) => app.use(path, router));
 		app.listen(PORT, HOST, () => { // start the server, the callback function is 
-			console.log("ShapeShift API v1");
-			console.log("-----------------");
-			console.log(`  + SS_API_HOST: ${HOST}`);
-			console.log(`  + SS_API_PORT: ${PORT}`);
-			console.log(`  + SS_API_DB: ${db.databaseName}`);
-			console.log(`- url: http://${HOST}:${PORT}`); // just going to show us the server's running
+			console.log("--------------------");
+			console.log(" Shape Shift API v1 ");
+			console.log("--------------------");
+			console.log(`- URL: http://${HOST}:${PORT}`); // just going to show us the server's running
+			console.log("- ENV:");
+			console.log(`  - SS_API_HOST: ${HOST}`);
+			console.log(`  - SS_API_PORT: ${PORT}`);
+			console.log(`  - SS_API_DB: ${db.databaseName}`);
 		});
 	}) // if something gets mangled, we'll arive here
 	.catch((error: Error) => console.log(error));
