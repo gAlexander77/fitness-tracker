@@ -1,25 +1,41 @@
-import React, {useState} from 'react';
-import { Link } from "react-router-dom";
-import TextField from '@mui/material/TextField';
+import React, { useState, useRef } from 'react';
+import { useNavigate } from "react-router-dom";
+import { CustomTextField1 as TextField } from '../../custom-mui-components/TextField';
+import '../../styles/pages/Login/Login.css';
 
 function Login(){
 
+    let navigate = useRef(useNavigate());
+    
+    const goToHome = () => {
+        navigate.current('/');
+    };
+    
+    const goToSignUp = () => {
+        navigate.current('/signup');
+    };
+    
     const [input, setInput] = useState({
         username: '',
         password: ''
-    })
+    });
 
     const inputHandler = (evt) => {
         setInput({
             ...input,
             [evt.target.id]: evt.target.value
         });
-        console.log(input)
-    }
+        console.log(input);
+    };
+
+    const loginHandler = () => {
+        console.log(input);
+    };
 
     return(
         <div className="login-page">
             <div className="login-inner">
+                <button onClick={goToHome}>Return Home</button>
                 <h1>Login</h1>
                 <div className="login-input-container">
                     <TextField
@@ -28,19 +44,19 @@ function Login(){
                         type="text"
                         value={input.username}
                         onChange={inputHandler}   
-                    />  
+                        margin="dense"                     
+                    /> 
                     <TextField
                         id = 'password'
                         label="Password"
                         type="password"
                         value={input.password}
                         onChange={inputHandler}
+                        margin="dense"
                     />
                 </div>
-                <button>Login</button>
-                <Link to="/signup">
-                    <button>Create a account</button>
-                </Link>
+                <button onClick={loginHandler}>Login</button>
+                <button onClick={goToSignUp}>Create a account</button>
             </div>
         </div>
     );
