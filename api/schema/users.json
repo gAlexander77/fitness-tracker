@@ -1,8 +1,12 @@
 {"$jsonSchema": {
     "bsonType": "object",
     "title": "Application Users",
-    "required": ["email", "password"],
+    "required": ["username", "password"],
     "properties": {
+        "username": {
+            "bsonType": "string",
+            "description": "User username"
+        },
         "email": {
             "bsonType": "string",
             "description": "User email"
