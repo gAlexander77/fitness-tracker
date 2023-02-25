@@ -4,6 +4,7 @@
     background-color: #1B1B1B;
     color: white;
     display: flex;
+    justify-content: center;
     flex-direction: column;
     align-items: center;
 }
@@ -11,13 +12,65 @@
 .sign-up-inner {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
-    width: 1000px;
-    min-height: 400px;
+    width: 500px;
+    height: 400px;
+    position: relative;
+    outline: 1px solid white;
+    border-radius: 10px;
 }
 
 .sign-up-input-container {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.sign-up-go-to-home-btn {
+    all: unset;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 12px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    cursor: pointer;
+}
+
+.sign-up-go-to-home-btn #icon {
+    font-size: 18px;
+    margin-right: 5px;
+}
+
+.sign-up-inner h1 {
+    margin-bottom: 10px;
+}
+
+.sign-up-sign-up-btn {
+    all: unset;
+    background-color: transparent;
+    color: white;
+    padding: 5px 15px;
+    border-radius: 10px;
+    border: 1px solid white;
+    cursor: pointer;
+
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+
+.sign-up-sign-up-btn:hover {
+    color: #2DEDF3;
+    border: 1px solid #2DEDF3;
+}
+
+.sign-up-go-to-login-btn {
+    all: unset;
+    font-size: 12px;
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    cursor: pointer;
 }
