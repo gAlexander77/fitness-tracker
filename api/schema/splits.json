@@ -1,0 +1,6 @@
+{"$jsonSchema": {
+    "bsonType": "object",
+    "title": "User's Splits",
+    "required": [],
+    "properties": {}
+}}
