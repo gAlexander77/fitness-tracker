@@ -2,9 +2,10 @@ import React from 'react';
 import HomeWelcome from './components/HomeWelcome';
 import HomeMenuOptions from './components/HomeMenuOptions';
 import HomeAccount from './components/HomeAccount';
+import '../../styles/pages/Home/Home.css';
 
 function Home(){
-    const isUser = true;
+    const isUser = false;
     return(
         <div className="home-page">
             <HomeAccount isUser={isUser}/>

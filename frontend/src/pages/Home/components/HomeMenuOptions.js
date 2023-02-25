@@ -1,15 +1,16 @@
 import React from 'react';
+import '../../../styles/pages/Home/Home.css';
 
 function HomeMenuOptions(props){
     return(
         <div className="home-menu-options-container">
-            <ul>
-            {options(props.isUser).map((option, index)=> {
-                return(
-                    <li key={index}>{option}</li>
-                );
-            })}
-            </ul>
+            <div>
+                {options(props.isUser).map((option, index)=> {
+                    return(
+                        <p key={index}>{option}</p>
+                    );
+                })}
+            </div>
         </div>
     );
 }

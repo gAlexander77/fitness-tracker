@@ -1,9 +1,11 @@
 import React from 'react';
+import { Link } from "react-router-dom";
+import '../../../styles/pages/Home/Home.css';
 
 function HomeWelcome(props){
     
     const NoAccount = () => {
-        const message = "message";
+        const message = "Login to take advantage of our workout planner and other features.";
         return(
             <>
                 <div className="home-welcome-title-no-account">
@@ -12,8 +14,12 @@ function HomeWelcome(props){
                 </div>
                 <p className="home-welcome-message">{message}</p>
                 <div className="home-welcome-button-container">
-                    <button>SIGNUP</button>
-                    <button>LOGIN</button>
+                    <Link to="/signup">
+                        <button>SIGNUP</button>
+                    </Link>
+                    <Link to="/login">
+                        <button id="login">LOGIN</button>
+                    </Link>
                 </div>
             </>
         );
