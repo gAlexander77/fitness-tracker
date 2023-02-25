@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { useNavigate } from "react-router-dom";
 import { CustomTextField1 as TextField } from '../../custom-mui-components/TextField';
+import { BsArrowLeft } from "react-icons/bs";
 import '../../styles/pages/Login/Login.css';
 
 function Login(){
@@ -35,7 +36,10 @@ function Login(){
     return(
         <div className="login-page">
             <div className="login-inner">
-                <button onClick={goToHome}>Return Home</button>
+                <button className="login-go-to-home-btn" onClick={goToHome}>
+                    <BsArrowLeft id="icon"/>
+                    Return Home
+                </button>
                 <h1>Login</h1>
                 <div className="login-input-container">
                     <TextField
@@ -55,8 +59,12 @@ function Login(){
                         margin="dense"
                     />
                 </div>
-                <button onClick={loginHandler}>Login</button>
-                <button onClick={goToSignUp}>Create a account</button>
+                <button className="login-login-btn" onClick={loginHandler}>
+                    Login
+                </button>
+                <button className="login-go-to-signup-btn" onClick={goToSignUp}>
+                    Create a account
+                </button>
             </div>
         </div>
     );
