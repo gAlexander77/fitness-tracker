@@ -1,6 +1,6 @@
 // NPM imports
 import session from 'express-session';
-import express, { Express, RequestHandler, Router } from 'express';
+import express from 'express';
 import cors from 'cors';
 import { Db } from 'mongodb';
 // local imports
