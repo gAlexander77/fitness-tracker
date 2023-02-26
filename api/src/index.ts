@@ -10,7 +10,7 @@ import auth from './routes/auth';
 
 const ENV = process.env;
 const HOST = ENV.API_HOST || "localhost";
-const PORT = parseInt(ENV.API_PORT) || 3000;
+const PORT = parseInt(ENV.API_PORT) || 3001;
 const STATIC_DIR = ENV.API_STATIC_DIR || "./public";
 
 export const DB = ENV.API_DB || "testing";
