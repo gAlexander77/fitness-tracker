@@ -2,8 +2,6 @@
 import { MongoClient, Collection, Db } from 'mongodb';
 import fs from 'fs';
 
-const DB_URL = "mongodb://testing:testing@127.0.0.1:27017/testing";
-
 interface Collections {
 	users?: Collection;
 	splits?: Collection;
@@ -14,8 +12,8 @@ interface Collections {
 export const collections: Collections = {}; // initialize it to empty before populating
 
 // connects to the mongo instance, and attaches to the supplied database
-export const connectToDatabase = async (dbName: string) => {
-	const client: MongoClient = new MongoClient(DB_URL);
+export const connectToDatabase = async (dbName: string, host: string, port: number, username: string, password: string) => {
+	const client: MongoClient = new MongoClient(`mongodb://${username}:${password}@${host}:${port}/${dbName}`);
 	
 	await client.connect(); // asynchronously connect to mongo
 	const db: Db = client.db(dbName); // get a handle to the database

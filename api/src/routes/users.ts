@@ -14,29 +14,32 @@ const filter = { projection: { password: 0, salt: 0 }}; // make sure not to show
 //      params: *username: string, *password: string, email: string, firstName: string, lastName: string, birthday: number
 //      output: 200 + userID on success, 500 on mongo error, 400 on exception
 users.post("/create", async (req: Request, res: Response) => {
-    const salt = randomBytes(16).toString("hex");
-    scrypt(req.body.password, salt, 64, async (error: Error, password: Buffer) => {
-        if (error) throw error;
-        
-        const user: User = {
-            username: req.body.username,
-            email: req.body.email || '', // optional field 
-            firstName: req.body.firstName || '', // optional
-            lastName: req.body.lastName || '', // optional
-            birthday: req.body.birthday || 0, // optional
-            password: password.toString("hex"),
-            salt: salt
-        };
 
-        try {
+    console.log(req.body);
+    
+    try {
+        const salt = randomBytes(16).toString("hex");
+
+        scrypt(req.body.password, salt, 64, async (error: Error, password: Buffer) => {
+            if (error) throw error;
+            
+            const user: User = {
+                username: req.body.username,
+                email: req.body.email || '', // optional field 
+                firstName: req.body.firstName || '', // optional
+                lastName: req.body.lastName || '', // optional
+                birthday: req.body.birthday || 0, // optional
+                password: password.toString("hex"),
+                salt: salt
+            };
+
             const doc = await collections.users.insertOne(user as User);
             doc ? res.status(201).send(doc.insertedId)
                 : res.status(500).send("creation failed");
-        } catch(error) {
-            console.log(error);
-            res.status(400).send(error.message);
-        }
-    });
+        });
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
 });
 
 // API v1: /users/<id>

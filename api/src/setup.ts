@@ -6,6 +6,8 @@
 import { connectToDatabase, createCollections, deleteCollections } from './db';
 import { Db } from 'mongodb'
 
+import { DB, DB_HOST, DB_PORT, DB_USERNAME, DB_PASSWORD } from './index';
+
 // I keep handling errors the same way so let's abstract into a function
 const handleError = (error: Error) => console.log(`- error: ${error.message}`);
 
@@ -16,7 +18,7 @@ const args: Map<string, (db: Db) => Promise<void>> = new Map([
 ]);
 
 // firstly, connect to the mongo database
-connectToDatabase("testing")
+connectToDatabase(DB, DB_HOST, DB_PORT, DB_USERNAME, DB_PASSWORD)
     .then((db: Db) => {
         // get the last argument
         const arg = process.argv[process.argv.length - 1];
