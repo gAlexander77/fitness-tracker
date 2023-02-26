@@ -49,17 +49,17 @@ connectToDatabase(DB, DB_HOST, DB_PORT, DB_USERNAME, DB_PASSWORD) // specify dat
 			console.log(" --------------------");
 			console.log("| Shape Shift API v1 |");
 			console.log(" --------------------");
-			console.log(`- URL: http://${HOST}:${PORT}`); // just going to show us the server's running
+			console.log(`- API: http://${HOST}:${PORT}/api`); // just going to show us the server's running
 			console.log("- ENV:");
 			console.log(`  - API_HOST: [${HOST}]`);
 			console.log(`  - API_PORT: [${PORT}]`);
 			console.log(`  - API_STATIC_DIR: [${STATIC_DIR}]`);
-			console.log("  + DB_ENV:");
-			console.log(`    - DB: ${DB}`);
-			console.log(`    - DB_HOST: ${DB_HOST}`);
-			console.log(`    - DB_PORT: ${DB_PORT}`);
-			console.log(`    - DB_USERNAME: ${DB_USERNAME}`);
-			console.log(`    - DB_PASSWORD: ${DB_PASSWORD}`);
+			console.log(`  + DB_ENV for ${db.namespace}:`);
+			console.log(`    - DB: [${db.databaseName}]`);
+			console.log(`    - DB_HOST: [${DB_HOST}]`);
+			console.log(`    - DB_PORT: [${DB_PORT}]`);
+			console.log(`    - DB_USERNAME: [${DB_USERNAME}]`);
+			console.log(`    - DB_PASSWORD: [${DB_PASSWORD}]`);
 		});
 	}) // if something gets mangled, we'll arive here
 	.catch((error: Error) => console.log(error));

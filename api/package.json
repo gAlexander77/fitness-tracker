@@ -5,8 +5,9 @@
   "main": "build/index.js",
   "scripts": {
     "test": "mocha -r ts-node/register './src/tests/*.ts'",
+    "start": "npm run build && npm run serve",
+    "serve": "node .",
     "build": "tsc",
-    "start": "node .",
     "initdb": "node ./build/setup.js initdb",
     "nukedb": "node ./build/setup.js nukedb",
     "clean": "rm -rf node_modules build"

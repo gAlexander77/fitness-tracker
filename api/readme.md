@@ -13,7 +13,7 @@ __Note for frontend__: The backend uses sessions and stores cookies. If authenti
 
 using Axios:
 ```
-axios.post('/api/auth/sign-in', {withCredentials: true})
+axios.post('/api/sign-in', {withCredentials: true})
 ```
 
 ## Setup
@@ -26,11 +26,10 @@ Make sure __MongoDB__ is running and take note of the port it's on. by default i
     > use testing
     > db.createUser({user: "testing", pwd: "testing", roles: ["readWrite"]})
     ```
-    note: If you can't do this, just find the file `./src/db.ts`, and change the value of variable __DB_URL__ to `mongodb://localhost:27017` 
 2. Open this directory in your editor of choice, open a terminal and run: `npm install`
-3. Run the command `npm run build` to compile the project
-4. Run the command `npm run initdb` to initialize the database collections and schema
-5. Run the command `npm start` and wait for the message `listening on localhost:3000` to appear. The server is now running
+3. Run the command `npm run initdb` to initialize the database collections and schema.
+    - you can remove everything created in the database by using `npm run nukedb` 
+4. Run the command `npm start` and wait for the environment variable printout to appear. The server is now running
 
 ## API v1
 '*' = required

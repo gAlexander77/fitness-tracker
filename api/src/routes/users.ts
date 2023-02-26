@@ -14,9 +14,6 @@ const filter = { projection: { password: 0, salt: 0 }}; // make sure not to show
 //      params: *username: string, *password: string, email: string, firstName: string, lastName: string, birthday: number
 //      output: 200 + userID on success, 500 on mongo error, 400 on exception
 users.post("/create", async (req: Request, res: Response) => {
-
-    console.log(req.body);
-    
     try {
         const salt = randomBytes(16).toString("hex");
 
@@ -65,7 +62,6 @@ users.get("/:id", async (req: Request, res: Response) => {
 //      params: none
 //      output: 200 if successful, 400 if mongo error, 404 if invalid ID, 500 for exception
 users.delete("/:id", async (req: Request, res: Response) => { 
-    const id = req?.params?.id;
     try {
         const id = new ObjectId(req?.params?.id);
         const result = await collections.users.deleteOne({ _id: id});

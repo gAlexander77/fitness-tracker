@@ -2,7 +2,6 @@
 // it's sole purpose is to provide provisioning and utilities for setting
 // up the mongo database. nothing in here should be imported to the rest
 // of the project
-
 import { connectToDatabase, createCollections, deleteCollections } from './db';
 import { Db } from 'mongodb'
 
