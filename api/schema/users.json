@@ -30,6 +30,14 @@
         "salt": {
             "bsonType": "string",
             "description": "Salt for password hash"
+        },
+        "macros": {
+            "bsonType": "array",
+            "description": "list of user macros"
+        },
+        "splits": {
+            "bsonType": "array",
+            "description": "list of user splits"
         }
     }
 }}

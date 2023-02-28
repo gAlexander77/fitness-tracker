@@ -13,7 +13,7 @@ __Note for frontend__: The backend uses sessions and stores cookies. If authenti
 
 using Axios:
 ```
-axios.post('/api/sign-in', {withCredentials: true})
+axios.post('/api/sign-in', {username: ..., password: ...}, {withCredentials: true})
 ```
 
 ## Setup
@@ -27,9 +27,10 @@ Make sure __MongoDB__ is running and take note of the port it's on. by default i
     > db.createUser({user: "testing", pwd: "testing", roles: ["readWrite"]})
     ```
 2. Open this directory in your editor of choice, open a terminal and run: `npm install`
-3. Run the command `npm run initdb` to initialize the database collections and schema.
-    - you can remove everything created in the database by using `npm run nukedb` 
-4. Run the command `npm start` and wait for the environment variable printout to appear. The server is now running
+3. Run the command `npm start initdb` to initialize the database collections and schema.
+    - you can remove everything created in the database by using `npm start nukedb` 
+4. Run the command `npm test` to start the unit tests.
+5. Run the command `npm start` and wait for the environment variable printout to appear. The server is now running
 
 ## API v1
 '*' = required

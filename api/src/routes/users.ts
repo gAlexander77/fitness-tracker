@@ -3,7 +3,7 @@ import { scrypt, randomBytes } from 'crypto';
 import { ObjectId } from 'mongodb';
 
 import { collections } from '../db';
-import { User } from '../models/user';
+import User from '../models/user';
 
 const users = Router();
 const filter = { projection: { password: 0, salt: 0 }}; // make sure not to show these
@@ -65,9 +65,9 @@ users.delete("/:id", async (req: Request, res: Response) => {
     try {
         const id = new ObjectId(req?.params?.id);
         const result = await collections.users.deleteOne({ _id: id});
-        if (result && result.deletedCount) res.status(200);
-        else if (!result) res.status(400);
-        else if (!result.deletedCount) res.status(404);
+        if (result && result.deletedCount) res.status(200).send(id);
+        else if (!result) res.status(400).send("error");
+        else if (!result.deletedCount) res.status(404).send("user does not exist");
     } catch(error) { 
         res.status(500).send(error.message); 
     }

@@ -1,19 +1,14 @@
 {
   "name": "api",
   "version": "1.0.0",
-  "description": "",
-  "main": "build/index.js",
+  "description": "HTTP JSON API service for Shape Shift",
   "scripts": {
-    "test": "mocha -r ts-node/register './src/tests/*.ts'",
-    "start": "npm run build && npm run serve",
-    "serve": "node .",
-    "build": "tsc",
-    "initdb": "node ./build/setup.js initdb",
-    "nukedb": "node ./build/setup.js nukedb",
-    "clean": "rm -rf node_modules build"
+    "test": "mocha -r ts-node/register './src/tests/**/*.ts'",
+    "start": "ts-node ./src/index.ts",
+    "clean": "rm -rf node_modules"
   },
   "keywords": [],
-  "author": "",
+  "author": "The Worst Team",
   "license": "ISC",
   "dependencies": {
     "express": "^4.18.2",
@@ -26,11 +21,13 @@
     "@types/express-session": "^1.17.6",
     "@types/mocha": "^10.0.1",
     "@types/node": "^16.18.12",
+    "@types/supertest": "^2.0.12",
     "chai": "^4.3.7",
     "cors": "^2.8.5",
     "express-session": "^1.17.3",
     "mocha": "^10.2.0",
     "mongodb": "^5.0.1",
+    "supertest": "^6.3.3",
     "typescript": "^4.9.5"
   }
 }
