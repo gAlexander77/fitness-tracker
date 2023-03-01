@@ -1,9 +1,5 @@
-// this script is intended to be standalone from the rest of the project
-// it's sole purpose is to provide provisioning and utilities for setting
-// up the mongo database. nothing in here should be imported to the rest
-// of the project
 import session from 'express-session';
-import express, { Router } from 'express';
+import express from 'express';
 import cors from 'cors';
 import { Db } from 'mongodb'
 
@@ -18,7 +14,7 @@ const ARGS: Map<string, (db: Db) => Promise<void>> = new Map([
 
 interface Route {
 	path: string;
-	router: Router;
+	router: express.Router;
 }
 
 export const initApp = (routes: Array<Route>) => {
@@ -49,7 +45,7 @@ export const initDb = (db: Db, arg: string) => {
     
     if (!ARGS.has(arg)) {
         log.error(new Error("argument must be one of these"));
-        ARGS.forEach((_, option) => console.log(`  ${option}`));
+        ARGS.forEach((_, option) => console.log(`  - ${option}`));
         process.exit(0);
     }  
     

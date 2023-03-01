@@ -24,7 +24,7 @@ declare module "express-session" {
 auth.get("/", async (req: Request, res: Response) => {
     res.status(200).send({
         sessionID: req.sessionID,
-        loggedIn: "userID" in req.session,
+        loggedIn: "userID" in req.session
     });
 });
 
@@ -38,7 +38,7 @@ auth.post("/sign-in", async (req: Request, res: Response) => {
         const user = await collections.users.findOne({username: req.body.username});
         user ? scrypt(req.body.password, user.salt, 64, (error: Error, password: Buffer) => {
             if (error) throw error;
-            if (user.password == password.toString("hex")) {
+            if (user.password === password.toString("hex")) {
                 req.session.userID = user._id;
                 res.status(200).send("signed in successfully");
             }

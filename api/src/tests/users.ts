@@ -1,5 +1,5 @@
 // NPM
-import request, { Response } from 'supertest';
+import request from 'supertest';
 import { Express } from 'express';
 import { expect } from 'chai';
 
@@ -16,7 +16,7 @@ describe("Testing 'users' route", () => {
     var userID: string;
 
     before((done) => {
-        connectToDatabase("testing")
+        connectToDatabase()
             .then(() => {
                 app = initApp([{ path: "/", router: users }]);
                 app.listen(3001, "localhost", () => done());
@@ -30,7 +30,7 @@ describe("Testing 'users' route", () => {
             .set("Content-Type", "application/json")
             .send({username: "hello", password: "world"})
             .expect("Content-Type", /json/)
-            .end((error: Error, res: Response) => {
+            .end((error: Error, res: request.Response) => {
                 userID = res.body;
                 done(error);
             });
@@ -40,7 +40,7 @@ describe("Testing 'users' route", () => {
         request(app)
             .get(`/api/${userID}`)
             .expect("Content-Type", /json/)
-            .end((error: Error, res: Response) => {
+            .end((error: Error, res: request.Response) => {
                 expect(res.body._id).to.equal(userID);
                 expect(res.body.username).to.equal("hello");
                 done(error);
@@ -51,7 +51,7 @@ describe("Testing 'users' route", () => {
         request(app)
             .delete(`/api/${userID}`)
             .expect("Content-Type", /json/)
-            .end((error: Error, res: Response) => {
+            .end((error: Error, res: request.Response) => {
                 expect(res.body).to.be.a("string");
                 done(error);
             });
