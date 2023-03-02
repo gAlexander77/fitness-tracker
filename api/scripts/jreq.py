@@ -1,16 +1,18 @@
 #!/usr/bin/env python3
 
+import tempfile
 import argparse
 import requests
 import json
 import os
 
-
-COOKIE_PATH = "./.cookie"
-
+COOKIE_PATH = os.path.join(tempfile.gettempdir(), ".cookie")
 
 def parse_params(data: str) -> dict:
     params = {}
+    if data is None:
+        return params
+
     for token in data.split(','):
         pair = token.split(':')
         if len(pair) != 2:
@@ -37,21 +39,27 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
     parser.add_argument("url", type=str)
-    parser.add_argument("-p", "--post", action="store_true")
-    parser.add_argument("-d", "--data", type=str)
-    parser.add_argument("-j", "--json", type=str)
+    parser.add_argument("-p", "--post", 
+        help="make it a POST request", action="store_true")
+    parser.add_argument("-x", "--delete", 
+        help="make it a DELETE request", action="store_true")
+    parser.add_argument("-d", "--data", 
+        help="GET/POST data in the form: 'key1: val1, key2: val2'", type=str)
+    parser.add_argument("-j", "--json", 
+        help="POST JSON data in the form: 'key1: val1, key2: val2'", type=str)
     parser.add_argument("-v", "--verbose", action="store_true")
 
     args = parser.parse_args()
-
     session = load_session(COOKIE_PATH)
 
-    if args.data or args.post:
-        response = session.post(args.url, data=args.data)
+    if args.post:
+        response = session.post(args.url, data=parse_params(args.data))
     elif args.json:
         response = session.post(args.url, json=parse_params(args.json))
+    elif args.delete:
+        response = session.delete(args.url)
     else:
-        response = session.get(args.url)
+        response = session.get(args.url, params=parse_params(args.data))
 
     if args.verbose:
         print_headers(response.headers)

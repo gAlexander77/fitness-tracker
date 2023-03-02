@@ -1,4 +1,4 @@
-import { Router, Request, Response } from 'express';
+import e, { Router, Request, Response } from 'express';
 import { scrypt, randomBytes } from 'crypto';
 import { ObjectId } from 'mongodb';
 
@@ -18,30 +18,31 @@ const users = Router();
 // description: Create a new user
 //      params: *username: string, *password: string, email: string, firstName: string, lastName: string, birthday: number
 //      output: 200 + userID on success, 500 on mongo error, 400 on exception
-users.post("/create", httpLog, async (req: Request, res: Response) => {
-	try {
-        const salt = randomBytes(16).toString("hex");
+users.post("/create", async (req: Request, res: Response) => {
 
-        scrypt(req.body.password, salt, 64, async (error: Error, password: Buffer) => {
-            if (error) throw error;
-            
-            const user: User = {
-                username: req.body.username,
-                email: req.body.email || '', // optional field 
-                firstName: req.body.firstName || '', // optional
-                lastName: req.body.lastName || '', // optional
-                birthday: req.body.birthday || 0, // optional
-                password: password.toString("hex"),
-                salt: salt
-            };
-
-            const doc = await collections.users.insertOne(user as User);
-            doc ? res.status(201).send(doc.insertedId)
-                : res.status(500).send("creation failed");
-        });
-    } catch (error) {
-        res.status(400).send(error.message);
-    }
+    if (req.headers['content-type'].toLowerCase() !== "application/json") {
+        res.status(400).send('"must be a JSON request"');
+    } else {
+        try {
+            const salt = randomBytes(16).toString("hex");
+    
+            scrypt(req.body.password, salt, 64, async (error: Error, password: Buffer) => {
+                if (error) throw error;
+                
+                const user: User = {
+                    username: req.body.username,
+                    password: password.toString("hex"),
+                    salt: salt
+                };
+    
+                const doc = await collections.users.insertOne(user as User);
+                doc ? res.status(201).send(doc.insertedId)
+                    : res.status(500).send("creation failed");
+            });
+        } catch (error) {
+            res.status(400).send(error.message);
+        }
+    }	
 });
 
 // API v1: /users/<id>
