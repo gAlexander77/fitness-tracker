@@ -7,12 +7,12 @@ import Macro from '../models/macro';
 const macros = Router();
 
 macros.post("/create", async (req: Request, res: Response) => {
-    if (req.session.userID === undefined) {
+    if (req.session.userID === undefined) { 
         res.status(401).send('"unauthorized"');
     } else {
         try {
             const macro = req.body as Macro;
-            macro.date = new Date();
+            macro.date = new Date().getUTCSeconds();
     
             const id = new ObjectId(req.session.userID);
             await collections.users.updateOne({ _id: id }, { $push: {"macros": macro} })

@@ -2,7 +2,7 @@ import { ObjectId } from 'mongodb';
 
 export default class Macro {
     constructor(
-        public date: Date,
+        public date: number,
         public id?: ObjectId
     ) {}
 }
