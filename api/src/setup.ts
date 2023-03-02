@@ -4,15 +4,15 @@ import cors from 'cors';
 import { Db } from 'mongodb'
 
 import { createCollections, deleteCollections } from './db';
-import { log } from './utils';
+import { log, httpLog } from './utils';
 
 // map of possible arguments, and their intended functions
-const ARGS: Map<string, (db: Db) => Promise<void>> = new Map([
+const args: Map<string, (db: Db) => Promise<void>> = new Map([
     ["initdb", createCollections], // initializes all the collections we need and their schemas
     ["nukedb", deleteCollections] // removes all collections we need from the database
 ]);
 
-interface Route {
+export interface Route {
 	path: string;
 	router: express.Router;
 }
@@ -24,7 +24,6 @@ export const initApp = (routes: Array<Route>) => {
 
 	routes.forEach(({path, router}) => api.use(path, router));
 
-	app.use(express.json()); // JSON API
 	app.use(cors({
 		origin: "http://localhost:3000",
 		credentials: true
@@ -35,7 +34,9 @@ export const initApp = (routes: Array<Route>) => {
 		saveUninitialized: true,
 		cookie: {} // in release this should be { secure = true }
 	}));
-
+	
+	app.use(express.json()); // JSON API
+	app.use(httpLog);
 	app.use("/api", api);
 
 	return app;
@@ -43,13 +44,13 @@ export const initApp = (routes: Array<Route>) => {
 
 export const initDb = (db: Db, arg: string) => {
     
-    if (!ARGS.has(arg)) {
+    if (!args.has(arg)) {
         log.error(new Error("argument must be one of these"));
-        ARGS.forEach((_, option) => console.log(`  - ${option}`));
+        args.forEach((_, option) => console.log(`  - ${option}`));
         process.exit(0);
     }  
     
-    ARGS.get(arg)(db)
+    args.get(arg)(db)
         .then(() => log.ok("success"))
         .catch(log.error)
         .finally(() => process.exit(0));

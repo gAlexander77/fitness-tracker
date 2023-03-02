@@ -34,10 +34,6 @@
         "macros": {
             "bsonType": "array",
             "description": "list of user macros"
-        },
-        "splits": {
-            "bsonType": "array",
-            "description": "list of user splits"
         }
     }
 }}

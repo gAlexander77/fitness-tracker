@@ -18,7 +18,7 @@ describe("Testing 'users' route", () => {
     before((done) => {
         connectToDatabase()
             .then(() => {
-                app = initApp([{ path: "/", router: users }]);
+                app = initApp([{ path: "/users", router: users }]);
                 app.listen(3001, "localhost", () => done());
             })
             .catch(log.error);
@@ -26,7 +26,7 @@ describe("Testing 'users' route", () => {
 
     it("Creates a user", (done) => {
         request(app)
-            .post("/api/create")
+            .post("/api/users/create")
             .set("Content-Type", "application/json")
             .send({username: "hello", password: "world"})
             .expect("Content-Type", /json/)
@@ -36,9 +36,10 @@ describe("Testing 'users' route", () => {
             });
     });
 
+
     it("Queries a user", (done) => {
         request(app)
-            .get(`/api/${userID}`)
+            .get(`/api/users/${userID}`)
             .expect("Content-Type", /json/)
             .end((error: Error, res: request.Response) => {
                 expect(res.body._id).to.equal(userID);
@@ -49,7 +50,7 @@ describe("Testing 'users' route", () => {
 
     it("Deletes a user", (done) => {
         request(app)
-            .delete(`/api/${userID}`)
+            .delete(`/api/users/${userID}`)
             .expect("Content-Type", /json/)
             .end((error: Error, res: request.Response) => {
                 expect(res.body).to.be.a("string");
