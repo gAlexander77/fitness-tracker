@@ -1,9 +1,10 @@
 import React from 'react';
+import '../../styles/pages/MyCalendar/MyCalendar.css';
 
 function WorkoutCalendar(){
     return(
-        <div className="workout-calendar-page">
-            Workout Calendar
+        <div className="my-calendar-page">
+            My Calendar
         </div>
     );
 }
