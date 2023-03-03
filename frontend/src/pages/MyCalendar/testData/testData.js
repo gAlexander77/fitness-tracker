@@ -83,4 +83,4 @@ const calendarRequestData = {
     workoutSplit: ["Push","Pull","Rest","Legs","Push","Pull","Rest"]
 }
 
-export { calendarRequestData }
+export default { calendarRequestData }
