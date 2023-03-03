@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { BsFillCaretLeftFill, BsFillCaretRightFill } from 'react-icons/bs';
 import '../../../styles/pages/MyCalendar/MyCalendar.css';
 
 function Calendar(props){
@@ -25,7 +26,7 @@ function Calendar(props){
         <div className="my-calendar-calendar-component">
             <h1>CALENDAR</h1>
             <div className="my-calendar-calendar-container">
-                <button onClick={back}>-</button>
+                <button onClick={back}><BsFillCaretLeftFill/></button>
                 <div className="my-calendar-calendar-calendar">
                     {dates.map((date, index)=>{
                         return(
@@ -40,7 +41,7 @@ function Calendar(props){
                         )
                     })}
                 </div>
-                <button onClick={forward}>+</button>
+                <button onClick={forward}><BsFillCaretRightFill/></button>
             </div>
         </div>
     );
