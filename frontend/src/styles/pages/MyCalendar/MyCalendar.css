@@ -29,6 +29,17 @@
     font-weight: 800;
 }
 
+.my-calendar-calendar-component button{
+    all: unset;
+    cursor: pointer;
+    font-size: 25px;
+    margin: 4px;
+}
+
+.my-calendar-calendar-component button:hover{
+    color: #2DEDF3;
+}
+
 .my-calendar-calendar-calendar {
     outline: 1px solid white;
     height: 80%;
