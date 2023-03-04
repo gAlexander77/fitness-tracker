@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { BsFillCaretLeftFill, BsFillCaretRightFill } from 'react-icons/bs';
+import React, { useState, useEffect, useRef } from 'react';
+import { BsFillCaretLeftFill, BsFillCaretRightFill, BsXLg } from 'react-icons/bs';
 import '../../../styles/pages/MyCalendar/MyCalendar.css';
 
 function Calendar(props){
@@ -37,6 +37,7 @@ function Calendar(props){
                                 dayOfWeek={date.dayOfWeek}
                                 split= {data.workoutSplit[date.day]}
                                 dateValue = {date.dateValue}
+                                data={data.workoutGroups}
                             />
                         )
                     })}
@@ -48,7 +49,8 @@ function Calendar(props){
 }
 
 function CalendarDay(props){
-    
+    const [viewWorkouts, setViewWorkouts] = useState(false);
+
     const currentDate =  americanDateFormat();
     const calendarDate = americanDateFormat(props.dateValue);
     
@@ -71,6 +73,20 @@ function CalendarDay(props){
         backgroundColor: `${currentDate === calendarDate ? '#2DEDF3' : '#2B2B2B'}`,
     }
 
+    // Filter workouts by the groupName    
+    const pullWorkouts = props.data.filter(group => group.groupName === props.split);
+    const pullWorkoutNames = pullWorkouts.flatMap(group => {
+        return group.workouts.map(workout => workout.workoutName);
+    });
+
+    const viewWorkoutsHandler = () => {
+        if(props.split !== "Rest"){
+            setViewWorkouts(true);
+        }
+        console.log(props.data)
+        console.log(pullWorkoutNames)
+    }
+
     return(
         <div className="my-calendar-calendar-day" style={day}>
             <div className="my-calendar-calendar-day-display-date" style={backgroundColor}>
@@ -79,12 +95,66 @@ function CalendarDay(props){
             </div>
             <div className="my-calendar-calendar-day-content" style={backgroundColor}>
                 {currentDate === calendarDate ? <div style={currentDateTab}/> : <div style={currentDateTab}/>}
-                <div className="my-calendar-calendar-split" style={split}>
+                <div className="my-calendar-calendar-split" style={split} onClick={viewWorkoutsHandler}>
                     {props.split}
                 </div>
             </div>
+            <WorkoutDetails 
+                trigger={viewWorkouts} 
+                setTrigger={setViewWorkouts}
+                workouts={pullWorkoutNames}
+                split={props.split}
+            />
         </div>
     );
+}
+
+function WorkoutDetails(props) {
+    const [workouts, setWorkouts] = useState(props.workouts);
+   
+    const innerRef = useRef();
+    
+    useEffect(() => {
+        if(props.trigger){
+            let outsideClickHandler = (evt) => {
+                if(!innerRef.current.contains(evt.target)) {
+                    props.setTrigger(false);
+                }
+            }
+            document.addEventListener("mousedown", outsideClickHandler)
+            return() => {
+                document.removeEventListener("mousedown", outsideClickHandler);
+            }
+        }
+    }, [props.trigger]);
+    
+    const exitHandler = () => {
+        props.setTrigger(false);
+    }
+
+    const Workout = (props) => {
+        return(
+            <p>{props.workoutName}</p>
+        );
+    }
+    
+    return(props.trigger) ? (
+        <div className="my-calendar-calendar-workout-details-outter" >
+             <div className="my-calendar-calendar-workout-details-inner" ref={innerRef}>
+                <h1>{props.split} Workouts</h1>
+                {workouts.map((workout, index)=>{
+                    return(
+                        <Workout
+                            key={index}
+                            workoutName={workout}
+                        />
+                    );
+                })}
+                <button onClick={exitHandler}>
+                    <BsXLg id="icon"/>
+                </button>
+             </div>
+        </div>) : '';
 }
 
 const getTheDate = (x) => {
