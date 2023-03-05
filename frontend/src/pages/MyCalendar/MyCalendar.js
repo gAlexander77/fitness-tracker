@@ -11,7 +11,7 @@ function WorkoutCalendar(){
         <div className="my-calendar-page">
             <Nav/>
             <h1 id="page-header">MY CALENDAR</h1>
-            <Split/>
+            <Split data={calendarRequestData}/>
             <Calendar data={calendarRequestData}/>
         </div>
     );

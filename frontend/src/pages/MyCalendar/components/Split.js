@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 
-function Split(){
+function Split(props){
+    // Test Data
+    let data = props.data.calendarRequestData
+    
     const [selectedMenu, setSelectedMenu] = useState("current-split")
 
     const selectMenuHandler = (evt) => {
@@ -42,17 +45,44 @@ function Split(){
                     </button>
                 </div>
                 <div className="my-calendar-split-selected-container">
-                    {selectedMenu === "current-split" ? <CurrentSplit/> : ''}
-                    {selectedMenu}
+                    {selectedMenu === "current-split" ? <CurrentSplit data={data}/> : ''}
                 </div>
             </div>
         </div>
     );
 }
 
-function CurrentSplit(){
+function CurrentSplit(props){
+    
+    const split = props.data.workoutSplit;
+    const days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
+    
+    const Day = (props) => {
+
+        const style = {
+            backgroundColor: `${props.workoutGroup.toLowerCase() === "rest" ? '#414141' : '#2DEDF3'}`,
+            color: `${props.workoutGroup.toLowerCase() === "rest" ? 'white' : 'black'}`
+        }
+
+        return(
+            <div className="my-calendar-split-current-split-day-container">
+                <p id="day">{props.day}</p>
+                <div id="workout-group" style={style}>{props.workoutGroup}</div>
+            </div>
+        )
+    }
+    
     return (
-        <div>
+        <div className="my-calendar-split-current-split-container">
+            {split.map((workoutGroup, index)=>{
+                return(
+                    <Day
+                        key={index}
+                        day={days[index]}
+                        workoutGroup={workoutGroup}
+                    />
+                );
+            })}
         </div>
     );
 }
