@@ -21,9 +21,10 @@
     background-color: #2B2B2B;
     border-radius: 10px;
     margin-bottom: 20px;
+    padding: 20px 0;
 
     display: grid;
-    grid-template-columns: 240px auto;
+    grid-template-columns: 270px auto;
 }
 
 .my-calendar-split-component h1{
@@ -40,15 +41,53 @@
 .my-calendar-split-menu-container button{
     all: unset;
     padding: 5px;
-    font-weight: 500;
+    font-weight: 700;
+    font-size: 14px;
     cursor: pointer;
+    margin-left: 20px;
 }
 
 .my-calendar-split-menu-container button:hover{
-    text-shadow: 0 0 4px #fff;
+    text-shadow: 0 0 4px #ffffffbe;
     border-radius: 10px;
 }
 
+.my-calendar-split-selected-container {
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+}
+
+.my-calendar-split-current-split-container {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.my-calendar-split-current-split-day-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0px 4px;
+}
+
+.my-calendar-split-current-split-day-container #day{
+    font-weight: 800;
+    margin-bottom: 5px;
+}
+
+.my-calendar-split-current-split-day-container #workout-group{
+    height: 20px;
+    width: 100px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
 /* Calendar.js */
 .my-calendar-calendar-container {
