@@ -5,7 +5,7 @@ import HomeAccount from './components/HomeAccount';
 import '../../styles/pages/Home/Home.css';
 
 function Home(){
-    const isUser = false;
+    const isUser = true;
     return(
         <div className="home-page">
             <HomeAccount isUser={isUser}/>
