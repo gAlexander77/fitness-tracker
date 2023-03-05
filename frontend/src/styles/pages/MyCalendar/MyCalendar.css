@@ -1,5 +1,5 @@
 .my-calendar-page {
-    min-width: 100vw;
+    min-width: 100%;
     min-height: 100vh;
     background-color: #1B1B1B;
     color: white;
@@ -7,6 +7,30 @@
     flex-direction: column;
     align-items: center;
 }
+
+.my-calendar-split-component {}
+
+/* Split.js */
+.my-calendar-split-container {
+    width: 1100px;
+    height: 400px;
+    max-width: 97vw;
+    max-height: 500px;
+    background-color: #2B2B2B;
+    border-radius: 10px;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+ h1{
+    margin-bottom: 10px;
+    font-size: 40px;
+    font-weight: 800;
+}
+
 
 /* Calendar.js */
 .my-calendar-calendar-container {
@@ -87,7 +111,7 @@
 
 .my-calendar-calendar-workout-details-outter{
     background-color: #00000071;
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
