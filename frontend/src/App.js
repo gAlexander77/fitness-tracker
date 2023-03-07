@@ -4,6 +4,7 @@ import Home from './pages/Home/Home';
 import Login from './pages/Login/Login';
 import SignUp from './pages/SignUp/SignUp';
 import UserDashboard from './pages/UserDashboard/UserDashboard';
+import MyJournal from './pages/MyJournal/MyJournal';
 import MyCalendar from './pages/MyCalendar/MyCalendar';
 import Calculators from './pages/Calculators/Calculators';
 import Error404 from './pages/Error404/Error404';
@@ -17,6 +18,7 @@ function App() {
         <Route path="/login" element={<Login/>}/>
         <Route path="/signup" element={<SignUp/>}/>
         <Route path="/dashboard" element={<UserDashboard/>}/>
+        <Route path="/my-journal" element={<MyJournal/>}/>
         <Route path="/my-calendar" element={<MyCalendar/>}/>
         <Route path="/calculators" element={<Calculators/>}/>
         <Route path="/*" element={<Error404/>}/>
