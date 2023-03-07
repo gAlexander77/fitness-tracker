@@ -5,6 +5,7 @@ import Login from './pages/Login/Login';
 import SignUp from './pages/SignUp/SignUp';
 import UserDashboard from './pages/UserDashboard/UserDashboard';
 import MyCalendar from './pages/MyCalendar/MyCalendar';
+import Calculators from './pages/Calculators/Calculators';
 import Error404 from './pages/Error404/Error404';
 import './styles/App.css';
 
@@ -17,6 +18,7 @@ function App() {
         <Route path="/signup" element={<SignUp/>}/>
         <Route path="/dashboard" element={<UserDashboard/>}/>
         <Route path="/my-calendar" element={<MyCalendar/>}/>
+        <Route path="/calculators" element={<Calculators/>}/>
         <Route path="/*" element={<Error404/>}/>
       </Routes>
     </Router>
