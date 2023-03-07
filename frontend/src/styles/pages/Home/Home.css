@@ -77,10 +77,17 @@
     margin: auto;
 }
 
-.home-menu-options-container div {
+.home-menu-options-container div{
+    display: flex;
+    flex-direction: column;
+}
+
+.home-menu-options-container div #link-button{
+    all: unset;
     font-weight: 800;
     font-size: 40px;
     color: white;
+    cursor: pointer;
 }
 
 /* HomeAccount.js */
