@@ -2,9 +2,11 @@ import { ObjectId } from 'mongodb';
 
 export default class Workout {
     constructor(
-        public name: string,
-        // TODO:
-        // - add meta info
-        public id?: ObjectId
+        public workoutName: string,
+        public muscle: Array<string>,
+        
+        public diagram: string,
+        public description: string, 
+        public tutorialVideo: string
     ) {}
 }
