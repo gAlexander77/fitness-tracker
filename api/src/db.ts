@@ -2,32 +2,30 @@
 import { MongoClient, Collection, Db } from 'mongodb';
 import fs from 'fs';
 
-export const DB_COLLECTION = process.env.DB_COLLECTION || "testing";
-export const DB_HOST = process.env.API_DB_HOST || "localhost";
-export const DB_PORT = parseInt(process.env.API_DB_PORT) || 27017;
-export const USERNAME = process.env.API_DB_USERNAME || "testing";
-export const PASSWORD = process.env.API_DB_PASSWORD || "testing";
-const URL = `mongodb://${USERNAME}:${PASSWORD}@${DB_HOST}:${DB_PORT}`;
-
-interface Collections {
-	users?: Collection;
-	splits?: Collection;
-	macros?: Collection;
-}
+const dbHost = process.env.API_DB_HOST || "127.0.0.1";
+const dbPort = parseInt(process.env.API_DB_PORT) || 27017;
+const dbUser = process.env.API_DB_USERNAME || "testing";
+const dbPass = process.env.API_DB_PASSWORD || "testing";
+const dbNamespace = process.env.API_DB_NAMESPACE || "testing";
+const dbUrl = `mongodb://${dbUser}:${dbPass}@${dbHost}:${dbPort}/${dbNamespace}`;
 
 // collections table, declaring master list of collections in our database
-export const collections: Collections = {}; // initialize it to empty before populating
+export const collections: {
+	users?: Collection;
+	//journals?: Collection;
+	//workouts?: Collection;
+} = {}; // initialize it to empty before populating
 
 // connects to the mongo instance, and attaches to the supplied database
-export const connectToDatabase = async (dbName: string) => {
-
-	const client: MongoClient = new MongoClient(`${URL}/${dbName}`);
-	
+export const connectToDatabase = async () => {
+	const client: MongoClient = new MongoClient(dbUrl);
 	await client.connect(); // asynchronously connect to mongo
-	const db: Db = client.db(dbName); // get a handle to the database
+	const db: Db = client.db(dbNamespace); // get a handle to the database
 
 	// populate our collections table with handles to their mongo objects
 	collections.users = db.collection("users");
+	//collections.journals = db.collection("journals");
+	//collections.workouts = db.collection("workouts");
 
 	return db; // return a handle to the database in case we need it (we do)
 };

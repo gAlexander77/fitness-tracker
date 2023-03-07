@@ -1,5 +1,6 @@
 import { ObjectId } from 'mongodb';
 
+<<<<<<< HEAD
 export default class Split {
     constructor(
         public sets: number,
@@ -10,3 +11,5 @@ export default class Split {
 
     ){}
 }
+=======
+>>>>>>> c61cd098eef5122800231f1f5a78ff8e8fbd02a7
