@@ -7,3 +7,57 @@
     flex-direction: column;
     align-items: center;
 }
+
+.my-journal-page #page-header{
+    font-weight: 800;
+    font-size: 48px;
+}
+
+/* ViewJournalEntries.js */
+.my-journal-view-journal-entries-container {
+    width: 1100px;
+    max-width: 97vw;
+    max-height: 500px;
+    background-color: #2B2B2B;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    padding: 20px 0;
+
+    display: grid;
+    grid-template-columns: 220px auto;
+}
+
+.my-journal-view-journal-entries-component h1{
+    margin-bottom: 10px;
+    font-size: 40px;
+    font-weight: 800;
+}
+
+/* TodaysEntry.js */
+.my-journal-todays-entry-container {
+    width: 1100px;
+    max-width: 97vw;
+    max-height: 500px;
+    background-color: #2B2B2B;
+    border-radius: 10px;
+    padding: 20px 0;
+    margin-bottom: 20px;
+}
+
+.my-journal-todays-entry-container-inner {
+    background-color: #353535;
+    border-radius: 10px;
+    margin: 0 20px;
+
+    display: grid;
+    grid-template-rows: 100px auto;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.my-journal-todays-entry-component h1{
+    margin-bottom: 10px;
+    font-size: 40px;
+    font-weight: 800;
+}
