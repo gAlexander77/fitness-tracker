@@ -5,7 +5,9 @@ function ViewJournalEntries(props){
     // Test Data
     const data = props.data.journalRequestData;
 
-    const [selectedEntry, setSelectedEntry] = useState("None");
+    let mostRecentEntry = data.journalEntries[data.journalEntries.length-1].journalEntry
+    
+    const [selectedEntry, setSelectedEntry] = useState(mostRecentEntry);
 
     return(
         <div className="my-journal-view-journal-entries-component">
@@ -57,7 +59,7 @@ function SelectEntry(props){
     
     return(
         <div className="my-journal-view-journal-entries-entries-container">
-            {entries.map((entry, index)=>{
+            {entries.reverse().map((entry, index)=>{
                 return(
                     <JournalEntry
                         key={index}
