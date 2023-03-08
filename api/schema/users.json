@@ -1,39 +1,22 @@
 {"$jsonSchema": {
     "bsonType": "object",
-    "title": "Application Users",
-    "required": ["username", "password"],
+    "title": "Users",
     "properties": {
         "username": {
-            "bsonType": "string",
-            "description": "User username"
-        },
-        "email": {
-            "bsonType": "string",
-            "description": "User email"
-        },
-        "firstName": {
-            "bsonType": "string",
-            "description": "User's first name"
-        },
-        "lastName": {
-            "bsonType": "string",
-            "description": "User's last name"
-        },
-        "birthday": {
-            "bsonType": "int",
-            "description": "Unix timestamp representing client's birthday"
+            "bsonType": "string"
         },
         "password": {
-            "bsonType": "string",
-            "description": "Hashed user password"
+            "bsonType": "string"
         },
         "salt": {
-            "bsonType": "string",
-            "description": "Salt for password hash"
+            "bsonType": "string"
         },
-        "macros": {
-            "bsonType": "array",
-            "description": "list of user macros"
+        "workoutGroups": {
+            "bsonType": "array"
+        },
+        "workoutSplit": {
+            "bsonType": "array"
         }
-    }
+    },
+    "required": ["username", "password", "salt", "workoutGroups", "workoutSplit"]
 }}

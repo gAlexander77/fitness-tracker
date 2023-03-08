@@ -41,9 +41,9 @@ export const createCollections = async (db: Db) => {
 
 	for (let collection in collections) {
 		const schema = fs.readFileSync(`./schema/${collection}.json`).toString();
-		await db.createCollection(collection, { validator: JSON.parse(schema) })
+		await db.createCollection(collection, { validator: JSON.parse(schema) });
 	}
 
 	// define unique indicies (this can probably be moved to schema folder somehow)
-	db.createIndex("users", { username: 1, email: 1 }, { unique: true });
+	db.createIndex("users", { username: 1 }, { unique: true });
 };

@@ -1,6 +1,8 @@
 // NPM
 import { ObjectId } from 'mongodb';
-import Macro from './macro';
+
+// local
+import { WorkoutGroup } from './workout';
 
 // defines the fields for a User in the database
 export default class User {
@@ -8,6 +10,8 @@ export default class User {
 		public username: string,
 		public password: string,
 		public salt: string,
-		public id?: ObjectId
+		public workoutGroups: Array<WorkoutGroup> = [],
+		public workoutSplit: Array<string> = new Array(7),
+		public _id?: ObjectId
 	) {}
 }

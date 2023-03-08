@@ -19,30 +19,27 @@ const users = Router();
 //      params: *username: string, *password: string, email: string, firstName: string, lastName: string, birthday: number
 //      output: 200 + userID on success, 500 on mongo error, 400 on exception
 users.post("/create", async (req: Request, res: Response) => {
-
-    if (req.headers['content-type'].toLowerCase() !== "application/json") {
+    if (! (req.body.username && req.body.password)) {
+        res.status(400).send('"missing username or password"')
+    } else if (req.headers['content-type'].toLowerCase() !== "application/json") {
         res.status(400).send('"must be a JSON request"');
     } else {
-        try {
-            const salt = randomBytes(16).toString("hex");
-    
-            scrypt(req.body.password, salt, 64, async (error: Error, password: Buffer) => {
-                if (error) throw error;
+        const salt = randomBytes(16).toString("hex");
+        scrypt(req.body.password, salt, 64, async (scryptError: Error, password: Buffer) => {
+            try {
+                if (scryptError) throw scryptError;
+
+                const user = new User(req.body.username, password.toString("hex"), salt);
+                const document = await collections.users.insertOne(user as User);
                 
-                const user: User = {
-                    username: req.body.username,
-                    password: password.toString("hex"),
-                    salt: salt
-                };
-    
-                const doc = await collections.users.insertOne(user as User);
-                doc ? res.status(201).send(doc.insertedId)
+                document 
+                    ? res.status(201).send(document.insertedId)
                     : res.status(500).send("creation failed");
-            });
-        } catch (error) {
-            res.status(400).send(error.message);
-        }
-    }	
+            } catch (error) {
+                res.status(400).send(error.message);
+            }
+        });
+    }
 });
 
 // API v1: /users/<id>
