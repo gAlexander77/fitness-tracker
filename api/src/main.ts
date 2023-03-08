@@ -25,10 +25,10 @@ export const serve = (db: Db, routes: Array<Route>, host: string, port: number) 
 	app.listen(port, host, () => {
 		console.log("Shape Shift API v1");
 		console.log(`- URL: http://${host}:${port}/api`);
-		console.log(`  - API_HOST: [${host}]`);
-		console.log(`  - API_PORT: [${port}]`);
-		console.log(`  - API_DB: [${db.namespace}]`);
-		console.log("> listening...");
+		console.log(`  - API_HOST: [\x1b[33m${host}\x1b[0m]`);
+		console.log(`  - API_PORT: [\x1b[33m${port}\x1b[0m]`);
+		console.log(`  - API_DB: [\x1b[33m${db.namespace}\x1b[0m]`);
+		console.log("> \x1b[32mlistening\x1b[0m...");
 		return app;
 	});
 }

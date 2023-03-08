@@ -16,7 +16,7 @@ export const httpLog = async (req: Request, res: Response, next: NextFunction) =
         const status = res.statusCode;
         const date = `\x1b[34m${new Date().toLocaleString()}\x1b[0m`;
         const code = `\x1b[3${Math.floor(status / 100)}m${status}\x1b[0m`;
-        console.log(`[${date}]: ${methods.get(req.method)} - ${code}, ${res.statusMessage} - ${req.originalUrl}`);
+        console.log(`[${date}]: ${methods.get(req.method)} - ${code}: ${res.statusMessage} - ${req.originalUrl}`);
     });
     next();
 };

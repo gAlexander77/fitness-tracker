@@ -2,7 +2,7 @@ import e, { Router, Request, Response } from 'express';
 import { scrypt, randomBytes } from 'crypto';
 import { ObjectId } from 'mongodb';
 
-import { authRequired } from '../utils';
+import { log, authRequired } from '../utils';
 import { collections } from '../db';
 import User from '../models/user';
 
@@ -30,7 +30,7 @@ users.post("/create", async (req: Request, res: Response) => {
                 if (scryptError) throw scryptError;
 
                 const user = new User(req.body.username, password.toString("hex"), salt);
-                const document = await collections.users.insertOne(user as User);
+                const document = await collections.users.insertOne(user);
                 
                 document 
                     ? res.status(201).send(document.insertedId)
@@ -68,11 +68,14 @@ users.delete("/:id", authRequired, async (req: Request, res: Response) => {
     try {
         const ruid = new ObjectId(req?.params?.id);
         const suid = new ObjectId(req.session.userID);
-        if (ruid == suid) {
+        if (ruid.equals(suid)) {
             const result = await collections.users.deleteOne({ _id: ruid });
-            if (result && result.deletedCount) res.status(200).send(suid);
-            else if (!result) res.status(400).send("error");
-            else if (!result.deletedCount) res.status(404).send("user does not exist");
+            if (result && result.deletedCount) {
+                req.session.destroy((error: any) => log.error(new Error(error)));
+                res.status(200).send('"deleted user successfully"');
+            }
+            else if (!result) res.status(400).send('"database error"');
+            else if (!result.deletedCount) res.status(404).send('"user does not exist"');
         } else {
             res.status(401).send('"not the same user"')
         }
