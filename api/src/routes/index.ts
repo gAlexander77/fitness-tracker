@@ -6,7 +6,7 @@ import { scrypt } from 'crypto';
 // local
 import { usersFilter } from './users';
 import { collections } from '../db';
-import { log } from '../utils';
+import { authRequired, log } from '../utils';
 
 // create the auth route
 const index = Router();
@@ -23,17 +23,13 @@ declare module "express-session" {
 // description: Get user for current session
 //      params: none
 //      output: Details for signed in user
-index.get("/", async (req: Request, res: Response) => {
+index.get("/", authRequired, async (req: Request, res: Response) => {
     try {
-        if (req.session.userID === undefined) {
-            res.status(401).send('"unauthorized"');
-        } else {
-            const id = new ObjectId(req.session.userID);
-            const user = await collections.users.findOne({ _id: id }, usersFilter);
-            user
-                ? res.status(200).send(user)
-                : res.status(404).send('"user not found"')
-        }
+        const id = new ObjectId(req.session.userID);
+        const user = await collections.users.findOne({ _id: id }, usersFilter);
+        user
+            ? res.status(200).send(user)
+            : res.status(404).send('"user not found"');
     } catch (error) {
         log.error(error);
         res.status(500).send('"internal server error"');
@@ -68,18 +64,14 @@ index.post("/sign-in", async (req: Request, res: Response) => {
 // description: Drop an authenticated session
 //      params: none
 //      output: 200 on successful log out, 500 + error message on error
-index.post("/sign-out", async (req: Request, res: Response) => {
-    if (req.session.userID === undefined) {
-        res.status(401).send('"unauthorized"');
+index.post("/sign-out", authRequired, async (req: Request, res: Response) => {
+    let error: any = null;
+    req.session.destroy((err: any) => error = err);
+    if (error) {
+        log.error(new Error(error));
+        res.status(500).send(`"${error.toString()}"`);
     } else {
-        let error: any = null;
-        req.session.destroy((err: any) => error = err);
-        if (error) {
-            log.error(new Error(error));
-            res.status(500).send(`"${error.toString()}"`);
-        } else {
-            res.status(200).send('"signed out successfully"');
-        }
+        res.status(200).send('"signed out successfully"');
     }
 });
 

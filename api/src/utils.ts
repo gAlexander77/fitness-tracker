@@ -19,4 +19,12 @@ export const httpLog = async (req: Request, res: Response, next: NextFunction) =
         console.log(`[${date}]: ${methods.get(req.method)} - ${code}, ${res.statusMessage} - ${req.originalUrl}`);
     });
     next();
-}
+};
+
+export const authRequired = async (req: Request, res: Response, next: NextFunction) => {
+    if (req.session.userID === undefined) {
+        res.status(401).send('"unauthorized"');
+    } else {
+        next();
+    }
+};

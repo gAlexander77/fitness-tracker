@@ -2,7 +2,7 @@ import e, { Router, Request, Response } from 'express';
 import { scrypt, randomBytes } from 'crypto';
 import { ObjectId } from 'mongodb';
 
-import { httpLog } from '../utils';
+import { authRequired } from '../utils';
 import { collections } from '../db';
 import User from '../models/user';
 
@@ -64,13 +64,18 @@ users.get("/:id", async (req: Request, res: Response) => {
 // description: Remove user based on ID
 //      params: none
 //      output: 200 if successful, 400 if mongo error, 404 if invalid ID, 500 for exception
-users.delete("/:id", async (req: Request, res: Response) => { 
+users.delete("/:id", authRequired, async (req: Request, res: Response) => { 
     try {
-        const id = new ObjectId(req?.params?.id);
-        const result = await collections.users.deleteOne({ _id: id});
-        if (result && result.deletedCount) res.status(200).send(id);
-        else if (!result) res.status(400).send("error");
-        else if (!result.deletedCount) res.status(404).send("user does not exist");
+        const ruid = new ObjectId(req?.params?.id);
+        const suid = new ObjectId(req.session.userID);
+        if (ruid == suid) {
+            const result = await collections.users.deleteOne({ _id: ruid });
+            if (result && result.deletedCount) res.status(200).send(suid);
+            else if (!result) res.status(400).send("error");
+            else if (!result.deletedCount) res.status(404).send("user does not exist");
+        } else {
+            res.status(401).send('"not the same user"')
+        }
     } catch(error) { 
         res.status(500).send(error.message); 
     }
