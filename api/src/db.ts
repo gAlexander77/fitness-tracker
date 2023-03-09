@@ -12,8 +12,7 @@ const dbUrl = `mongodb://${dbUser}:${dbPass}@${dbHost}:${dbPort}/${dbNamespace}`
 // collections table, declaring master list of collections in our database
 export const collections: {
 	users?: Collection;
-	//journals?: Collection;
-	//workouts?: Collection;
+	workouts?: Collection;
 } = {}; // initialize it to empty before populating
 
 // connects to the mongo instance, and attaches to the supplied database
@@ -24,8 +23,7 @@ export const connectToDatabase = async () => {
 
 	// populate our collections table with handles to their mongo objects
 	collections.users = db.collection("users");
-	//collections.journals = db.collection("journals");
-	//collections.workouts = db.collection("workouts");
+	collections.workouts = db.collection("workouts");
 
 	return db; // return a handle to the database in case we need it (we do)
 };
@@ -45,5 +43,24 @@ export const createCollections = async (db: Db) => {
 	}
 
 	// define unique indicies (this can probably be moved to schema folder somehow)
-	db.createIndex("users", { username: 1 }, { unique: true });
+	await db.createIndex("users", { username: 1 }, { unique: true });
 };
+
+export const addTestWorkouts = async (db: Db) => {
+	await collections.workouts.insertMany([
+		{
+			workoutName: "Push Ups",
+			muscle: ["1"],
+			diagram: "/public/workouts/pushups/image.png",
+			description: "hello world", 
+			tutorialVideo: "/public/workouts/pushups/video.mp4",
+		},
+		{
+			workoutName: "Pull Ups",
+			muscle: ["1", "2", "3"],
+			diagram: "/public/workouts/pushups/image.png",
+			description: "goodbye world", 
+			tutorialVideo: "/public/workouts/pushups/video.mp4",
+		}
+	])
+}

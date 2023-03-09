@@ -3,13 +3,14 @@ import express from 'express';
 import cors from 'cors';
 import { Db } from 'mongodb'
 
-import { createCollections, deleteCollections } from './db';
+import { createCollections, deleteCollections, addTestWorkouts } from './db';
 import { log, httpLog } from './utils';
 
 // map of possible arguments, and their intended functions
 const args: Map<string, (db: Db) => Promise<void>> = new Map([
     ["initdb", createCollections], // initializes all the collections we need and their schemas
-    ["nukedb", deleteCollections] // removes all collections we need from the database
+    ["nukedb", deleteCollections], // removes all collections we need from the database
+	["addTestWorkouts", addTestWorkouts]
 ]);
 
 export interface Route {

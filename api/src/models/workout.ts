@@ -1,4 +1,5 @@
 import { ObjectId } from 'mongodb';
+import { collections } from '../db';
 
 export class Workout {
     constructor(
@@ -14,6 +15,7 @@ export class Workout {
 export class WorkoutGroup {
     constructor(
         public groupName: string,
-        public workouts: Array<Workout> = []
+        public workouts: Array<Workout> = [],
+        public _id: ObjectId = new ObjectId()
     ) {}
 }

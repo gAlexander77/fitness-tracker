@@ -5,6 +5,7 @@ import { connectToDatabase } from './db';
 import { initApp, initDb, Route } from './setup';
 import { log } from './utils';
 
+import workouts from './routes/workouts';
 import splits from './routes/splits';
 import users from './routes/users';
 import index from './routes/index';
@@ -15,9 +16,10 @@ const arg = process.argv[process.argv.length - 1];
 
 // API routes main list
 const apiRoutes = [
-	{ path: "/", 	   router: index },
-	{ path: "/users",  router: users },
-	{ path: "/splits", router: splits }
+	{ path: "/", 	     router: index },
+	{ path: "/users",    router: users },
+	{ path: "/splits",   router: splits },
+	{ path: "/workouts", router: workouts }
 ];
 
 export const serve = (db: Db, routes: Array<Route>, host: string, port: number) => {

@@ -36,7 +36,7 @@ users.post("/create", async (req: Request, res: Response) => {
                     ? res.status(201).send(document.insertedId)
                     : res.status(500).send("creation failed");
             } catch (error) {
-                res.status(400).send(error.message);
+                res.status(400).send(`"error: ${error.message.replaceAll('"', "'")}"`);
             }
         });
     }
