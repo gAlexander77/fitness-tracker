@@ -58,4 +58,15 @@ splits.post("/:id", async (req: Request, res: Response) => {
     }
 });
 
+
+// TODO:
+//   we need a way to update the 'workoutSplit'
+//   field in the current user's document
+//   1. accept a JSON post that contains an string array of size 7
+//   2. loop through user-supplied array and make sure
+//      all strings are valid names of a workoutGroup
+splits.post("/days", async (req: Request, res: Response) => {
+	res.status(501).send('"TODO"')
+});
+
 export default splits;
