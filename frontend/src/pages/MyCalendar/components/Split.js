@@ -23,18 +23,18 @@ function Split(props){
                         CURRENT SPLIT
                     </button>
                     <button 
-                        id="view-split" 
-                        onClick={selectMenuHandler}
-                        style={{ color: selectedMenu === "view-split" ? '#2DEDF3' : '' }}
-                    >
-                        VIEW SPLITS
-                    </button>
-                    <button 
                         id="create-a-split" 
                         onClick={selectMenuHandler}
                         style={{ color: selectedMenu === "create-a-split" ? '#2DEDF3' : '' }}
                     >
                         CREATE A SPLIT
+                    </button>
+                    <button 
+                        id="view-workout-groups" 
+                        onClick={selectMenuHandler}
+                        style={{ color: selectedMenu === "view-workout-groups" ? '#2DEDF3' : '' }}
+                    >
+                        VIEW WORKOUT GROUPS
                     </button>
                     <button 
                         id="create-a-workout-group" 
@@ -46,6 +46,9 @@ function Split(props){
                 </div>
                 <div className="my-calendar-split-selected-container">
                     {selectedMenu === "current-split" ? <CurrentSplit data={data}/> : ''}
+                    {selectedMenu === "create-a-split" ? <CreateASplit data={data}/> : ''}
+                    {selectedMenu === "view-workout-groups" ? <ViewWorkoutGroups data={data}/> : ''}
+                    {selectedMenu === "create-a-workout-group" ? <CreateAWorkoutGroup data={data}/> : ''}
                 </div>
             </div>
         </div>
@@ -83,6 +86,90 @@ function CurrentSplit(props){
                     />
                 );
             })}
+        </div>
+    );
+}
+
+function CreateASplit() {
+    
+    const [split, setSplit] = useState([
+        {
+            day: "Sunday",
+            workoutGroup: "",
+        },
+        {
+            day: "Monday",
+            workoutGroup: "",
+        },
+        {
+            day: "Tuesday",
+            workoutGroup: "",
+        },
+        {
+            day: "Wednsday",
+            workoutGroup: "",
+        },
+        {
+            day: "Thursday",
+            workoutGroup: "",
+        },
+        {
+            day: "Friday",
+            workoutGroup: "",
+        },
+        {
+            day: "Saturday",
+            workoutGroup: "",
+        },
+    ])
+
+    const Day = (props) => {
+        
+        const OptionsMenu = () => {
+            return (
+                <div>
+                    <button>Option 1</button>
+                </div>
+            );
+        }
+        
+        return (
+            <div>
+                <h1>{props.day}</h1>
+                <button>{props.selection}</button>
+                <OptionsMenu/>
+            </div>
+        );
+    }
+    
+    return (
+        <div className="my-calendar-split-create-a-split-container">
+            {split.map((split, index)=>{
+                return(
+                    <Day
+                        key={index}
+                        day={split.day}
+                        workoutGroup={split.workoutGroup}
+                        setSplit={setSplit}
+                    />
+                );
+            })}
+        </div>
+    );
+}
+
+function ViewWorkoutGroups() {
+    return (
+        <div className="my-calendar-split-view-workout-groups">
+            View Workout Groups
+        </div>
+    );
+}
+
+function CreateAWorkoutGroup() {
+    return(
+        <div className="my-calendar-split-create-a-workout-group">
+            Create A Workout Group
         </div>
     );
 }
