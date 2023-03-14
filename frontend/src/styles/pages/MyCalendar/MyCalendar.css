@@ -89,6 +89,60 @@
     justify-content: center;
 }
 
+.my-calendar-split-create-a-split-days-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.my-calendar-split-create-a-split-day-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0px 5px;
+    position: relative;
+}
+
+.my-calendar-split-create-a-split-day-container h1{
+    font-size: 15px;
+    margin-bottom: 3px;
+}
+
+.my-calendar-split-create-a-split-day-container #drop-down-btn{
+    all: unset;
+    color: black;
+    background-color: white;
+    font-size: 15px; 
+    border-radius: 2px;
+    min-width: 90%;
+    width: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+}
+
+.my-calendar-split-create-a-split-menu {
+    display: flex;
+    flex-direction: column;
+    min-width: 90%;
+    width: 100px;
+    background-color: #414141;
+    z-index: 10;
+}
+
+.my-calendar-split-create-a-split-menu #option-selection-btn {
+    all: unset;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+}
+
+.my-calendar-split-create-a-split-menu #option-selection-btn:hover{
+    background-color: #1B1B1B;
+}
+
 /* Calendar.js */
 .my-calendar-calendar-container {
     width: 1100px;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
 function Split(props){
     // Test Data
@@ -90,70 +90,136 @@ function CurrentSplit(props){
     );
 }
 
-function CreateASplit() {
+function CreateASplit(props) {
     
+    console.log(props.data.workoutGroups);
+    const groupNames = props.data.workoutGroups.map(obj => obj.groupName);
+    groupNames.push("Rest");
+    console.log(groupNames);
+ 
     const [split, setSplit] = useState([
-        {
-            day: "Sunday",
-            workoutGroup: "",
-        },
-        {
-            day: "Monday",
-            workoutGroup: "",
-        },
-        {
-            day: "Tuesday",
-            workoutGroup: "",
-        },
-        {
-            day: "Wednsday",
-            workoutGroup: "",
-        },
-        {
-            day: "Thursday",
-            workoutGroup: "",
-        },
-        {
-            day: "Friday",
-            workoutGroup: "",
-        },
-        {
-            day: "Saturday",
-            workoutGroup: "",
-        },
+        {day: "Sunday",workoutGroup: "Select",},
+        {day: "Monday",workoutGroup: "Select",},
+        {day: "Tuesday",workoutGroup: "Select",},
+        {day: "Wednsday",workoutGroup: "Select",},
+        {day: "Thursday",workoutGroup: "Select",},
+        {day: "Friday",workoutGroup: "Select",},
+        {day: "Saturday",workoutGroup: "Select",},
     ])
 
-    const Day = (props) => {
+    const updateWorkoutGroup = (index, groupName) => {
+        setSplit((prevSplit) => {
+          const updatedSplit = [...prevSplit];
+          updatedSplit[index].workoutGroup = groupName;
+          return updatedSplit;
+        });
+    };
+
+    function Day(props) {
         
-        const OptionsMenu = () => {
+        const dropDownRef = useRef();
+        
+        const [dropDown, setDropDown] = useState(false);
+
+        const SelectionMenuButton = (props) => {            
+    
+            useEffect(() => {
+                if(props.trigger){
+                    let outsideClickHandler = (evt) => {
+                        if(!dropDownRef.current.contains(evt.target)) {
+                            props.setTrigger(false);
+                        }
+                    }
+                    document.addEventListener("mousedown", outsideClickHandler)
+                    return() => {
+                        document.removeEventListener("mousedown", outsideClickHandler);
+                    }
+                }
+            }, [props.trigger]);
+
+            const menuHandler = () => {
+                props.setTrigger(!props.trigger)
+            }
+            
+            let style;
+            switch (props.workoutGroup) {
+                case "Select":
+                    style = {backgroundColor: "white",color: "black"};
+                    break;
+                case "Rest":
+                    style = {backgroundColor: "#414141",color: "white"};
+                    break;
+                default:
+                    style = {backgroundColor: "#2DEDF3",color: "black"};
+            }
+
             return (
-                <div>
-                    <button>Option 1</button>
-                </div>
+                <button id="drop-down-btn" ref={dropDownRef} onClick={menuHandler} style={style}>{props.workoutGroup}</button>
             );
+        }
+
+        const SelectionDropDown = (props) => {
+            
+            const Selection = (props) => {
+                const setWorkoutGroupHandler = () => {
+                    updateWorkoutGroup(props.splitIndex, props.name)
+                }
+
+                return (
+                    <button id="option-selection-btn" onClick={setWorkoutGroupHandler}>{props.name}</button>
+                );
+            }
+
+            return (props.trigger) ? (
+                <div className="my-calendar-split-create-a-split-menu" ref={dropDownRef}>
+                    {props.groupNames.map((name, index)=>{
+                        return(
+                            <Selection key={index} name={name} splitIndex={props.splitIndex}/>
+                        );
+                    })}
+                </div>  
+            ):'';
         }
         
         return (
-            <div>
+            <div className="my-calendar-split-create-a-split-day-container">
                 <h1>{props.day}</h1>
-                <button>{props.selection}</button>
-                <OptionsMenu/>
+                <SelectionMenuButton 
+                    trigger={dropDown} 
+                    setTrigger={setDropDown} 
+                    workoutGroup={props.workoutGroup}
+                />
+                <SelectionDropDown 
+                    trigger={dropDown} 
+                    setTrigger={setDropDown} 
+                    groupNames={props.groupNames} 
+                    splitIndex={props.index}
+                />
             </div>
         );
     }
     
+    const setCurrentSplitHandler = (evt) => {
+        console.log('set Current Split')
+    }
+
     return (
         <div className="my-calendar-split-create-a-split-container">
-            {split.map((split, index)=>{
-                return(
-                    <Day
-                        key={index}
-                        day={split.day}
-                        workoutGroup={split.workoutGroup}
-                        setSplit={setSplit}
-                    />
-                );
-            })}
+            <div className="my-calendar-split-create-a-split-days-container">
+                {split.map((split, index)=>{
+                    return(
+                        <Day
+                            key={index}
+                            index={index}
+                            day={split.day}
+                            workoutGroup={split.workoutGroup}
+                            setSplit={setSplit}
+                            groupNames={groupNames}
+                        />
+                    );
+                })}
+            </div>
+            <button onClick={setCurrentSplitHandler}>Set</button>
         </div>
     );
 }
