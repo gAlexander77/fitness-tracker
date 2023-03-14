@@ -1,38 +1,58 @@
-// this script is intended to be standalone from the rest of the project
-// it's sole purpose is to provide provisioning and utilities for setting
-// up the mongo database. nothing in here should be imported to the rest
-// of the project
-
-import { connectToDatabase, createCollections, deleteCollections } from './db';
+import session from 'express-session';
+import express from 'express';
+import cors from 'cors';
 import { Db } from 'mongodb'
 
-// I keep handling errors the same way so let's abstract into a function
-const handleError = (error: Error) => console.log(`- error: ${error.message}`);
+import { createCollections, deleteCollections, addTestWorkouts } from './db';
+import { log, httpLog } from './utils';
 
 // map of possible arguments, and their intended functions
 const args: Map<string, (db: Db) => Promise<void>> = new Map([
     ["initdb", createCollections], // initializes all the collections we need and their schemas
-    ["nukedb", deleteCollections] // removes all collections we need from the database
+    ["nukedb", deleteCollections], // removes all collections we need from the database
+	["addTestWorkouts", addTestWorkouts]
 ]);
 
-// firstly, connect to the mongo database
-connectToDatabase("testing")
-    .then((db: Db) => {
-        // get the last argument
-        const arg = process.argv[process.argv.length - 1];
+export interface Route {
+	path: string;
+	router: express.Router;
+}
 
-        // if it's not a valid argument, probably not calling from
-        // npm, but still output this error anyway
-        if (!args.has(arg)) {
-            console.log("- error: argument must be one of these");
-            args.forEach((_, option) => console.log(`-> ${option}`));
-            process.exit(0);
-        }  
-        
-        // call the requested function promise
-        args.get(arg)(db)
-            .then(() => console.log("+ success"))
-            .catch(handleError)
-            .finally(() => process.exit(0));
-    })
-    .catch(handleError);
+export const initApp = (routes: Array<Route>) => {
+	
+	const app = express();
+	const api = express.Router();
+
+	routes.forEach(({path, router}) => api.use(path, router));
+
+	app.use(cors({
+		origin: "http://localhost:3000",
+		credentials: true
+	}));
+	app.use(session({ // set up sessions for user authentication
+		secret: "fitness",
+		resave: false,
+		saveUninitialized: true,
+		cookie: {} // in release this should be { secure = true }
+	}));
+	
+	app.use(express.json()); // JSON API
+	app.use(httpLog);
+	app.use("/api", api);
+
+	return app;
+};
+
+export const initDb = (db: Db, arg: string) => {
+    
+    if (!args.has(arg)) {
+        log.error(new Error("argument must be one of these"));
+        args.forEach((_, option) => console.log(`  - ${option}`));
+        process.exit(0);
+    }  
+    
+    args.get(arg)(db)
+        .then(() => log.ok("success"))
+        .catch(log.error)
+        .finally(() => process.exit(0));
+};
