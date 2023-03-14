@@ -31,7 +31,6 @@ export const serve = (db: Db, routes: Array<Route>, host: string, port: number) 
 		console.log(`  - API_PORT: [\x1b[33m${port}\x1b[0m]`);
 		console.log(`  - API_DB: [\x1b[33m${db.namespace}\x1b[0m]`);
 		console.log("> \x1b[32mlistening\x1b[0m...");
-		return app;
 	});
 }
 

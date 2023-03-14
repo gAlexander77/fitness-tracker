@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 
-const methods =new Map([
+const methods = new Map([
     ["GET", "\x1b[32mGET \x1b[0m",],
     ["POST", "\x1b[35mPOST\x1b[0m",],
     ["DELETE", "\x1b[31mDEL \x1b[0m"]
@@ -8,7 +8,8 @@ const methods =new Map([
 
 export const log = {
     ok: (message: string) => console.log(`+ ok: ${message}`),
-    error: (error: Error) => console.log(`- error: ${error.message}`)
+    debug: (value: any, context: object = {}) => console.log(`${value}: ${JSON.stringify(context)}`),
+    error: (error: Error | string) => console.log(`- error: ${error}`)
 };
 
 export const httpLog = async (req: Request, res: Response, next: NextFunction) => {
@@ -21,10 +22,8 @@ export const httpLog = async (req: Request, res: Response, next: NextFunction) =
     next();
 };
 
-export const authRequired = async (req: Request, res: Response, next: NextFunction) => {
-    if (req.session.userID === undefined) {
-        res.status(401).send('"unauthorized"');
-    } else {
-        next();
-    }
+export const auth = async (req: Request, res: Response, next: NextFunction) => {
+    req.session._id === undefined
+        ? res.status(401).json("unauthorized")
+        : next();
 };

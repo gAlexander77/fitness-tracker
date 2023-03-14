@@ -1,5 +1,4 @@
 import { ObjectId } from 'mongodb';
-import { collections } from '../db';
 
 export class Workout {
     constructor(
@@ -8,6 +7,7 @@ export class Workout {
         public diagram: string,
         public description: string, 
         public tutorialVideo: string,
+        public uid: ObjectId = null,
         public _id?: ObjectId
     ) {}
 }

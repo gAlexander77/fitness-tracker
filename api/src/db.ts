@@ -46,7 +46,7 @@ export const createCollections = async (db: Db) => {
 	await db.createIndex("users", { username: 1 }, { unique: true });
 };
 
-export const addTestWorkouts = async (db: Db) => {
+export const addTestWorkouts = async () => {
 	await collections.workouts.insertMany([
 		{
 			workoutName: "Push Ups",
@@ -61,6 +61,13 @@ export const addTestWorkouts = async (db: Db) => {
 			diagram: "/public/workouts/pushups/image.png",
 			description: "goodbye world", 
 			tutorialVideo: "/public/workouts/pushups/video.mp4",
+		},
+		{
+			workoutName: "other workout",
+			muscle: ["2", "3"],
+			diagram: "/public/workouts/other/image.png",
+			description: "ugh",
+			tutorialVideo: "/public/workouts/other/video.mp4"
 		}
 	])
 }

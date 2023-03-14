@@ -1,60 +1,66 @@
-import e, { Router, Request, Response } from 'express';
+import { Router, Request, Response } from 'express';
 import { ObjectId } from 'mongodb';
 
-import { WorkoutGroup } from '../models/workout';
-import { log, authRequired } from '../utils';
+import { Workout, WorkoutGroup } from '../models/workout';
+import { log, auth } from '../utils';
 import { collections } from '../db';
-import { Workout } from '../models/workout';
+import users from './users';
 
 const splits = Router();
+const userWorkoutGroups = async (id: ObjectId) => (await collections.users.findOne({ _id: id })).workoutGroups;
 
-splits.use(authRequired);
+splits.use(auth);
 
 // create a new split workout group
 splits.post("/create", async (req: Request, res: Response) => {
-    if (req.body.groupName !== undefined) {
-        const id = new ObjectId(req.session.userID);
+    try {
+        const id = new ObjectId(req.session._id);
+        const workoutGroups = await userWorkoutGroups(id);
+
+        workoutGroups.forEach((workoutGroup: WorkoutGroup) => {
+            if (workoutGroup.groupName === req.body.groupName)
+                throw new Error("group already exists");
+        });
+
         const workoutGroup = new WorkoutGroup(req.body.groupName);
-        await collections.users.updateOne({ _id: id }, { $push: { workoutGroups: workoutGroup } })
-            ? res.status(200).send('"added a workout group"')
-            : res.status(500).send('"error adding workour group"');
-    } else {
-        res.status(400).send('"invalid request"');
+        const updated = await collections.users.updateOne({ _id: id }, { $push: { workoutGroups: workoutGroup } });
+        updated.modifiedCount > 0
+            ? res.status(200).json("ok")
+            : res.status(500).json("internal server error");
+      
+    } catch (error) {
+        res.status(400).json(error.message.endsWith("exists") ? error.message : "bad request");
     }
 });
 
-// add workout to split
 splits.post("/:id", async (req: Request, res: Response) => {
     try {
-        const uid = new ObjectId(req.session.userID);
-        const gid = new ObjectId(req?.params?.id);
-        const user = await collections.users.findOne({ _id: uid }, { projection: { workoutGroups: 1 }});
-        const workoutGroups = user.workoutGroups;
+        const [uid, gid, wid] = [
+            req.session._id, // user ID
+            req.params.id,   // group ID
+            req.body.workout // workout ID
+        ].map(id => new ObjectId(id));
+
+        const workout = await collections.workouts.findOne({ _id: wid });
+        const workoutGroups = await userWorkoutGroups(uid);
+    
         const workoutGroup = workoutGroups.find((workoutGroup: WorkoutGroup) => workoutGroup._id.equals(gid));
-        if (workoutGroup == undefined) {
-            res.status(404).send('"workout group not found"');
-        } else if (req.body.workout) {
-            const wid = new ObjectId(req.body.workout);
-            const workout = await collections.workouts.findOne({ _id: wid });
-            if (workout == undefined) {
-                res.status(404).send('"workout not found"');
-            } else {
-                const exists = workoutGroup.workouts.find((workout: Workout) => workout._id.equals(wid));
-                if (exists) {
-                    res.status(400).send('"workout already added"');
-                } else {
-                    workoutGroup.workouts.push(workout as Workout);
-                    await collections.users.updateOne({ _id: uid }, { $set: { workoutGroups: workoutGroups }})
-                        ? res.status(200).send(`"workout added to ${workoutGroup.groupName}"`)
-                        : res.status(500).send('"database error"');
-                }
-            }
+
+        if (workout && workoutGroup) {
+            workoutGroup.workouts.forEach((workout: Workout) => {
+                if (workout._id.equals(wid))
+                    throw new Error("workout already exists");
+            });
+
+            workoutGroup.workouts.push(workout as Workout);
+            await collections.users.updateOne({ _id: uid }, { $set: { workoutGroups: workoutGroups } })
+                ? res.status(200).json("ok")
+                : res.status(500).json("internal server error");
         } else {
-            res.status(400).send('"invalid request"');
+            res.status(404).json(`${workout ? "workout group" : "workout"} not found`);
         }
     } catch (error) {
-        log.error(error);
-        res.status(400).send('"invalid request"');
+        res.status(400).json(error.message.endsWith("exists") ? error.message : "bad request");
     }
 });
 

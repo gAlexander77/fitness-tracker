@@ -6,13 +6,13 @@ const workouts = Router();
 
 workouts.get("/", async (_req: Request, res: Response) => {
     try {
-        const workouts = await collections.workouts.find({}).toArray();
-        workouts
-            ? res.status(200).send(workouts)
-            : res.status(404).send('"no workouts exist"');
+        res.status(200).json(await collections.workouts.find({}).toArray());
     } catch (error) {
-        res.status(500).send('"server error"')
+        log.error(error);
+        res.status(500).json("internal server error");
     }
 });
+
+/// TODO: make a way for users to create custom workouts
 
 export default workouts;
