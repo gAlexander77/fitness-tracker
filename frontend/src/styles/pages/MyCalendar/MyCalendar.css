@@ -54,8 +54,12 @@
 
 .my-calendar-split-selected-container {
     overflow: hidden;
-    width: 100%;
     height: 100%;
+    /*background-color: green*/
+    margin-right: 20px;
+    border-radius: 10px;
+    border: 1px solid #414141;
+    position: relative;
 }
 
 .my-calendar-split-current-split-container {
@@ -89,9 +93,36 @@
     justify-content: center;
 }
 
+.my-calendar-split-create-a-split-container{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.my-calendar-split-create-a-split-container #set-split-btn{
+    all: unset;
+    margin: 20px;
+    background-color: #414141;
+    width: 100px;
+    text-align: center;
+    color: white;
+    border-radius: 10px;
+    padding: 1px 0;
+    cursor: pointer;
+}
+
+.my-calendar-split-create-a-split-container #set-split-btn:hover{
+    background-color: #2DEDF3;
+    color: black;
+}
+
 .my-calendar-split-create-a-split-days-container {
     display: flex;
     flex-direction: row;
+    margin-top: 20px;
+    margin-bottom: 5px;
 }
 
 .my-calendar-split-create-a-split-day-container {
@@ -141,6 +172,36 @@
 
 .my-calendar-split-create-a-split-menu #option-selection-btn:hover{
     background-color: #1B1B1B;
+}
+
+.my-calendar-split-view-workout-groups {
+    /*background-color: green;*/
+    height: 100%;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.my-calendar-split-view-workout-groups #group-name-btn{
+    all: unset;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    background-color: #414141;
+    border-radius: 10px;
+    width: 150px;
+    height: 50px;
+    margin: 0 10px;
+    cursor: pointer;
+}
+
+.my-calendar-split-view-workout-groups #group-name-btn:hover{
+    background-color: #2DEDF3;
+    color: black;
 }
 
 /* Calendar.js */
@@ -217,6 +278,25 @@
     justify-content: center;
     border-radius: 10px;
     margin-top: 10px;
+    cursor: pointer;
+}
+
+#journal-entry-wrapper {
+    display: flex;
+    justify-content: center; /* Align its children to the bottom */
+    align-items: flex-end;
+    width: 100%;
+    height: 55%;
+  }
+
+.my-calendar-calendar-day-content #journal-entry-btn {
+    all: unset;
+    font-size: 12px;
+    border-radius: 10px;
+    width: 90%;
+    height: 25%;
+    text-align: center;
+    background-color: #414141;
     cursor: pointer;
 }
 
