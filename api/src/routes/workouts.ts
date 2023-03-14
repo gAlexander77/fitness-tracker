@@ -4,6 +4,10 @@ import { log } from '../utils';
 
 const workouts = Router();
 
+workouts.post("/create", async (req: Request, res: Response) => {
+    res.status(200).json("TODO");
+});
+
 workouts.get("/", async (_req: Request, res: Response) => {
     try {
         res.status(200).json(await collections.workouts.find({}).toArray());
@@ -12,7 +16,5 @@ workouts.get("/", async (_req: Request, res: Response) => {
         res.status(500).json("internal server error");
     }
 });
-
-/// TODO: make a way for users to create custom workouts
 
 export default workouts;

@@ -33,39 +33,74 @@ Make sure __MongoDB__ is running and take note of the port it's on. by default i
 5. Run the command `npm start` and wait for the environment variable printout to appear. The server is now running
 
 ## API v1
-'*' = required
-- __Authentication__: `/api`
-  - __Index__: `/api/`
-    - method: __GET__
-    - description: _Authentication index, simple status view_
-    - parameters: `none`
-    - output: current session ID and "logged in" status
-  - __Sign In__: `/api/sign-in`
-    - method: __POST__
-    - description: _Authenticate a user and update their session_
-    - parameters: `*username: string, *password: string`
-    - output: `200` response on successful authentication, `400` on exception, `404` on email not found
-  - __Sign Out__: `/api/sign-out`
-    - method: __POST__
-    - description: _Drop an authenticated session_
-    - parameters: `none`
-    - output: `200` on successful sign out, `500` + error message on error
-- __Users__: `/api/users`
-  - __Create User__: `/api/users/create`
-    - method: __POST__
-    - description: _Create a new user_
-    - parameters: `*username: string, *password: string, email: string, firstName: string, lastName: string, birthday: int`
-    - output: newly created user's ID
-  - __Select User__: `/api/users/<id>`
-    - method: __GET__
-    - description: _Get user info based on the ID in the URL_
-    - parameters: `none`
-    - output: JSON object of the user requested
-  - __Delete User__: `/api/users/<id>`
-    - method: __DELETE__
-    - description: _Remove a user based on the ID in the URL_
-    - parameters: `none`
-    - output: `200` on successful deletion, `500` on failure
+## Index `/api`
+- __Index__: 
+  - path: `/api/`
+  - method: __GET__
+  - description: _User's main view_
+  - output: object of the currently authenticated user
+- __Sign in__: 
+  - path: `/api/sign-in`
+  - body: `*username: string, *password: string`
+  - method: __POST__
+  - description: _Authenticate a user and update their session_
+- __Sign out__: 
+  - path: `/api/sign-out`
+  - method: __POST__
+  - description: _Drop an authenticated session_
+## Users `/api/users`
+- __Find all users__:
+  - path: `/api/users/`
+  - method: __GET__
+  - description: _Get all public user info available_
+  - output: array of user objects
+- __Find one user__:
+  - path: `/api/users/<id>`
+  - url parameters: `id: string`
+  - method: __GET__
+  - description: _Get user info based on the ID in the URL_
+  - output: `object of the specified user`
+- __Create a user__:
+  - path: `/api/users/create`
+  - body: `*username: string, *password: string`
+  - method: __POST__
+  - description: _Create a new user_
+## Workouts `/api/workouts`
+- _TODO_ - __Create a workout__:
+  - path: `/api/workouts/create`
+  - body: `???`
+  - method: __POST__
+  - description: _Creates a new workout under the current user_
+- __Find all workouts__:
+  - path: `/api/workouts/`
+  - method: __GET__
+  - description: _Get all workouts in the database_
+  - output: `array of workout objects`
+## Workout Groups and Splits `/api/splits`
+- _TODO_ - __Update splits__:
+  - path: `/api/splits/`
+  - body: `???`
+  - method: __POST__
+  - description: _Updates the days each group is assigned_
+- _TODO_ - __Delete a workout group__:
+  - path: `/api/splits/<id>`
+  - url parameters: `id: string`
+  - method: __DELETE__
+  - description: _Deletes the specified workout group_
+- _TODO_ - __Remove a workout from a group__:
+  - path: `???`
+  - body: `???`
+  - method: __DELETE__
+  - description: _Removes a workout from the specified group_
+- __Create a workout group__:
+  - path: `/api/splits/create`
+  - body: `groupName: string`
+  - method: __POST__
+  - description: _Creates a new workout group_
+- __Add a workout to a group__:
+  - path: `/api/splits/<id>`
+  - url parameters: `id: string` _(the workout group ID)_
+  - body: `workout: string` _(the workout ID)_
+  - method: __POST__
+  - description: _Adds a workout from the database to the specified group_
 
-## Features
-coming soon...
