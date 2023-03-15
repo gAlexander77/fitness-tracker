@@ -4,13 +4,19 @@ import Search from './components/Search';
 import Display from './components/Display';
 import '../../styles/pages/Workouts/Workouts.css';
 
+import workoutData from './testData/testData';
+
 function Workouts(){
+    
+    const data = workoutData;
+    console.log(data);
+
     return(
         <div className="workouts-page">
             <Nav/>
             <h1 id="page-title">WORKOUTS</h1>
             <Search/>
-            <Display/>
+            <Display data={data}/>
         </div>
     );
 }

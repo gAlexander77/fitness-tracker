@@ -64,6 +64,29 @@
     background-color: #2B2B2B;
     border-radius: 10px;
     max-width: 90vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.workouts-display-workout:hover {
+    color: #2DEDF3;
+}
+
+.workouts-display-workout #image {
+    border-radius: 10px;
+    border: solid 1px #2B2B2B;
+    width: 90%;
+    height: 70%;
+    object-fit: cover;
+}
+
+.workouts-display-workout #name {
+    margin-top: 7px;
+    font-size: 12px;
+    font-weight: 400;
 }
 
 .workouts-display-workouts-container {
@@ -73,32 +96,41 @@
     gap: 50px 100px;
     align-items: center;
     margin-bottom: 30px;
-  }
+}
   
 .workouts-display-workouts-container  > div {
     display: flex;
     align-items: center;
     justify-content: center;
-  }
+}
 
-  @media (max-width: 1200px) {
+@media (max-width: 1200px) {
     .workouts-display-workouts-container  {
         grid-template-columns: repeat(3, 1fr);
         grid-template-rows: repeat(4, 1fr);
     }
-  }
+}
   
-  @media (max-width: 930px) {
+@media (max-width: 930px) {
     .workouts-display-workouts-container  {
         grid-template-columns: repeat(2, 1fr);
         grid-template-rows: repeat(6, 1fr);
     }
-  }
+}
   
-  @media (max-width: 630px) {
+@media (max-width: 630px) {
     .workouts-display-workouts-container  {
         grid-template-columns: repeat(1, 1fr);
         grid-template-rows: repeat(12, 1fr);
     }
-  }
+}
   
+.workouts-display-pagination {
+    color: white;
+}
+
+.workouts-display-pagination button{
+    all: unset;
+    margin: 10px;
+    cursor: pointer;
+}
