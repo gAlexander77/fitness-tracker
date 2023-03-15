@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function Display(props) {
     
@@ -41,12 +42,17 @@ function Display(props) {
 
 function Workout(props) {
     
-    const image = props.images[0];
+    let navigate = useRef(useNavigate());
+    const link = "/workout/"+props.name.toLowerCase().replace(/\s+/g, "-");
     
+    const goToWorkout = () => {
+        navigate.current(link);
+    }
+
     return(
-        <div className="workouts-display-workout-container">
+        <div className="workouts-display-workout-container" onClick={goToWorkout}>
             <div className="workouts-display-workout">
-                <img id="image" src={image}/>
+                <img id="image" src={props.images[0]}/>
                 <h1 id="name">{props.name}</h1>
             </div>
         </div>
