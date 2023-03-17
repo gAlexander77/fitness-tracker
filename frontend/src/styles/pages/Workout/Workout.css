@@ -23,6 +23,7 @@
 
 .workout-content-container #workout-description{
     color: white;
+    white-space: pre-wrap;
 }
 
 .workout-info-container {
