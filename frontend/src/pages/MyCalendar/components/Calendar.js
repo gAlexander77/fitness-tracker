@@ -4,8 +4,8 @@ import '../../../styles/pages/MyCalendar/MyCalendar.css';
 
 function Calendar(props){
     // Test Data
-    const data = props.data.calendarRequestData;
-    const journalData = props.data2.journalRequestData;
+    const data = props.data;
+    const journalData = props.data2;
     console.log(journalData.journalEntries)
 
     const [dates, setDates] = useState([]);    

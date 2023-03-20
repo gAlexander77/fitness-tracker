@@ -4,8 +4,8 @@ import Split from './components/Split';
 import Calendar from './components/Calendar';
 import '../../styles/pages/MyCalendar/MyCalendar.css';
 
-import calendarRequestData from './testData/testData';
-import journalRequestData from './testData/testData2';
+import calendarRequestData from '../../test-data/calendarRequest.json';
+import journalRequestData from '../../test-data/journalRequest.json';
 
 function WorkoutCalendar(){
     return(

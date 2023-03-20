@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 
 function Split(props){
     // Test Data
-    let data = props.data.calendarRequestData
+    let data = props.data
     
     const [selectedMenu, setSelectedMenu] = useState("current-split")
 
