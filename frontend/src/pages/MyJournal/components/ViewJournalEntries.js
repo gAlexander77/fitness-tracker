@@ -3,7 +3,7 @@ import '../../../styles/pages/MyJournal/MyJournal.css';
 
 function ViewJournalEntries(props){
     // Test Data
-    const data = props.data.journalRequestData;
+    const data = props.data;
 
     let mostRecentEntry = data.journalEntries[data.journalEntries.length-1].journalEntry
     

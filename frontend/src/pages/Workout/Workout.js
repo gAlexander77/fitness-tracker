@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import Nav from '../../components/Nav';
 import '../../styles/pages/Workout/Workout.css';
 
-import workoutsData from './testData/testData';
+import workoutsData from '../../test-data/workoutsRequest.json';
 
 function Workout() {
     const { name } = useParams();
@@ -36,6 +36,15 @@ function Workout() {
                     {data.images.map((image, index)=>{
                         return(
                             <img key={index} src={image}/>
+                        );
+                    })}
+                </div>
+                <div className="workout-images-container">
+                    {data.videos.map((video, index)=>{
+                        return(
+                            <video key={index} width="320" height="240" autoplay>
+                                <source src={video}/>
+                            </video>
                         );
                     })}
                 </div>

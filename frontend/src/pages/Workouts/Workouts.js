@@ -4,7 +4,7 @@ import Search from './components/Search';
 import Display from './components/Display';
 import '../../styles/pages/Workouts/Workouts.css';
 
-import workoutData from './testData/testData';
+import workoutData from '../../test-data/workoutsRequest.json';
 
 function Workouts(){
     
