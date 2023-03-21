@@ -45,17 +45,28 @@ users.post("/create", async (req: Request, res: Response) => {
     }
 });
 
+// Authenticate user so users cannot delete others
+function authenticate(req: Request, res: Response, next: NextFunction) {
+  const currentUserId = req.session._id;
+  const userIdToDelete = req.params.id;
+  if (currentUserId !== userIdToDelete) {
+    res.status(403).json({ error: "forbidden" });
+  } else {
+    next();
+  }
+}
+
 // Delete user
-users.delete("/:id", async (req: Request, res: Response) => {
+users.delete("/:id", authenticate, async (req: Request, res: Response) => {
   try {
     const deleteResult = await collections.users.deleteOne({ _id: new ObjectId(req.params.id) });
     if (deleteResult.deletedCount === 0) {
-      res.status(404).json("not found");
+      res.status(404).json({ error: "not found" });
     } else {
       res.status(200).send("ok");
     }
   } catch (error) {
-    res.status(500).json("internal server error");
+    res.status(500).json({ error: "internal server error" });
   }
 });
 
