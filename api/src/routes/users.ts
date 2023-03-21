@@ -45,4 +45,18 @@ users.post("/create", async (req: Request, res: Response) => {
     }
 });
 
+// Delete user
+users.delete("/:id", async (req: Request, res: Response) => {
+  try {
+    const deleteResult = await collections.users.deleteOne({ _id: new ObjectId(req.params.id) });
+    if (deleteResult.deletedCount === 0) {
+      res.status(404).json("not found");
+    } else {
+      res.status(200).send("ok");
+    }
+  } catch (error) {
+    res.status(500).json("internal server error");
+  }
+});
+
 export default users;
