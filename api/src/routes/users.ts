@@ -1,4 +1,4 @@
-import { Router, Request, Response } from 'express';
+import { Router, Request, Response, NextFunction } from 'express';
 import { scrypt, randomBytes } from 'crypto';
 import { ObjectId } from 'mongodb';
 
@@ -47,13 +47,12 @@ users.post("/create", async (req: Request, res: Response) => {
 
 // Authenticate user so users cannot delete others
 function authenticate(req: Request, res: Response, next: NextFunction) {
-  const currentUserId = req.session._id;
-  const userIdToDelete = req.params.id;
-  if (currentUserId !== userIdToDelete) {
-    res.status(403).json({ error: "forbidden" });
-  } else {
-    next();
-  }
+  const currentUserId = new ObjectId(req.session._id);
+  const userIdToDelete = new ObjectId(req.params.id);
+  if (!currentUserId.equals(userIdToDelete)) {
+     res.status(403).json({ error: "forbidden" });
+   } else {
+     next();
 }
 
 // Delete user
@@ -63,7 +62,7 @@ users.delete("/:id", authenticate, async (req: Request, res: Response) => {
     if (deleteResult.deletedCount === 0) {
       res.status(404).json({ error: "not found" });
     } else {
-      res.status(200).send("ok");
+      res.status(200).json("ok");
     }
   } catch (error) {
     res.status(500).json({ error: "internal server error" });
