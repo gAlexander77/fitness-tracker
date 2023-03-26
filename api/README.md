@@ -28,6 +28,7 @@ Make sure __MongoDB__ is running and take note of the port it's on. by default i
     ```
 2. Open this directory in your editor of choice, open a terminal and run: `npm install`
 3. Run the command `npm start initdb` to initialize the database collections and schema.
+   **NOTE: this will also fill the workouts collection if there is a `workouts.json` file in the root directory**
     - you can remove everything created in the database by using `npm start nukedb` 
 4. Run the command `npm test` to start the unit tests.
 5. Run the command `npm start` and wait for the environment variable printout to appear. The server is now running
