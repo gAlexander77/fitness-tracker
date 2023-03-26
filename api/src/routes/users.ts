@@ -37,7 +37,7 @@ users.post("/create", async (req: Request, res: Response) => {
         scrypt(req.body.password, salt, 64, async (_error: Error, buffer: Buffer) => {    
             const user = new User(req.body.username, buffer.toString("hex"), salt);
             await collections.users.insertOne(user)
-                ? res.status(200).send("ok")
+                ? res.status(200).json("ok")
                 : res.status(500).json("internal server error");
         });
     } catch (error) {

@@ -26,7 +26,7 @@ index.get("/", auth, async (req: Request, res: Response) => {
         
         user
             ? res.status(200).json(user)
-            : res.status(404).send("not found");
+            : res.status(404).json("not found");
     } catch (error) {
         log.error(error);
         res.status(400).json("bad request");
