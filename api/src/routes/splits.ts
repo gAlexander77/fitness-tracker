@@ -91,7 +91,7 @@ splits.post("/days", async (req: Request, res: Response) => { // /update instead
 
             weeklySplit.forEach((dailySplitGroupName : String) =>  {
             // we just need to validate that each entry is a valid group name
-                if(dailySplitGroupName !== databaseWOGroups.groupName){
+                if(dailySplitGroupName !== databaseWOGroups.groupName){ 
                     throw new Error("Invalid Group Exercise Name")
                 }
            });
