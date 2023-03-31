@@ -1,5 +1,5 @@
 <div>
-<div align="center"><img src="frontend/assets/ShapeShiftLogo.png" width="300"/>
+<div align="center"><img src="frontend/assets/ShapeShiftLogo.svg" width="300"/>
 </div>
 
 ---
