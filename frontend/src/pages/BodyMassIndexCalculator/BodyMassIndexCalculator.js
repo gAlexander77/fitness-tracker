@@ -20,7 +20,7 @@ function BodyMassIndexCalculator(){
     return(
         <div className="body-mass-index-calculator-page">
             <Nav/>
-            <h1>BMI Calculator</h1>
+            <h1 id="title">BMI CALCULATOR</h1>
             <Calculator
                 input={input}
                 setInput={setInput} 
@@ -74,43 +74,43 @@ function Calculator(props){
     }
 
     return(
-        <div>
-            <div>
-                <div>
-                    <h1>Height</h1>
-                    <div>
+        <div className="body-mass-index-calculator-calculator-component">
+            <div className="body-mass-index-calculator-calculator-inner">
+                <div className="body-mass-index-calculator-calculator-left-container">
+                    <h1 id="title">Height</h1>
+                    <div id="input-container">
                         <input 
                             id="feet"
                             type="number"
                             value={props.input.feet}
                             onChange={setValueHandler}
                         />
-                        <p>Feet</p>
+                        <p id="tag">Feet</p>
                     </div>
-                    <div>
+                    <div id="input-container">
                         <input
                             id="inches"
                             type="number"
                             value={props.input.inches}
                             onChange={setValueHandler}
                         />
-                        <p>Inches</p>
+                        <p id="tag">Inches</p>
                     </div>
                 </div>
-                <div>
-                    <h1>Weight</h1>
-                    <div>
+                <div className="body-mass-index-calculator-calculator-right-container">
+                    <h1 id="title">Weight</h1>
+                    <div id="input-container">
                         <input
                             id="weight"
                             type="number"
                             value={props.input.weight}
                             onChange={setValueHandler}
                         />
-                        <p>lbs</p>
+                        <p id="tag">lbs</p>
                     </div>
                 </div>
             </div>
-            <button onClick={calculateHandler}>
+            <button className="body-mass-index-calculator-calculator-calculate-btn" onClick={calculateHandler}>
                 Calculate
             </button>
         </div>
@@ -118,21 +118,21 @@ function Calculator(props){
 }
 
 function CalculatorResults(props){
-    return(
-        <div>
-            <div>
-                <div>
+    return(props.trigger)?(
+        <div className="body-mass-index-calculator-calculator-results-component">
+            <div id="inner">
+                <div id="display-container">
                     <h1>BMI</h1>
                     <h1>{props.bmi}</h1>
                 </div>
-                <div></div>
-                <div>
+                <div id='line'/>
+                <div id="display-container">
                     <h1>{props.classification}</h1>
                 </div>
             </div>
-            {props.hasAccount ? <button>Save results to Journal</button> : ""}
+            {true ? <button>Save results to Journal</button> : ""}
         </div>
-    );
+    ):'';
 }
 
 export default BodyMassIndexCalculator;
