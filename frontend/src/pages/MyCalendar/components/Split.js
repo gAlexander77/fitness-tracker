@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 
 function Split(props){
     // Test Data
-    let data = props.data.calendarRequestData
+    let data = props.data
     
     const [selectedMenu, setSelectedMenu] = useState("current-split")
 
@@ -101,7 +101,7 @@ function CreateASplit(props) {
         {day: "Sunday",workoutGroup: "Select",},
         {day: "Monday",workoutGroup: "Select",},
         {day: "Tuesday",workoutGroup: "Select",},
-        {day: "Wednsday",workoutGroup: "Select",},
+        {day: "Wednesday",workoutGroup: "Select",},
         {day: "Thursday",workoutGroup: "Select",},
         {day: "Friday",workoutGroup: "Select",},
         {day: "Saturday",workoutGroup: "Select",},
@@ -219,15 +219,35 @@ function CreateASplit(props) {
                     );
                 })}
             </div>
-            <button onClick={setCurrentSplitHandler}>Set</button>
+            <button id="set-split-btn" onClick={setCurrentSplitHandler}>Set</button>
         </div>
     );
+
+
 }
 
-function ViewWorkoutGroups() {
+function ViewWorkoutGroups(props) {
+    
+    const workoutGroups = props.data.workoutGroups;
+    console.log(workoutGroups);
+    
+    const WorkoutGroup = (props) => {
+        console.log(props.groupName)
+        return (
+            <button id="group-name-btn">{props.groupName}</button>
+        );
+    }
+    
     return (
         <div className="my-calendar-split-view-workout-groups">
-            View Workout Groups
+            {workoutGroups.map((workoutGroup, index)=>{
+                return(
+                    <WorkoutGroup
+                        key={index}
+                        groupName={workoutGroup.groupName}
+                    />     
+                );
+            })}
         </div>
     );
 }

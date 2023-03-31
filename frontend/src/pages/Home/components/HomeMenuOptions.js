@@ -41,10 +41,10 @@ function options(isUser) {
     let menuTitles = [];
     
     if(isUser === true){
-        menuTitles = ["MY JOURNAL", "MY CALENDAR", "WORKOUTS", "WARM-UPS", "CALCULATORS"];
+        menuTitles = ["MY JOURNAL", "MY CALENDAR", "WORKOUTS", "CALCULATORS"];
     }
     else{
-        menuTitles = ["WORKOUTS", "WARM-UPS", "CALCULATORS"];
+        menuTitles = ["WORKOUTS", "CALCULATORS"];
     }
     
     return menuTitles;

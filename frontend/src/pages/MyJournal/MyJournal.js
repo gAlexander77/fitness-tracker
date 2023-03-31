@@ -4,7 +4,7 @@ import TodaysEntity from './components/TodaysEntry';
 import ViewJournalEntries from './components/ViewJournalEntries';
 import '../../styles/pages/MyJournal/MyJournal.css';
 
-import journalRequestData from './testData/testData';
+import journalRequestData from '../../test-data/journalRequest.json';
 
 function Journal(){
     return(

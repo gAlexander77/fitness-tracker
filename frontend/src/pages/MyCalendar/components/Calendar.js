@@ -4,8 +4,10 @@ import '../../../styles/pages/MyCalendar/MyCalendar.css';
 
 function Calendar(props){
     // Test Data
-    const data = props.data.calendarRequestData;
-    
+    const data = props.data;
+    const journalData = props.data2;
+    console.log(journalData.journalEntries)
+
     const [dates, setDates] = useState([]);    
     const [weeksFromNow, setWeeksFromNow] = useState(0);
 
@@ -38,6 +40,7 @@ function Calendar(props){
                                 split= {data.workoutSplit[date.day]}
                                 dateValue = {date.dateValue}
                                 data={data.workoutGroups}
+                                journalData={journalData.journalEntries}
                             />
                         )
                     })}
@@ -49,10 +52,14 @@ function Calendar(props){
 }
 
 function CalendarDay(props){
+    const journalEntry = props.journalData.map(obj => obj.journalEntry);
+
     const [viewWorkouts, setViewWorkouts] = useState(false);
 
     const currentDate =  americanDateFormat();
     const calendarDate = americanDateFormat(props.dateValue);
+    
+    const hasJournalEntry = journalEntry.includes(calendarDate);
     
     const day = {
         borderRight: `${props.day !== 6 ? '1px solid white' : ''}`
@@ -87,6 +94,11 @@ function CalendarDay(props){
         console.log(pullWorkoutNames)
     }
 
+    // Setup to open journal page
+    const viewJournalEntryHandler = () => {
+        console.log(calendarDate);
+    }
+
     return(
         <div className="my-calendar-calendar-day" style={day}>
             <div className="my-calendar-calendar-day-display-date" style={backgroundColor}>
@@ -97,6 +109,13 @@ function CalendarDay(props){
                 {currentDate === calendarDate ? <div style={currentDateTab}/> : <div style={currentDateTab}/>}
                 <div className="my-calendar-calendar-split" style={split} onClick={viewWorkoutsHandler}>
                     {props.split}
+                </div>
+                <div id="journal-entry-wrapper">
+                {hasJournalEntry ? 
+                    <button id="journal-entry-btn" onClick={viewJournalEntryHandler}>
+                        Journal Entry
+                    </button>
+                :''}
                 </div>
             </div>
             <WorkoutDetails 
