@@ -1,10 +1,10 @@
 import React from 'react';
 import { BsSearch } from "react-icons/bs";
 
-function Search() {
+function Search(props) {
     return (
         <div className="workouts-search-component">
-            <input/>
+            <input onChange={props.handleSearchChange}/>
             <button><BsSearch id="icon"/></button>
         </div>
     );
