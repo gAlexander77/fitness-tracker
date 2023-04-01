@@ -8,10 +8,13 @@
     color: white;
 }
 
+.nav-left {
+    margin-left: 1%;
+}
+
 .nav-logo-link {
     all: unset;
     cursor: pointer;
-    margin-left: 1%;
 }
 
 .nav-logo-link h1 {
@@ -20,6 +23,9 @@
 }
 
 .nav-right {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
     margin: auto;
     margin-right: 1%;
 }
@@ -31,8 +37,7 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    margin-right: 50px; //Made this addition while integrating
-
+    margin-right: 20px;
 }
 
 .nav-dashboard-link p {
@@ -51,7 +56,7 @@
     display: block;
     width: 30px;
     height: 20px;
-    position: absolute;
+    position: relative;
     cursor: pointer;
     right: 0;   
     top: 7%;
@@ -110,27 +115,27 @@
 }
 
 /* Background of menu options */
-.menu {
+.nav-menu {
     position: absolute;
-    top: 100px;
-    right: 0;
+    top: 80px;
+    right: 1%;
     background-color: #ccc;
     display: none;
     border-radius: 2pt;
     border: 1px solid black;
 }
 
-.menu.active {
+.nav-menu.active {
     display: block;
 }
 
-ul {
+.nav-menu > ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
 }
 
-li {
+.nav-menu li {
     padding: 10px;
     /* border-bottom: 1px solid black; */
 }
