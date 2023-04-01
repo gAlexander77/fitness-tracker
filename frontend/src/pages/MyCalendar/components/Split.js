@@ -48,7 +48,7 @@ function Split(props){
                     {selectedMenu === "current-split" ? <CurrentSplit data={data}/> : ''}
                     {selectedMenu === "create-a-split" ? <CreateASplit data={data}/> : ''}
                     {selectedMenu === "view-workout-groups" ? <ViewWorkoutGroups data={data}/> : ''}
-                    {selectedMenu === "create-a-workout-group" ? <CreateAWorkoutGroup data={data}/> : ''}
+                    {selectedMenu === "create-a-workout-group" ? <CreateAWorkoutGroup data={data} setCreateAWorkoutGroup={props.setCreateAWorkoutGroup}/> : ''}
                 </div>
             </div>
         </div>
@@ -252,10 +252,17 @@ function ViewWorkoutGroups(props) {
     );
 }
 
-function CreateAWorkoutGroup() {
+function CreateAWorkoutGroup(props) {
+
+    const activatePopupHandler = () => {
+        props.setCreateAWorkoutGroup(true);
+    }
+
     return(
         <div className="my-calendar-split-create-a-workout-group">
-            Create A Workout Group
+            <div>
+                <button onClick={activatePopupHandler}>Create A Workout Group</button>
+            </div>
         </div>
     );
 }

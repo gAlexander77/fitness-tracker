@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Nav from '../../components/Nav';
 import '../../styles/pages/Workout/Workout.css';
@@ -19,6 +19,13 @@ function Workout() {
     const data = workoutsData[index];
     console.log(workoutName);
 
+    const [diagramVisible, setDiagramVisible] = useState(true);
+    const handleDiagramError = () => {
+        setDiagramVisible(false);
+    };
+    
+    console.log(data.muscles);
+    
     return (
         <div className="workout-page">
             <Nav/>
@@ -26,10 +33,16 @@ function Workout() {
                 <h1 id="workout-name-title">{data.workoutName}</h1>
                 <p id="workout-description">{data.description}</p>
                 <div className="workout-info-container">
-                    <img id="diagram-image" src={data.diagram}/>
+                    {diagramVisible ? 
+                        <img 
+                            id="diagram-image" 
+                            onError={handleDiagramError} 
+                            src={data.diagram}
+                        />:''
+                    }
                     <div id="info-text">
-                        <p>Muscles: {data.muscles}</p>
-                        <p>Equipment: {data.equipment}</p>
+                        {data.muscles === undefined ? '' : <p>Muscles: {data.muscles}</p>}
+                        {data.equipment === undefined ? '' : <p>Equipment: {data.equipment}</p>}
                     </div>
                 </div>
                 <div className="workout-images-container">
@@ -39,7 +52,7 @@ function Workout() {
                         );
                     })}
                 </div>
-                <div className="workout-images-container">
+                {false ? <div className="workout-images-container">
                     {data.videos.map((video, index)=>{
                         return(
                             <video key={index} width="320" height="240" autoplay>
@@ -47,7 +60,7 @@ function Workout() {
                             </video>
                         );
                     })}
-                </div>
+                </div>:''}
             </div>  
         </div>
     );
