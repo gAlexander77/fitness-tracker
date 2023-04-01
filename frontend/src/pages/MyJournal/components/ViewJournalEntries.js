@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import ViewNotes from '../components/ViewNotes';
 import '../../../styles/pages/MyJournal/MyJournal.css';
 
 function ViewJournalEntries(props){
@@ -79,8 +80,15 @@ function Entry(props){
 
     return(
         <div className="my-journal-view-journal-entries-selected-entry-container">
-            <EntryMenu selectedOption={selectedOption} setSelectedOption={setSelectedOption}/>
-            <Display selectedOption={selectedOption}/>
+            <EntryMenu 
+                selectedOption={selectedOption} 
+                setSelectedOption={setSelectedOption}
+            />
+            <Display 
+                selectedOption={selectedOption} 
+                selectedEntry={props.selectedEntry} 
+                data={props.data}
+            />
             {props.selectedEntry}
         </div>
     );
@@ -128,7 +136,8 @@ function EntryMenu(props){
 function Display(props) {
     return(
         <div className="my-journal-view-journal-entries-selected-entry-display">
-            <p>{props.selectedOption}</p>
+            {props.selectedOption === "Notes" ? <ViewNotes selectedEntry={props.selectedEntry} journalData={props.data} /> : ''} 
+            {props.selectedEntry}
         </div>
     );
 }
