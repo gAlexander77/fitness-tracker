@@ -20,7 +20,7 @@ function ViewMacrosTracked(props) {
     console.log(macrosArray);
 
     return(
-        <div>
+        <div className="view-macros-tracked-component">
             {macrosArray.map((macro, index)=>{
                 return(
                     <IndividualMacroTracked
@@ -35,8 +35,8 @@ function ViewMacrosTracked(props) {
 
 function IndividualMacroTracked(props) {
     return(
-        <div>
-            <h1>{props.macro.type} {props.macro.amount}</h1>
+        <div className="view-macros-tracked-individual">
+            <p>{props.macro.type} {props.macro.amount}</p>
         </div>
     );
 }
