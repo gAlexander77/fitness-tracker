@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import ViewMacrosTracked from '../components/ViewMacrosTracked';
 import ViewPersonalRecords from '../components/ViewPersonalRecords';
 import ViewMeasurements from '../components/ViewMeasurements';
 import ViewCalculatorResults from '../components/ViewCalculatorResults';
@@ -139,6 +140,7 @@ function EntryMenu(props){
 function Display(props) {
     return(
         <div className="my-journal-view-journal-entries-selected-entry-display">
+            {props.selectedOption === "Macros Tracked" ? <ViewMacrosTracked selectedEntry={props.selectedEntry} journalData={props.data} /> : ''}   
             {props.selectedOption === "Personal Records" ? <ViewPersonalRecords selectedEntry={props.selectedEntry} journalData={props.data} /> : ''}   
             {props.selectedOption === "Measurements" ? <ViewMeasurements selectedEntry={props.selectedEntry} journalData={props.data} /> : ''}   
             {props.selectedOption === "Calculator Results" ? <ViewCalculatorResults selectedEntry={props.selectedEntry} journalData={props.data} /> : ''} 
