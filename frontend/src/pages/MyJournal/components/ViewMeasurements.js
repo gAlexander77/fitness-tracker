@@ -20,7 +20,7 @@ function ViewMeasurements(props) {
     console.log(measurementsArray);
 
     return(
-        <div>
+        <div className="view-measurements-component">
             {measurementsArray.map((measurement, index)=>{
                 return(
                     <IndividualMeasurement
@@ -37,7 +37,7 @@ function ViewMeasurements(props) {
 function IndividualMeasurement(props) {
     console.log(props.measurement)
     return(
-        <div>
+        <div className="view-measurements-individual">
             <p>{props.type}: {props.measurement}</p>
         </div>
     );
