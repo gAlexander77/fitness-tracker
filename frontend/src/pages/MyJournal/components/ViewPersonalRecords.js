@@ -20,7 +20,7 @@ function ViewPersonalRecords(props) {
     console.log(personalRecordsArray);
 
     return(
-        <div>
+        <div className="view-person-records-component">
             {personalRecordsArray.map((record, index)=>{
                 return(
                     <IndividualPersonalRecord
@@ -35,8 +35,8 @@ function ViewPersonalRecords(props) {
 
 function IndividualPersonalRecord(props) {
     return(
-        <div>
-            <h1>{props.record.workout} {props.record.weight} {props.record.weightUnit} for {props.record.reps} reps</h1>
+        <div className="view-personal-records-individual">
+            <p>{props.record.workout} {props.record.weight} {props.record.weightUnit} for {props.record.reps} reps</p>
         </div>
     );
 }
