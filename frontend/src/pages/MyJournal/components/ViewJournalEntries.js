@@ -93,7 +93,6 @@ function Entry(props){
                 selectedEntry={props.selectedEntry} 
                 data={props.data}
             />
-            {props.selectedEntry}
         </div>
     );
 }
@@ -145,7 +144,6 @@ function Display(props) {
             {props.selectedOption === "Measurements" ? <ViewMeasurements selectedEntry={props.selectedEntry} journalData={props.data} /> : ''}   
             {props.selectedOption === "Calculator Results" ? <ViewCalculatorResults selectedEntry={props.selectedEntry} journalData={props.data} /> : ''} 
             {props.selectedOption === "Notes" ? <ViewNotes selectedEntry={props.selectedEntry} journalData={props.data} /> : ''}             
-            {props.selectedEntry }
         </div>
     );
 }
