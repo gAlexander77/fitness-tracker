@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { BsXLg } from 'react-icons/bs';
 import '../../../styles/pages/MyJournal/components/ViewNotes.css';
 
 function ViewNotes(props) {
@@ -23,7 +24,7 @@ function ViewNotes(props) {
     console.log(notesArray);
 
     return(
-        <div>
+        <div className="view-notes-component">
             {notesArray.map((note, index)=>{
                 return(
                     <IndividualNote
@@ -62,10 +63,17 @@ function IndividualNote(props) {
 }
 
 function NotePopup(props) {
+    
+    const exitPopupHandler = () => {
+        props.setTigger(false);
+    }
+
     return(props.trigger)?(
-        <div id="outer">
-            <div id="inner">
-                <div id="exit-btn" />
+        <div className="view-note-note-popup-outer" id="outer">
+            <div className="view-note-note-popup-inner" id="inner">
+                <button id="exit-btn" onClick={exitPopupHandler}>
+                    <BsXLg/>
+                </button>
                 <h1>{props.noteTitle}</h1>
                 <p>{props.noteContent}</p>
             </div>
