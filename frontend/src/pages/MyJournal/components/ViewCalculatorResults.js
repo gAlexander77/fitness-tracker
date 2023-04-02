@@ -20,7 +20,7 @@ function ViewCalculatorResults(props) {
     console.log(calculatorsArray);
 
     return(
-        <div>
+        <div className="view-calculator-results-component">
             {calculatorsArray.map((calculator, index)=>{
                 return(
                     <IndividualCalculatorResult
@@ -37,7 +37,7 @@ function ViewCalculatorResults(props) {
 
 function IndividualCalculatorResult(props) {
     return(
-        <div>
+        <div className="view-calculator-results-individual">
             <h1>{props.calculatorTitle}</h1>
             <p>{props.calculatorResult}</p>
         </div>
