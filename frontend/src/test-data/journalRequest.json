@@ -3,10 +3,10 @@
     "journalEntries": [
         {
             "journalEntry": "3-5-2023",
-            "mesurments": [
+            "measurements": [
                 {
                     "type": "body weight",
-                    "mesurment": "150 lbs"
+                    "measurement": "150 lbs"
                 }
             ],
             "personalRecords": [
@@ -19,7 +19,7 @@
             ],
             "calculatorResults": [
                 {
-                    "calculator": "bmi",
+                    "calculator": "Body Mass Index",
                     "result": "22.5"
                 }
             ],
@@ -33,15 +33,19 @@
                 {
                     "title": "Note 1",
                     "note": "This is a note."
+                },
+                {
+                    "title": "Note 2",
+                    "note": "This is a note."
                 }
             ]
         },
         {
             "journalEntry": "3-6-2023",
-            "mesurments": [
+            "measurements": [
                 {
                     "type": "body weight",
-                    "mesurment": "150 lbs"
+                    "measurement": "150 lbs"
                 }
             ],
             "personalRecords": [
@@ -73,10 +77,10 @@
         },
         {
             "journalEntry": "3-7-2023",
-            "mesurments": [
+            "measurements": [
                 {
                     "type": "body weight",
-                    "mesurment": "150 lbs"
+                    "measurement": "150 lbs"
                 }
             ],
             "personalRecords": [
