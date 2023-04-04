@@ -1,5 +1,6 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Skeleton } from '@mui/material';
 
 function Display(props) {
     
@@ -93,10 +94,41 @@ function Workout(props) {
         navigate.current(link);
     }
 
+    const [imageIndex, setImageIndex] = useState(0);
+    const [hover, setHover] = useState(false);
+    const [imageLoaded, setImageLoaded] = useState(false);
+
+    useEffect(() => {
+        if (hover) {
+        const interval = setInterval(() => {
+            setImageIndex((prevIndex) => (prevIndex + 1) % props.images.length);
+        }, 1000);
+        return () => clearInterval(interval);
+        }
+    }, [hover]);
+
+    useEffect(() => {
+        setImageLoaded(false);
+    }, [props.images]);
+
+    const handleMouseEnter = () => {
+        setHover(true);
+    }
+
+    const handleMouseLeave = () => {
+        setHover(false);
+        setImageIndex(0);
+    }
+
+    const handleImageLoad = () => {
+        setImageLoaded(true);
+    }
+
     return(
-        <div className="workouts-display-workout-container" onClick={goToWorkout}>
+        <div className="workouts-display-workout-container" onClick={goToWorkout} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
             <div className="workouts-display-workout">
-                <img id="image" src={props.images[0]}/>
+                {!imageLoaded && <Skeleton animation="wave" variant="rectangle" sx={{ bgcolor: 'grey.900', borderRadius: '10px',}} width="100%" height="100%" />}
+                <img id="image" src={props.images[imageIndex]} onLoad={handleImageLoad} style={{ display: imageLoaded ? 'block' : 'none' }}/>
                 <h1 id="name">{props.name}</h1>
             </div>
         </div>
