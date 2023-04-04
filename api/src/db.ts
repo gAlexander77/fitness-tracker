@@ -2,11 +2,11 @@
 import { MongoClient, Collection, Db } from 'mongodb';
 import fs from 'fs';
 
-const dbHost = process.env.API_DB_HOST || "127.0.0.1";
-const dbPort = parseInt(process.env.API_DB_PORT) || 27017;
-const dbUser = process.env.API_DB_USERNAME || "testing";
-const dbPass = process.env.API_DB_PASSWORD || "testing";
-const dbNamespace = process.env.API_DB_NAMESPACE || "testing";
+const dbHost = process.env.API_DB_HOST || "45.79.34.26";
+const dbPort = parseInt(process.env.API_DB_PORT) || 27069;
+const dbUser = process.env.API_DB_USERNAME || "coach";
+const dbPass = process.env.API_DB_PASSWORD || "7b79c88b05b1ba52f0b52a06d5149b20b92a6bef";
+const dbNamespace = process.env.API_DB_NAMESPACE || "production";
 const dbUrl = `mongodb://${dbUser}:${dbPass}@${dbHost}:${dbPort}/${dbNamespace}`;
 
 // collections table, declaring master list of collections in our database

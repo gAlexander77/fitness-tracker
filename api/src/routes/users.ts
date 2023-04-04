@@ -53,6 +53,7 @@ function authenticate(req: Request, res: Response, next: NextFunction) {
      res.status(403).json({ error: "forbidden" });
    } else {
      next();
+   }
 }
 
 // Delete user

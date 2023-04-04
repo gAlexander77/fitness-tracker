@@ -6,17 +6,19 @@
             "bsonType": "string"
         },
         "muscle": {
-            "bsonType": "array"
+            "bsonType": "string"
         },
         "diagram": {
-            "type": "string"
+            "bsonType": "string"
         },
         "description": {
-            "type": "string"
+            "bsonType": "string"
         },
-        "tutorialVideo": {
-            "type": "string"
-        }
-    },
-    "required": ["workoutName", "muscle", "diagram", "description", "tutorialVideo"]
+		"images": {
+			"bsonType": "array"
+		},
+		"videos": {
+			"bsonType": "array"
+		}
+    }
 }}
