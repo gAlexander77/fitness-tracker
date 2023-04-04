@@ -3,9 +3,21 @@ import { useParams } from 'react-router-dom';
 import Nav from '../../components/Nav';
 import '../../styles/pages/Workout/Workout.css';
 
-import workoutsData from '../../test-data/workoutsRequest.json';
+import workoutsDataRequest from '../../test-data/workoutsRequest.json';
 
 function Workout() {
+    
+    let workoutsData = [];
+    if(localStorage.getItem("workoutData")){
+        workoutsData = JSON.parse(localStorage.getItem("workoutData"));
+        console.log("Got localSorage Data")
+    }
+    else {
+        workoutsData = workoutsDataRequest;
+        localStorage.setItem("workoutData", JSON.stringify(workoutsData));
+        console.log("Set Request Data")
+    }
+    
     const { name } = useParams();
 
     const workoutName = name.replace(/-/g, " ");
