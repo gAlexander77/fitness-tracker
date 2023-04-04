@@ -7,16 +7,8 @@ import '../../styles/pages/Workouts/Workouts.css';
 import workoutData from '../../test-data/workoutsRequest.json';
 
 function Workouts(){
-    let data = [];
-    if(localStorage.getItem("workoutData")){
-        data = JSON.parse(localStorage.getItem("workoutData"));
-        console.log("Got localSorage Data")
-    }
-    else {
-        data = workoutData;
-        localStorage.setItem("workoutData", JSON.stringify(data));
-        console.log("Set Request Data")
-    }
+    
+    const data = workoutData;
 
     const [currentPage, setCurrentPage] = useState(1);
 

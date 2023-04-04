@@ -7,17 +7,7 @@ import workoutData from '../../../test-data/workoutsRequest.json';
 
 function CreateAWorkoutGroup(props){
 
-    let data = [];
-    if(localStorage.getItem("workoutData")){
-        data = JSON.parse(localStorage.getItem("workoutData"));
-        console.log("Got localSorage Data")
-    }
-    else {
-        data = workoutData;
-        localStorage.setItem("workoutData", JSON.stringify(data));
-        console.log("Set Request Data")
-    }
-    
+    const data = workoutData;
     console.log(data);
 
     const [searchQuery, setSearchQuery] = useState("");
