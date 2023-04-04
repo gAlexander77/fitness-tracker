@@ -1,4 +1,4 @@
-import { Router, Request, Response } from 'express';
+import { Router, Request, Response, NextFunction } from 'express';
 import { scrypt, randomBytes } from 'crypto';
 import { ObjectId } from 'mongodb';
 
@@ -16,7 +16,7 @@ users.get("/", async (_req: Request, res: Response) => {
         res.status(200).json(await collections.users.find({}, usersFilter).toArray());
     } catch (error) {
         log.error(error);
-        res.status(500).json("internal server error");
+        res.status(500).json({ error: "internal server error" });
     }
 });
 
@@ -25,9 +25,9 @@ users.get("/:id", async (req: Request, res: Response) => {
         const user = await collections.users.findOne({ _id: new ObjectId(req.params.id) }, usersFilter);
         user 
             ? res.status(200).json(user)
-            : res.status(404).json("not found");
+            : res.status(404).json({ error: "not found" });
     } catch (error) {
-        res.status(400).json("bad request");
+        res.status(400).json({ error: "bad request" });
     }
 });
 
@@ -38,11 +38,35 @@ users.post("/create", async (req: Request, res: Response) => {
             const user = new User(req.body.username, buffer.toString("hex"), salt);
             await collections.users.insertOne(user)
                 ? res.status(200).json("ok")
-                : res.status(500).json("internal server error");
+                : res.status(500).json({ error: "internal server error" });
         });
     } catch (error) {
-        res.status(400).json("bad request");
+        res.status(400).json({ error: "bad request" });
     }
+});
+
+// Authenticate user so users cannot delete others
+function authenticate(req: Request, res: Response, next: NextFunction) {
+  const currentUserId = new ObjectId(req.session._id);
+  const userIdToDelete = new ObjectId(req.params.id);
+  if (!currentUserId.equals(userIdToDelete)) {
+     res.status(403).json({ error: "forbidden" });
+   } else {
+     next();
+}
+
+// Delete user
+users.delete("/:id", authenticate, async (req: Request, res: Response) => {
+  try {
+    const deleteResult = await collections.users.deleteOne({ _id: new ObjectId(req.params.id) });
+    if (deleteResult.deletedCount === 0) {
+      res.status(404).json({ error: "not found" });
+    } else {
+      res.status(200).json("ok");
+    }
+  } catch (error) {
+    res.status(500).json({ error: "internal server error" });
+  }
 });
 
 export default users;
