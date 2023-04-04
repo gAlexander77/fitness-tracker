@@ -61,7 +61,6 @@
 .workouts-display-workout {
     width: 250px;
     height: 170px;
-    background-color: #2B2B2B;
     border-radius: 10px;
     max-width: 90vw;
     display: flex;
@@ -72,15 +71,20 @@
 }
 
 .workouts-display-workout:hover {
-    color: #2DEDF3;
+    text-shadow: 0 0 2px rgba(255, 255, 255, 0.5), 0 0 20px rgba(255, 255, 255, 0.4), 0 0 30px rgba(255, 255, 255, 0.3);
 }
 
 .workouts-display-workout #image {
     border-radius: 10px;
     border: solid 1px #2B2B2B;
-    width: 90%;
-    height: 70%;
+    width: 240px;
+    height: 135px;
     object-fit: cover;
+}
+
+.fade {
+    opacity: 0;
+    transition: opacity 0.5s;
 }
 
 .workouts-display-workout #name {
@@ -126,15 +130,30 @@
 }
   
 .workouts-display-pagination {
-    color: white;
+    border-radius: 10px;
+    background-color: #2B2B2B;
+    margin-top: 5px;
+    margin-bottom: 100px;
 }
 
 .workouts-display-pagination button{
     all: unset;
-    margin: 10px;
+    margin: 0px;
     cursor: pointer;
+    padding: 10px;
+
 }
 
-#active {
-    color: red;
+.workouts-display-pagination span{
+    all: unset;
+    margin: 0px;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 4px;
+}
+
+.workouts-display-pagination #active {
+    color: white;
+    border: 1px solid #414141;
+    border-radius: 10px;
 }
