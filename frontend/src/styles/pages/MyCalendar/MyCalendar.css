@@ -342,3 +342,24 @@
 .my-calendar-calendar-workout-details-inner button:hover {
     color: #fff;
 }
+
+.my-calendar-split-create-a-workout-group {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.my-calendar-split-create-a-workout-group > button{
+    all: unset;
+    background-color: #414141;
+    padding: 20px 20px;
+    border-radius: 10px;
+}
+
+.my-calendar-split-create-a-workout-group > button:hover {
+    background-color: #2DEDF3;
+    color: black;
+    cursor: pointer;
+}

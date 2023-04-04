@@ -1,6 +1,6 @@
 import React, { useState} from 'react';
 import { Link } from 'react-router-dom';
-import { BsXLg } from 'react-icons/bs';
+import { BsXLg, BsPlusLg, BsDashLg, BsFillEyeFill, BsSearch } from 'react-icons/bs';
 import '../../../styles/pages/MyCalendar/Components/CreateAWorkoutGroup.css';
 
 import workoutData from '../../../test-data/workoutsRequest.json';
@@ -91,16 +91,18 @@ function IndividualSelectedWorkout(props){
     return(
         <div className="my-calendar-create-a-workout-group-selected-workouts-individual-workout">
             <p id="workout-name">{props.workout.workoutName}</p>
-            <button onClick={removeWorkout}>-</button>
+            <button onClick={removeWorkout}>
+                <BsDashLg id="icon"/>
+            </button>
         </div>
     );
 }
 
 function SearchWorkouts(props){
     return(
-        <div id="workout-search">
+        <div className="create-a-workout-search-workout-container" id="workout-search">
             <input onChange={props.handleSearchChange}/>
-            <p>Search Icon</p>
+            <BsSearch id="icon"/>
         </div>
     );
 }
@@ -136,16 +138,21 @@ function IndividualSearchedWorkout(props){
             <p id="workout-name">
                 {props.workout.workoutName}
             </p>
-            <div>
+            <div className="individual-searched-workout-right-container">
                 <Link
                     to={workoutUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     style={{ textDecoration: 'none' }}
                 >
-                    <button id="view-btn">View</button>
+                    <button id="view-btn">
+                        <BsFillEyeFill id="icon"/>
+                        <p>View</p>
+                    </button>
                 </Link>
-                <button id="add-btn" onClick={addWorkout}>+</button>
+                <button id="add-btn" onClick={addWorkout}>
+                    <BsPlusLg id="icon"/>
+                </button>
             </div>
         </div>
     );

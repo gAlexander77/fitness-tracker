@@ -260,9 +260,7 @@ function CreateAWorkoutGroup(props) {
 
     return(
         <div className="my-calendar-split-create-a-workout-group">
-            <div>
-                <button onClick={activatePopupHandler}>Create A Workout Group</button>
-            </div>
+            <button onClick={activatePopupHandler}>Create A Workout Group</button>
         </div>
     );
 }
