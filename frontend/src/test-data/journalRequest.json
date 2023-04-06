@@ -3,10 +3,10 @@
     "journalEntries": [
         {
             "journalEntry": "3-5-2023",
-            "mesurments": [
+            "measurements": [
                 {
                     "type": "body weight",
-                    "mesurment": "150 lbs"
+                    "measurement": "150 lbs"
                 }
             ],
             "personalRecords": [
@@ -15,38 +15,56 @@
                     "weight": 225,
                     "weightUnit": "lbs",
                     "reps": "5"
+                },
+                {
+                    "workout": "legs press",
+                    "weight": 315,
+                    "weightUnit": "lbs",
+                    "reps": "5"
                 }
             ],
             "calculatorResults": [
                 {
-                    "calculator": "bmi",
+                    "calculator": "Body Mass Index",
                     "result": "22.5"
                 }
             ],
             "macros": [
                 {
                     "type": "calories",
-                    "amount": 500
+                    "amount": 1500
+                },
+                {
+                    "type": "protein",
+                    "amount": "140 grams"
+                },
+                {
+                    "type": "surgar",
+                    "amount": "20 grams"
                 }
             ],
             "notes": [
                 {
                     "title": "Note 1",
                     "note": "This is a note."
+                },
+                {
+                    "title": "Note 2",
+                    "note": "This is a note."
                 }
             ]
         },
         {
             "journalEntry": "3-6-2023",
-            "mesurments": [
+            "measurements": [
                 {
                     "type": "body weight",
-                    "mesurment": "150 lbs"
+                    "measurement": "150 lbs"
                 }
             ],
             "personalRecords": [
                 {
-                    "workout": "bench press",
+                    "workout": "Bench Press",
                     "weight": 225,
                     "weightUnit": "lbs",
                     "reps": "5"
@@ -54,14 +72,38 @@
             ],
             "calculatorResults": [
                 {
-                    "calculator": "bmi",
+                    "calculator": "Body Mass Index",
                     "result": "22.5"
+                },
+                {
+                    "calculator": "Basal Metabolic Rate",
+                    "result": "200"
+                },
+                {
+                    "calculator": "Body Fat Percentage",
+                    "result": "200"
+                },
+                {
+                    "calculator": "Protien Intake",
+                    "result": "150 grams"
                 }
             ],
             "macros": [
                 {
                     "type": "calories",
-                    "amount": 500
+                    "amount": 2200
+                },
+                {
+                    "type": "carbs",
+                    "amount": "20 grams"
+                },
+                {
+                    "type": "fat",
+                    "amount": "5 grams"
+                },
+                {
+                    "type": "protein",
+                    "amount": "170 grams"
                 }
             ],
             "notes": [
@@ -73,10 +115,10 @@
         },
         {
             "journalEntry": "3-7-2023",
-            "mesurments": [
+            "measurements": [
                 {
                     "type": "body weight",
-                    "mesurment": "150 lbs"
+                    "measurement": "153 lbs"
                 }
             ],
             "personalRecords": [
@@ -89,8 +131,12 @@
             ],
             "calculatorResults": [
                 {
-                    "calculator": "bmi",
+                    "calculator": "Body Mass Index",
                     "result": "22.5"
+                },
+                {
+                    "calculator": "Body Fat Percentage",
+                    "result": "18%"
                 }
             ],
             "macros": [

@@ -1,4 +1,9 @@
 import React, { useState } from 'react';
+import ViewMacrosTracked from '../components/ViewMacrosTracked';
+import ViewPersonalRecords from '../components/ViewPersonalRecords';
+import ViewMeasurements from '../components/ViewMeasurements';
+import ViewCalculatorResults from '../components/ViewCalculatorResults';
+import ViewNotes from '../components/ViewNotes';
 import '../../../styles/pages/MyJournal/MyJournal.css';
 
 function ViewJournalEntries(props){
@@ -79,16 +84,22 @@ function Entry(props){
 
     return(
         <div className="my-journal-view-journal-entries-selected-entry-container">
-            <EntryMenu selectedOption={selectedOption} setSelectedOption={setSelectedOption}/>
-            <Display selectedOption={selectedOption}/>
-            {props.selectedEntry}
+            <EntryMenu 
+                selectedOption={selectedOption} 
+                setSelectedOption={setSelectedOption}
+            />
+            <Display 
+                selectedOption={selectedOption} 
+                selectedEntry={props.selectedEntry} 
+                data={props.data}
+            />
         </div>
     );
 }
 
 function EntryMenu(props){
     
-    const menuOptions = ["Macros Tracked","Personal Records","Mesuments","Calculator Results", "Notes"];
+    const menuOptions = ["Macros Tracked","Personal Records","Measurements","Calculator Results", "Notes"];
     
     const EntryMenuOption = (props) => {
             
@@ -128,7 +139,11 @@ function EntryMenu(props){
 function Display(props) {
     return(
         <div className="my-journal-view-journal-entries-selected-entry-display">
-            <p>{props.selectedOption}</p>
+            {props.selectedOption === "Macros Tracked" ? <ViewMacrosTracked selectedEntry={props.selectedEntry} journalData={props.data} /> : ''}   
+            {props.selectedOption === "Personal Records" ? <ViewPersonalRecords selectedEntry={props.selectedEntry} journalData={props.data} /> : ''}   
+            {props.selectedOption === "Measurements" ? <ViewMeasurements selectedEntry={props.selectedEntry} journalData={props.data} /> : ''}   
+            {props.selectedOption === "Calculator Results" ? <ViewCalculatorResults selectedEntry={props.selectedEntry} journalData={props.data} /> : ''} 
+            {props.selectedOption === "Notes" ? <ViewNotes selectedEntry={props.selectedEntry} journalData={props.data} /> : ''}             
         </div>
     );
 }

@@ -1,0 +1,72 @@
+.view-notes-component {
+    display: flex;
+    flex-direction: column;
+    height: 90%;
+    width: 90%;
+    padding: 10px;
+}
+
+.view-notes-component > button {
+    all: unset;
+    width: 100%;
+    text-align: center;
+    color: #ffffff5b;
+    border: 1px solid #ffffff5b;
+    border-radius: 10px;
+    padding: 3px 0px;
+    cursor: pointer;
+    margin-bottom: 5px;
+}
+
+.view-notes-component > button:hover {
+    color: #ffffff;
+    border: 1px solid #ffffff;
+}
+
+.view-note-note-popup-outer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-height: 100vh;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.view-note-note-popup-inner {
+    background-color: #1B1B1B;
+    border-radius: 10px;
+    width: 400px;
+    height: 300px;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    position: relative;
+}
+
+.view-note-note-popup-inner > #exit-btn {
+    all: unset;
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    color: white;
+    cursor: pointer;
+}
+
+.view-note-note-popup-inner > h1 {
+    margin-top: 50px;
+    max-width: 80%;
+    font-size: 34px;
+}
+
+.view-note-note-popup-inner > p {
+    max-width: 80%;
+    margin-bottom: 50px;
+    font-size: 18px;
+}

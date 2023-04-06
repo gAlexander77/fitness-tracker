@@ -20,7 +20,7 @@ function TodaysEntry(){
 
 function TodaysEntryMenu(props){
     
-    const menuOptions = ["Macros Tracked","Personal Records","Mesuments","Calculator Results", "Notes"];
+    const menuOptions = ["Macros Tracked","Personal Records","Measurements","Calculator Results", "Notes"];
     
     const TodaysEntryMenuOption = (props) => {
             

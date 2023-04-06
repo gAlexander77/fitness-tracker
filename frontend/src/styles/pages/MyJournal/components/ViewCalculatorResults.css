@@ -1,0 +1,26 @@
+.view-calculator-results-component{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 10px;
+    width: 90%;
+}
+
+.view-calculator-results-individual {
+    width: 100%;
+    height: 100px;
+    background-color: #414141;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.view-calculator-results-individual:hover {
+    cursor: pointer;
+}
+
+.view-calculator-results-individual > h1{
+    font-size: 20px;
+}
