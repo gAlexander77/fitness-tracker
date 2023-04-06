@@ -4,7 +4,7 @@ import '../../styles/pages/UserDashboard/UserDashboard.css';
 
 function UserDashboard(){
 
-    const [selection, setSelection] = useState("dashboard-overview")
+    const [selection, setSelection] = useState("overview")
 
     return(
         <div className="user-dashboard-page">
