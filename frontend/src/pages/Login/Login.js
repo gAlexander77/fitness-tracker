@@ -1,11 +1,16 @@
 import React, { useState, useRef } from 'react';
 import { useNavigate } from "react-router-dom";
 import { CustomTextField1 as TextField } from '../../custom-mui-components/TextField';
-import { BsArrowLeft } from "react-icons/bs";
+import { BsArrowLeft, BsFileBreakFill } from "react-icons/bs";
+import { apiPath } from '../../config'; 
+import axios from 'axios';
 import '../../styles/pages/Login/Login.css';
+
+const errorStyle = {color: "red", margin: "10px 0"};
 
 function Login(){
 
+    const [errorInfo, setErrorInfo] = useState({style: {}, text: ''});
     let navigate = useRef(useNavigate());
     
     const goToHome = () => {
@@ -26,11 +31,17 @@ function Login(){
             ...input,
             [evt.target.id]: evt.target.value
         });
-        console.log(input);
     };
 
     const loginHandler = () => {
-        console.log(input);
+        axios.post(apiPath("/sign-in"), input, {withCredentals: true})
+            .then(_res => goToHome())
+            .catch(error => {
+                const errorMessage = error.response.status === 401 
+                    ? "Invalid username or password" 
+                    : error.message;    
+                setErrorInfo({style: errorStyle, text: errorMessage});
+            });
     };
 
     return(
@@ -59,6 +70,7 @@ function Login(){
                         margin="dense"
                     />
                 </div>
+                <p style={errorInfo.style}>{errorInfo.text}</p>
                 <button className="login-login-btn" onClick={loginHandler}>
                     Login
                 </button>
