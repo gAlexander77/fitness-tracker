@@ -25,7 +25,7 @@ export const initApp = (routes: Array<Route>) => {
 	routes.forEach(({path, router}) => api.use(path, router));
 
 	app.use(cors({
-		origin: "http://localhost:3000", // change this to frontend url
+		origin: "http://localhost:3000",
 		credentials: true
 	}));
 	app.use(session({ // set up sessions for user authentication
