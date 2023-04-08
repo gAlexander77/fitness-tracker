@@ -37,7 +37,7 @@ function Calendar(props){
                                 day={date.day}
                                 date={date.month+" "+date.date}
                                 dayOfWeek={date.dayOfWeek}
-                                split= {data.workoutSplit[date.day]}
+                                split= {data.workoutSplit?.at(date.day)}
                                 dateValue = {date.dateValue}
                                 data={data.workoutGroups}
                                 journalData={journalData.journalEntries}
@@ -66,8 +66,8 @@ function CalendarDay(props){
     }
     
     const split = {
-        backgroundColor: `${props.split.toLowerCase() === "rest" ? '#414141' : '#2DEDF3'}`,
-        color: `${props.split.toLowerCase() === "rest" ? 'white' : 'black'}`
+        backgroundColor: `${props.split?.toLowerCase() === "rest" ? '#414141' : '#2DEDF3'}`,
+        color: `${props.split?.toLowerCase() === "rest" ? 'white' : 'black'}`
     }
     
     const backgroundColor = {
@@ -81,9 +81,9 @@ function CalendarDay(props){
     }
 
     // Filter workouts by the groupName    
-    const pullWorkouts = props.data.filter(group => group.groupName === props.split);
-    const pullWorkoutNames = pullWorkouts.flatMap(group => {
-        return group.workouts.map(workout => workout.workoutName);
+    const pullWorkouts = props.data?.filter(group => group.groupName === props.split);
+    const pullWorkoutNames = pullWorkouts?.flatMap(group => {
+        return group.workouts?.map(workout => workout.workoutName);
     });
 
     const viewWorkoutsHandler = () => {

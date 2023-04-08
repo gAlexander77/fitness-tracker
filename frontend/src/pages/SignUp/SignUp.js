@@ -2,10 +2,15 @@ import React, { useState, useRef } from 'react';
 import { useNavigate } from "react-router-dom";
 import { CustomTextField1 as TextField } from '../../custom-mui-components/TextField';
 import { BsArrowLeft } from "react-icons/bs";
+import { apiPath } from '../../config';
+import axios from 'axios';
 import '../../styles/pages/SignUp/SignUp.css';
+
+const errorStyle = {color: "#cc5500", margin: "10px 0"};
 
 function SignUp(){
     
+	const [errorInfo, setErrorInfo] = useState({style: {}, text: ''});
     let navigate = useRef(useNavigate());
     
     const goToHome = () => {
@@ -31,8 +36,24 @@ function SignUp(){
     };
     
     const signUpHandler = () => {
-        console.log(input);
-    };
+
+		if (input.password !== input.verifyPassword) {
+			setErrorInfo({style: errorStyle, text: "Passwords do not match"});
+			return;
+		}
+
+		axios.post(apiPath("/users/create"), input, {withCredentials: true})
+			.then(_res => {
+				axios.post(apiPath("/sign-in"), input, {withCredentials: true})
+					.finally(() => goToHome());
+			})
+			.catch(error => {
+				if (error.response?.status === 400)
+					setErrorInfo({style: errorStyle, text: "User with that name already exists"})
+				else
+					setErrorInfo({style: errorStyle, text: error.message})
+			});
+	};
 
     return(
         <div className="sign-up-page">
@@ -68,6 +89,7 @@ function SignUp(){
                         margin="dense"
                     />    
                 </div>
+				<p style={errorInfo.style}>{errorInfo.text}</p>
                 <button className="sign-up-sign-up-btn" onClick={signUpHandler}>
                     Sign Up
                 </button>

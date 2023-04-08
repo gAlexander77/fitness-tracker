@@ -16,14 +16,15 @@ function WorkoutCalendar(){
     
     useEffect(() => {
         if (calendarRequestData.length === 0) {
-            setTimeout(() => {
-                axios.get(apiPath("/"), {withCredentials: true})
-                    .then(res => setCalendarRequestData(res.data))
-                    .catch(error => {
-                        setCalendarRequestData([]);
-                        console.log(error);
-                    });
-            }, 1000);
+			axios.get(apiPath("/"), {withCredentials: true})
+				.then(res => {
+					console.log(res.data);
+					setCalendarRequestData(res.data);
+				})
+				.catch(error => {
+					setCalendarRequestData([]);
+					console.log(error);
+				});
         }
     }, [calendarRequestData]);
     

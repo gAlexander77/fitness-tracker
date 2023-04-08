@@ -6,7 +6,7 @@ import { apiPath } from '../../config';
 import axios from 'axios';
 import '../../styles/pages/Login/Login.css';
 
-const errorStyle = {color: "red", margin: "10px 0"};
+const errorStyle = {color: "#cc5500", margin: "10px 0"};
 
 function Login(){
 
@@ -34,10 +34,10 @@ function Login(){
     };
 
     const loginHandler = () => {
-        axios.post(apiPath("/sign-in"), input, {withCredentals: true})
+        axios.post(apiPath("/sign-in"), input, {withCredentials: true})
             .then(_res => goToHome())
             .catch(error => {
-                const errorMessage = error.response.status === 401 
+                const errorMessage = error.response?.status === 401 
                     ? "Invalid username or password" 
                     : error.message;    
                 setErrorInfo({style: errorStyle, text: errorMessage});

@@ -63,8 +63,8 @@ function CurrentSplit(props){
     const Day = (props) => {
 
         const style = {
-            backgroundColor: `${props.workoutGroup.toLowerCase() === "rest" ? '#414141' : '#2DEDF3'}`,
-            color: `${props.workoutGroup.toLowerCase() === "rest" ? 'white' : 'black'}`
+            backgroundColor: `${props.workoutGroup?.toLowerCase() === "rest" ? '#414141' : '#2DEDF3'}`,
+            color: `${props.workoutGroup?.toLowerCase() === "rest" ? 'white' : 'black'}`
         }
 
         return(
@@ -77,7 +77,7 @@ function CurrentSplit(props){
     
     return (
         <div className="my-calendar-split-current-split-container">
-            {split.map((workoutGroup, index)=>{
+            {split?.map((workoutGroup, index)=>{
                 return(
                     <Day
                         key={index}
