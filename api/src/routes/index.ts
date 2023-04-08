@@ -34,7 +34,6 @@ index.get("/", auth, async (req: Request, res: Response) => {
 });
 
 index.post("/sign-in", async (req: Request, res: Response) => {
-	console.log(req.method, req.body);
     try {
         const user = await collections.users.findOne({username: req.body.username});
         user ? scrypt(req.body.password, user.salt, 64, (_error: Error, buffer: Buffer) => {

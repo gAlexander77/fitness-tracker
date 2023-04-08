@@ -55,7 +55,7 @@ if __name__ == "__main__":
     if args.post:
         response = session.post(args.url, data=parse_params(args.data))
     elif args.json:
-        response = session.post(args.url, json=parse_params(args.json))
+        response = session.post(args.url, json=json.loads(args.json))
     elif args.delete:
         response = session.delete(args.url)
     else:

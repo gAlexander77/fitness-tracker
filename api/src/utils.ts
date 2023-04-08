@@ -23,7 +23,7 @@ export const httpLog = async (req: Request, res: Response, next: NextFunction) =
 };
 
 export const auth = async (req: Request, res: Response, next: NextFunction) => {
-    req.session._id === undefined
+	req.session._id === undefined
         ? res.status(401).json("unauthorized")
         : next();
 };

@@ -32,7 +32,7 @@ export const initApp = (routes: Array<Route>) => {
 		secret: "fitness",
 		resave: false,
 		saveUninitialized: true,
-		cookie: {} // in release this should be { secure = true }
+		cookie: { httpOnly: false, path: null } // in release this should be { secure = true }
 	}));
 	
 	app.use(express.json()); // JSON API

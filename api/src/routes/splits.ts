@@ -20,7 +20,7 @@ splits.post("/", async (req: Request, res: Response) => { // /update instead of 
         ].map(id => new ObjectId(id));
 
         // we need to retrieve the users' splits. Create a workoutGroup
-        const weeklySplit = new Array<string>(req.body.groupName);
+        const weeklySplit = req.body.weeklySplit as Array<string>;
 
         const workoutGroups = await userWorkoutGroups(uid);
         const databaseWOGroups = workoutGroups.find((workoutGroup: WorkoutGroup) => workoutGroup._id.equals(gid));
@@ -29,17 +29,23 @@ splits.post("/", async (req: Request, res: Response) => { // /update instead of 
 
             weeklySplit.forEach((dailySplitGroupName : String) =>  {
             // we just need to validate that each entry is a valid group name
-                if(dailySplitGroupName !== databaseWOGroups.groupName){ 
+                if(dailySplitGroupName.toLowerCase() === "rest")
+					return;
+				if(dailySplitGroupName !== databaseWOGroups?.groupName){ 
                     throw new Error("Invalid Group Exercise Name")
                 }
         	});
-            
+
+			await collections.users.updateOne({ _id: uid }, { $set: { workoutSplit: weeklySplit }})
+				? res.status(200).json({ ok: "set the weekly workout split" })
+				: res.status(500).json({ error: "internal server error" });
+
         } else {
         	throw new Error("Weekly Workout Split incomplete");
         }
     }
     catch (error) {
-        res.status(400).json(error.message.endsWith("exists") ? error.message : "bad request");
+        res.status(400).json(error.message);
     }
 });
 

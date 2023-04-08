@@ -11,7 +11,7 @@ export default class User {
 		public password: string,
 		public salt: string,
 		public workoutGroups: Array<WorkoutGroup> = [],
-		public workoutSplit: Array<string> = new Array(7),
+		public workoutSplit: Array<string> = new Array(7).fill("rest"),
 		public _id?: ObjectId
 	) {}
 }
