@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Nav from '../../components/Nav';
 import '../../styles/pages/BasalMetabolicRateCalculator/BasalMetabolicRateCalculator.css';
 
@@ -7,7 +7,7 @@ function BasalMetabolicRateCalculator(){
         <div className="basal-metabolic-rate-calculator-page">
             <Nav/>
             <h1>BMR Calculator</h1>
-        </div>
+            </div>
     );
 }
 
