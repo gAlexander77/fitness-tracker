@@ -2,16 +2,15 @@ import { Router, Request, Response } from 'express';
 import { ObjectId } from 'mongodb';
 
 import { Workout, WorkoutGroup } from '../models/workout';
-import { log, auth } from '../utils';
+import { auth } from '../utils';
 import { collections } from '../db';
-import users from './users';
 
 const splits = Router();
 const userWorkoutGroups = async (id: ObjectId) => (await collections.users.findOne({ _id: id })).workoutGroups;
 
 splits.use(auth);
 
-splits.post("/", async (req: Request, res: Response) => { // /update instead of /days? unless this is front end POST
+splits.post("/", async (req: Request, res: Response) => {
     try{
         // we will receive the weekly split as an array of WorkoutGroup object types. We will set the groupName and use these 
         const [uid, gid] = [
@@ -27,7 +26,7 @@ splits.post("/", async (req: Request, res: Response) => { // /update instead of 
 
         if(weeklySplit.length == 7) {
 
-            weeklySplit.forEach((dailySplitGroupName : String) =>  {
+            weeklySplit.forEach((dailySplitGroupName : string) =>  {
             // we just need to validate that each entry is a valid group name
                 if(dailySplitGroupName.toLowerCase() === "rest")
 					return;
@@ -45,7 +44,7 @@ splits.post("/", async (req: Request, res: Response) => { // /update instead of 
         }
     }
     catch (error) {
-        res.status(400).json(error.message);
+        res.status(400).json({ error: error });
     }
 });
 
@@ -63,14 +62,14 @@ splits.post("/create", async (req: Request, res: Response) => {
         const workoutGroup = new WorkoutGroup(req.body.groupName);
         const updated = await collections.users.updateOne({ _id: id }, { $push: { workoutGroups: workoutGroup } });
         updated.modifiedCount > 0
-            ? res.status(200).json("ok")
-            : res.status(500).json("internal server error");
-      
+            ? res.status(200).json({ ok: "created workout group" })
+            : res.status(500).json({ error: "internal server error" });
     } catch (error) {
-        res.status(400).json(error.message.endsWith("exists") ? error.message : "bad request");
+        res.status(400).json({ error: error });
     }
 });
 
+// adds a workout to the workout group
 splits.post("/:id", async (req: Request, res: Response) => {
     try {
         const [uid, gid, wid] = [
@@ -92,13 +91,13 @@ splits.post("/:id", async (req: Request, res: Response) => {
 
             workoutGroup.workouts.push(workout as Workout);
             await collections.users.updateOne({ _id: uid }, { $set: { workoutGroups: workoutGroups } })
-                ? res.status(200).json("ok")
-                : res.status(500).json("internal server error");
+                ? res.status(200).json({ ok: "ok" })
+                : res.status(500).json({ error: "internal server error" });
         } else {
-            res.status(404).json(`${workout ? "workout group" : "workout"} not found`);
+            res.status(404).json({ error: `${workout ? "workout group" : "workout"} not found` });
         }
     } catch (error) {
-        res.status(400).json(error.message.endsWith("exists") ? error.message : "bad request");
+        res.status(400).json({ error: error });
     }
 });
 

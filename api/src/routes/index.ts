@@ -26,10 +26,10 @@ index.get("/", auth, async (req: Request, res: Response) => {
         
         user
             ? res.status(200).json(user)
-            : res.status(404).json("not found");
+            : res.status(404).json({ error: "not found" });
     } catch (error) {
         log.error(error);
-        res.status(400).json("bad request");
+        res.status(400).json({ error: "bad request" });
     }
 });
 
@@ -42,22 +42,21 @@ index.post("/sign-in", async (req: Request, res: Response) => {
             
             req.session._id = authenticated ? user._id : undefined;
             authenticated
-                ? res.status(200).json("ok")
-                : res.status(401).json("unauthorized");
+                ? res.status(200).json({ ok: "signed in successfully" })
+                : res.status(401).json({ error: "unauthorized" });
 
-        }) : res.status(401).json("unauthorized");
+        }) : res.status(401).json({ error: "unauthorized" });
     } catch (error) {
-        res.status(400).json("bad request");
+        res.status(400).json({ error: "bad request" });
     }
 });
 
 index.post("/sign-out", auth, async (req: Request, res: Response) => {
     try {
         req.session.destroy((error: Error) => log.error(error));
-        res.status(200).json("ok");
+        res.status(200).json({ ok: "signed out successfully" });
     } catch (error) {
-        log.error(error);
-        res.status(500).json("internal server error");
+        res.status(500).json({ error: "internal server error" });
     }
 });
 
