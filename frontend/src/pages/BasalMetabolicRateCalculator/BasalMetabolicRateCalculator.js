@@ -1,21 +1,9 @@
 import React, { useState } from 'react';
 import Nav from '../../components/Nav';
 import '../../styles/pages/BasalMetabolicRateCalculator/BasalMetabolicRateCalculator.css';
-import { Tabs, Tab, Typography, AppBar } from "@material-ui/core";
-import 'react-tabs/style/react-tabs.css';
-
 import { heightToInches, calculateMaleBMR, calculateFemaleBMR } from './utils';
 
-function TabPanel(props) {
-    const { children, value, index } = props;
-  
-    return (
-      <div hidden={value !== index}>
-        {value === index && <Typography>{children}</Typography>}
-      </div>
-    );
-  }
-  
+// Removed MaterialUI styling so new styling is needed 
 
 function BasalMetabolicRateCalculator(){
 
@@ -51,8 +39,6 @@ function BasalMetabolicRateCalculator(){
         </div>
     );
 }
-
-
 
 function Calculator(props){
 
@@ -113,121 +99,6 @@ function Calculator(props){
 
     return(
         <div className="basal-metabolic-rate-calculator-calculator-component">
-                <div className='basal-metabolic-rate-calculator-calculator-menu'>
-                <Tabs 
-                    value={value} 
-                    onChange={handleChange}
-                    variant="fullWidth"
-                    TabIndicatorProps={{ style: { color: "#2DEDF3", background: "#2DEDF3" } }}
-                >
-                    <Tab label="Male" />
-                    <Tab label="female" />
-                </Tabs>
-                </div>
-
-
-                <TabPanel value={value} index={0}>
-
-                    <div className="basal-metabolic-rate-calculator-calculator-inner">
-                        <div className="basal-metabolic-rate-calculator-calculator-left-container">
-                            <h1 id="title">Weight</h1>
-                            <div id="input-container">
-                                <input
-                                    id="weight"
-                                    type="number"
-                                    value={props.input.weight}
-                                    onChange={BMRValueSetting} />
-                                <p id="tag">Lbs</p>
-                            </div>
-                        </div>
-                        <div className="basal-metabolic-rate-calculator-calculator-middle-container">
-                            <h1 id="title">Height</h1>
-                            <div id="input-container">
-                                <input
-                                    id="feet"
-                                    type="number"
-                                    value={props.input.feet}
-                                    onChange={BMRValueSetting} />
-                                <p id="tag">Feet</p>
-                            </div>
-                            <div id="input-container">
-                                <input
-                                    id="inches"
-                                    type="number"
-                                    value={props.input.inches}
-                                    onChange={BMRValueSetting} />
-                                <p id="tag">Inches</p>
-                            </div>
-                        </div>
-                        <div className="basal-metabolic-rate-calculator-calculator-right-container">
-                            <h1 id="title">Age</h1>
-                            <div id="input-container">
-                                <input
-                                    id="age"
-                                    type="number"
-                                    value={props.input.age}
-                                    onChange={BMRValueSetting} />
-                                <p id="tag">Years</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <button className="basal-metabolic-rate-calculator-calculator-calculate-btn" onClick={BMRMaleCalculation}>
-                        Calculate
-                    </button>
-
-                </TabPanel>
-                <TabPanel value={value} index={1}>
-                    <div className="basal-metabolic-rate-calculator-calculator-inner">
-                            <div className="basal-metabolic-rate-calculator-calculator-left-container">
-                                <h1 id="title">Weight</h1>
-                                <div id="input-container">
-                                    <input
-                                        id="weight"
-                                        type="number"
-                                        value={props.input.weight}
-                                        onChange={BMRValueSetting} />
-                                    <p id="tag">Lbs</p>
-                                </div>
-                            </div>
-                            <div className="basal-metabolic-rate-calculator-calculator-middle-container">
-                                <h1 id="title">Height</h1>
-                                <div id="input-container">
-                                    <input
-                                        id="feet"
-                                        type="number"
-                                        value={props.input.feet}
-                                        onChange={BMRValueSetting} />
-                                    <p id="tag">Feet</p>
-                                </div>
-                                <div id="input-container">
-                                    <input
-                                        id="inches"
-                                        type="number"
-                                        value={props.input.inches}
-                                        onChange={BMRValueSetting} />
-                                    <p id="tag">Inches</p>
-                                </div>
-                            </div>
-                            <div className="basal-metabolic-rate-calculator-calculator-right-container">
-                                <h1 id="title">Age</h1>
-                                <div id="input-container">
-                                    <input
-                                        id="age"
-                                        type="number"
-                                        value={props.input.age}
-                                        onChange={BMRValueSetting} />
-                                    <p id="tag">Years</p>
-                                </div>
-                            </div>
-                        
-                    </div>
-
-                    <button className="basal-metabolic-rate-calculator-calculator-calculate-btn" onClick={BMRFemaleCalculation}>
-                        Calculate
-                    </button>
-                </TabPanel>
-
         </div>
     );
 }
