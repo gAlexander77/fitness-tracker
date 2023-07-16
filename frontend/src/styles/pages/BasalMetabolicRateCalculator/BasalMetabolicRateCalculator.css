@@ -7,3 +7,145 @@
     flex-direction: column;
     align-items: center;
 }
+
+.basal-metabolic-rate-calculator-page #title {
+    font-size: 48px;
+}
+
+.basal-metabolic-rate-calculator-calculator-component {
+    min-width: 500px;
+    min-height: 300px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    background-color: #2B2B2B;
+    border-radius: 10px;
+    justify-content: center;
+    position: relative;
+}
+
+.BMR-component {
+    width: 500px;
+    min-height: 300px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    justify-content: center;
+    border-radius: 10px;
+    background-color: #2B2B2B;
+
+}
+
+.basal-metabolic-rate-calculator-calculator-inner {
+    display: flex;
+    flex-direction: row;
+    align-items:flex-start;
+    margin-top: 30px;
+    gap: 20px;
+}
+
+.basal-metabolic-rate-calculator-calculator-left-container {
+    display: flex;
+    flex-direction: column;
+    margin-left: 100px;
+    gap: 7px;
+}
+
+.basal-metabolic-rate-calculator-calculator-middle-container {
+    display: flex;
+    flex-direction: column;
+    margin: 0px 20px 100px;
+    gap: 7px;
+}
+
+.basal-metabolic-rate-calculator-calculator-right-container {
+    display: flex;
+    flex-direction: column;
+    margin-right:50px;
+    gap: 7px;
+}
+
+.basal-metabolic-rate-calculator-calculator-component #input-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top:10px;
+    gap: 10px;
+}
+
+.basal-metabolic-rate-calculator-calculator-component #title {
+    margin-left: 20px;
+    font-size: 17px;
+    text-align: left;
+}
+
+.basal-metabolic-rate-calculator-calculator-component input {
+    all: unset;
+    padding: 10px 15px;
+    /*border: 1px solid white;*/
+    height: 20px;
+    width: 70px;
+    border-radius: 5px;
+    background-color: #414141;
+}
+
+.basal-metabolic-rate-calculator-calculator-calculate-btn {
+    all: unset;
+    position: absolute;
+    bottom: 40px;
+
+    color: black;
+    background-color: #2DEDF3;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 7px 12px;
+    border-radius: 10px;
+}
+
+.BMR-component h1 {
+    font-size: 20px;
+    font-weight: normal;
+}
+
+.basal-metabolic-rate-calculator-calculator-results-component {
+    background-color: #2B2B2B;
+    padding: 20px;
+    border-radius: 10px;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.basal-metabolic-rate-calculator-calculator-results-component #inner{
+    background-color: #414141;
+    min-width: 170px;
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.basal-metabolic-rate-calculator-calculator-results-component #line{
+    background-color: #FFFFFF;
+    width: 100%;
+    height: 1px;
+}
+
+.basal-metabolic-rate-calculator-calculator-results-component #display-container{
+    display: flex;
+    flex-direction: row;
+    justify-self: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.basal-metabolic-rate-calculator-calculator-results-component button{
+    all: unset;
+    font-size: 12px;
+    cursor: pointer;
+    justify-self: center;
+    align-items: center;
+    margin-left: 240px;
+}
