@@ -1,0 +1,116 @@
+.sign-up-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    gap: 12px;
+}
+
+.sign-up-container > h1 {
+    font-size: 24px;
+    font-weight: bold;
+    cursor: default;
+}
+
+@media screen and (max-width: 450px) {
+    .sign-up-container > h1 {
+        font-size: 20px;
+    }
+}
+
+.sign-up-container > div {
+    position: relative;
+}
+
+.sign-up-container input {
+    all: unset;
+    background-color: white;
+    border: 1px solid gray;
+    border-radius: 10px;
+    height: 30px;
+    padding-left: 30px;
+    padding-right: 10px;
+    width: 160px;
+    font-size: 12px;
+}
+
+.sign-up-container > .username-input-container > #user-icon {
+    position: absolute;
+    left: 10px;
+    top: calc(50% - 0.5em); 
+    font-size: 17px;
+}
+
+.sign-up-container > .password-input-container > #key-icon {
+    position: absolute;
+    left: 10px;
+    top: calc(50% - 0.5em); 
+    font-size: 17px;
+}
+
+.sign-up-container > .password-input-container > #eye-icon {
+    position: absolute;
+    right: 10px;
+    top: calc(50% - 0.5em); 
+    font-size: 17px;
+    cursor: pointer;
+    /* Disable Double Click Hightlight*/
+    -webkit-user-select: none;  /* Safari */
+    -moz-user-select: none;    /* Firefox */
+    -ms-user-select: none;     /* IE10+/Edge */
+    user-select: none;         /* Standard */
+}
+
+.sign-up-container > .verify-password-input-container > #verify-icon {
+    position: absolute;
+    left: 10px;
+    top: calc(50% - 0.5em); 
+    font-size: 17px;
+}
+
+.sign-up-container > .password-input-container > input {
+    padding-right: 30px;
+    width: 140px;
+}
+
+.sign-up-container > .buttons-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.sign-up-container > .buttons-container > .sign-up-btn {
+    all: unset;
+    color: white;
+    background-color: #282828;
+    border-radius: 10px;
+    height: 27px;
+    width: 110px;
+    text-align: center;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.sign-up-container > .buttons-container > a{
+    font-size: 10px;
+    cursor: pointer;
+}
+
+.sing-up-return-home-btn {
+    margin-bottom: 10px;
+    margin-left: 10px;
+    font-size: 10px;
+    cursor: pointer;
+    display: inline-flex; 
+    flex-direction: row;
+    align-items: center;
+    gap: 5px;
+    width: 100px;
+}
+
+.sing-up-return-home-btn #arrow-icon{
+    font-size: 12px;
+    text-align: center;
+}
