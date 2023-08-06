@@ -74,6 +74,16 @@
     width: 140px;
 }
 
+.sign-up-container input.valid {
+    border-color: green;
+    box-shadow: 0 0 3px rgba(0, 255, 0, 0.5);
+}
+
+.sign-up-container input.invalid {
+    border-color: red;
+    box-shadow: 0 0 3px rgba(255, 0, 0, 0.5);
+}
+
 .sign-up-container > .buttons-container {
     display: flex;
     flex-direction: column;

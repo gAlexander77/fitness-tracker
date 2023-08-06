@@ -1,9 +1,10 @@
-import React, { useState, useRef } from 'react';
+import React from 'react';
 import { useLocation, useNavigate } from "react-router-dom";
+import { BsArrowLeft } from 'react-icons/bs';
 import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
-import '../../styles/pages/SignInSignUp/SignInSignUp.css';
 import video from '../../assets/SignInSignUpBackgroundVideo.mp4';
+import '../../styles/pages/SignInSignUp/SignInSignUp.css';
 
 function SignInSignUp() {
     const videoRef = React.useRef(null);
@@ -60,6 +61,11 @@ function DefaultRender(){
         navigate('/user#signup');
     };
 
+    const handleReturnHomeClick = (event) => {
+        event.preventDefault();
+        navigate('/');
+    };
+
     return(
         <>
             <div className="default-render-container">
@@ -67,6 +73,10 @@ function DefaultRender(){
                     <button onClick={handleSignInClick}>Sign In</button>
                     <button onClick={handleSignUpClick}>Sign Up</button>
                 </div>
+                <a className="default-return-home-btn" onClick={handleReturnHomeClick}>
+                    <BsArrowLeft id="arrow-icon"/>
+                    <p>Return home</p>
+                </a>
             </div>
         </>
     );
