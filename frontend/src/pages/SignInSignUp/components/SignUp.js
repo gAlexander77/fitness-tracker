@@ -113,7 +113,7 @@ function usernameIsValid(usernameInput) {
                                           "*", "(", ")", "+", "=", "{", "}", "|",
                                           ":", "<", ">", "?", "/", ".", ",", ";"];
     
-    if (usernameInput.length <= 5) {
+    if (usernameInput.length < 4) {
         return false;
     }
 
