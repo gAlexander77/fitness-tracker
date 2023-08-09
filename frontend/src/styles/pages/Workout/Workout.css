@@ -12,12 +12,12 @@
     display: flex;
     flex-direction: column;
     width: 95%;
-    max-width: 1000px;
-    min-height: 70vh;
+    max-width: 1200px;
+    min-height: calc(100vh - 270px);
     border-radius: 10px;
     border: 2px solid #242424;
-    padding: 20px 50px;
-    margin: 40px 0px;
+    padding: 70px 50px;
+    margin: 20px 0px;
     gap: 40px;
 }
 
@@ -46,39 +46,4 @@
     margin-right: 30px;
     border-radius: 5px;
     border: 2px solid #242424;
-}
-
-.workout-images-container {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 20px;
-    position: relative;
-    width: 710px; /* Calculated based on a 16:9 aspect ratio with a height of 400px */
-    height: 400px;
-    overflow: hidden; /* To ensure that the image doesn't overflow the container */
-}
-
-.workout-images-container img {
-    height: 400px;
-    width: auto; /* This will keep the original aspect ratio of the image */
-}
-
-.workout-images-container button {
-    background: none;
-    color: white;
-    font-size: 30px;
-    border: none;
-    cursor: pointer;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%); /* Center the buttons vertically */
-}
-
-.workout-images-container button:first-child {
-    left: -20px;
-}
-
-.workout-images-container button:last-child {
-    right: -20px;
 }

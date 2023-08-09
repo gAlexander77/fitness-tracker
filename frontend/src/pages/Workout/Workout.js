@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Nav from '../../components/Nav';
 import Footer from '../../components/Footer';
+import Slideshow from './components/Slideshow';
 import '../../styles/pages/Workout/Workout.css';
 
 import workoutsData from '../../test-data/workoutsRequest.json';
@@ -26,27 +27,6 @@ function Workout() {
     };
     
     console.log(data.muscles);
-
-
-    const [currentImageIndex, setCurrentImageIndex] = useState(0);
-    const [isHovered, setIsHovered] = useState(false);
-  
-    const nextImage = () => {
-      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % data.images.length);
-    };
-  
-    const prevImage = () => {
-      setCurrentImageIndex((prevIndex) => (prevIndex - 1 + data.images.length) % data.images.length);
-    };
-  
-    useEffect(() => {
-      if (!isHovered) {
-        const timer = setInterval(() => {
-          nextImage();
-        }, 4000);
-        return () => clearInterval(timer);
-      }
-    }, [isHovered, currentImageIndex]);
     
     return (
         <>
@@ -68,11 +48,7 @@ function Workout() {
                             {data.equipment === undefined ? '' : <p>Equipment: {data.equipment}</p>}
                         </div>
                     </div>
-                    <div className="workout-images-container" onMouseOver={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)} >
-                        <button onClick={prevImage}>&lt;</button>
-                        <img src={data.images[currentImageIndex]} />
-                        <button onClick={nextImage}>&gt;</button>
-                    </div>
+                    <Slideshow images={data.images}/>
                     {false ? <div className="workout-images-container">
                         {data.videos.map((video, index)=>{
                             return(
