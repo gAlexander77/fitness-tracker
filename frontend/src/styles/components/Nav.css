@@ -196,3 +196,31 @@
     border-radius: 10px;
     border: 1px solid white;
 }
+
+/*
+
+Finish Implement shrinking navbar
+
+.nav.shrunk {
+    height: 50px;
+    transition: height 0.3s ease;
+}
+
+.nav.shrunk .nav-logo-link {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+}
+.nav.shrunk .nav-right > *:not(.nav-login-options-container) {
+    display: none;
+}
+
+.nav.shrunk:hover {
+    height: 75px;
+}
+
+.nav.shrunk:hover .nav-right > *:not(.nav-login-options-container) {
+    display: flex;
+}
+
+*/

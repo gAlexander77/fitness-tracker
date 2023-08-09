@@ -8,6 +8,7 @@ import '../styles/components/Nav.css';
 function Nav({isUserSignedIn}) {
 
 	const [isUser, setIsUser] = useState(true);
+	const [menuIsOpen, setMenuIsOpen] = useState(false);
 
 	useEffect(() => {
 		if(isUserSignedIn===false) {
@@ -18,8 +19,28 @@ function Nav({isUserSignedIn}) {
 		}
 	},[isUserSignedIn])
 
+
+	const [isNavbarShrunk, setIsNavbarShrunk] = useState(false);
+	const navRef = useRef(null);
+
+	const handleScroll = () => {
+		if (window.scrollY === 0) {
+			setIsNavbarShrunk(false);
+		} else {
+			setIsNavbarShrunk(true);
+		}
+	};
+
+	useEffect(() => {
+		window.addEventListener('scroll', handleScroll);
+		return () => window.removeEventListener('scroll', handleScroll);
+	}, []);
+
+	/*const navClass = isNavbarShrunk ? 'nav shrunk' : 'nav';*/
+	const navClass = isNavbarShrunk ? 'nav' : 'nav';
+
 	return (
-		<nav className="nav">
+		<nav className={navClass} ref={navRef}>
 			<div className="nav-left">
 				<Home/>
 			</div>
