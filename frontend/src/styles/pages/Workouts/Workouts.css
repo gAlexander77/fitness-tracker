@@ -1,11 +1,12 @@
 .workouts-page {
     min-width: 100%;
-    min-height: 100vh;
+    min-height: 70vh;
     background-color: #1B1B1B;
     color: white;
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 40px 0px;
 }
 
 .workouts-page #page-title {
@@ -133,7 +134,6 @@
     border-radius: 10px;
     background-color: #2B2B2B;
     margin-top: 5px;
-    margin-bottom: 100px;
 }
 
 .workouts-display-pagination button{
@@ -141,7 +141,6 @@
     margin: 0px;
     cursor: pointer;
     padding: 10px;
-
 }
 
 .workouts-display-pagination span{

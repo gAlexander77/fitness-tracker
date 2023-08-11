@@ -1,6 +1,5 @@
 import React, { useState, useRef } from 'react';
 import { useNavigate } from "react-router-dom";
-import { CustomTextField1 as TextField } from '../../custom-mui-components/TextField';
 import { BsArrowLeft } from "react-icons/bs";
 import '../../styles/pages/SignUp/SignUp.css';
 
@@ -42,31 +41,7 @@ function SignUp(){
                     Return Home
                 </button>
                 <h1>Sign Up</h1>
-                <div className="sign-up-input-container">
-                    <TextField
-                        id="username"
-                        label="Username"
-                        type="text"
-                        value={input.username}
-                        onChange={inputHandler}
-                        margin="dense"  
-                    />
-                    <TextField
-                        id="password"
-                        label="Password"
-                        type="password"
-                        value={input.password}
-                        onChange={inputHandler}
-                        margin="dense"  
-                    />
-                    <TextField
-                        id="verifyPassword"
-                        label="Verify Password"
-                        type="password"
-                        value={input.verifyPassword}
-                        onChange={inputHandler}
-                        margin="dense"
-                    />    
+                <div className="sign-up-input-container"> 
                 </div>
                 <button className="sign-up-sign-up-btn" onClick={signUpHandler}>
                     Sign Up
@@ -79,5 +54,35 @@ function SignUp(){
         </div>
     );
 }
+
+
+/*
+Replace
+------------------------
+        <TextField
+            id="username"
+            label="Username"
+            type="text"
+            value={input.username}
+            onChange={inputHandler}
+            margin="dense"  
+        />
+        <TextField
+            id="password"
+            label="Password"
+            type="password"
+            value={input.password}
+            onChange={inputHandler}
+            margin="dense"  
+        />
+        <TextField
+            id="verifyPassword"
+            label="Verify Password"
+            type="password"
+            value={input.verifyPassword}
+            onChange={inputHandler}
+            margin="dense"
+        />               
+*/
 
 export default SignUp;

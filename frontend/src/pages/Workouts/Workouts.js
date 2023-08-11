@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Nav from '../../components/Nav';
+import Footer from '../../components/Footer';
 import Search from './components/Search';
 import Display from './components/Display';
 import '../../styles/pages/Workouts/Workouts.css';
@@ -26,16 +27,19 @@ function Workouts(){
     console.log(data);
 
     return(
-        <div className="workouts-page">
+        <>
             <Nav/>
-            <h1 id="page-title">WORKOUTS</h1>
-            <Search handleSearchChange={handleSearchChange}/>
-            <Display 
-                data={filteredWorkouts}
-                currentPage={currentPage}
-                setCurrentPage={setCurrentPage}
-            />
-        </div>
+            <div className="workouts-page">
+                <h1 id="page-title">Workouts</h1>
+                <Search handleSearchChange={handleSearchChange}/>
+                <Display 
+                    data={filteredWorkouts}
+                    currentPage={currentPage}
+                    setCurrentPage={setCurrentPage}
+                />
+            </div>
+            <Footer/>
+        </>
     );
 }
 

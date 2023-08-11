@@ -1,15 +1,24 @@
 .nav {
     width: 100%;
-    height: 110px;
+    height: 75px;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-self: center;
     color: white;
+    margin-bottom: 10px;
+    background: rgba(0, 0, 0, 0.17);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(12.3px);
+    -webkit-backdrop-filter: blur(12.3px);
+    border-bottom: 1px solid rgb(59, 59, 59);
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
 
 .nav-left {
-    margin-left: 1%;
+    margin-left: 2%;
 }
 
 .nav-logo-link {
@@ -20,6 +29,7 @@
 .nav-logo-link h1 {
     line-height: 0.95;
     font-weight: 800;
+    font-size: 20px;
 }
 
 .nav-right {
@@ -27,7 +37,7 @@
     flex-direction: row;
     align-items: center;
     margin: auto;
-    margin-right: 1%;
+    margin-right: 2%;
 }
 
 .nav-dashboard-link {
@@ -42,19 +52,20 @@
 
 .nav-dashboard-link p {
     margin-right: 5px;
+    font-size: 14px;
 }
 
 .nav-dashboard-link #icon {
-    font-size: 30px;
+    font-size: 20px;
 }
 
 .menu-wrapper {
     position: relative;
-}
+}   
 
 .hamburger-menu {
     display: block;
-    width: 30px;
+    width: 25px;
     height: 20px;
     position: relative;
     cursor: pointer;
@@ -65,14 +76,14 @@
 .hamburger-menu span {
     display: block;
     position: absolute;
-    height: 2px;
+    height: 1px;
     width: 100%;
     background: white;
     border-radius: 4px;
     opacity: 1;
     right: 0;
     transform: rotate(0deg);
-    transition: 0.25s ease-in-out;
+    transition: 0.20s ease-in-out;
 }
 
 .hamburger-menu span:nth-child(1) {
@@ -117,12 +128,16 @@
 /* Background of menu options */
 .nav-menu {
     position: absolute;
-    top: 80px;
+    top: 70px;
     right: 1%;
-    background-color: #2B2B2B;
-    display: none;
+    background-color: #1d1d1d;
+    display: none;    
     border-radius: 2pt;
-    border: 1px solid black;
+    border: 1px solid rgb(59, 59, 59);
+    background: rgba(19, 19, 19, 0.993);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(12.3px);
+    -webkit-backdrop-filter: blur(12.3px);
 }
 
 .nav-menu.active {
@@ -136,11 +151,76 @@
 }
 
 .nav-menu li {
-    padding: 10px 20px;
+    padding: 15px 20px;
+    font-size: 13px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
     /* border-bottom: 1px solid black; */
 }
 
 .nav-menu li:hover {
-    background-color: #353535;
+    background: rgba(0, 0, 0, 0.17);
     cursor: pointer;
 }
+
+.nav-login-options-container {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    padding-right: 30px;
+}
+
+.nav-login-options-container > button {
+    all: unset;
+    cursor: pointer;
+}
+
+.nav-login-options-container > .nav-login-btn {
+    color: black;
+    background-color: white;
+    font-size: 10px;
+    font-weight: bold;
+    padding: 3px 10px;
+    border-radius: 10px;
+    border: 1px solid white;
+}
+
+.nav-login-options-container > .nav-signup-btn {
+    color: white;
+    background-color: transparent;
+    font-size: 10px;
+    font-weight: 300;
+    padding: 3px 10px;
+    border-radius: 10px;
+    border: 1px solid white;
+}
+
+/*
+
+Finish Implement shrinking navbar
+
+.nav.shrunk {
+    height: 50px;
+    transition: height 0.3s ease;
+}
+
+.nav.shrunk .nav-logo-link {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+}
+.nav.shrunk .nav-right > *:not(.nav-login-options-container) {
+    display: none;
+}
+
+.nav.shrunk:hover {
+    height: 75px;
+}
+
+.nav.shrunk:hover .nav-right > *:not(.nav-login-options-container) {
+    display: flex;
+}
+
+*/

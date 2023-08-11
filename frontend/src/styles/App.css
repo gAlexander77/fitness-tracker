@@ -6,3 +6,20 @@
 body {
     background-color: #1B1B1B;
 }
+
+::-webkit-scrollbar {
+    width: 8px; /* Adjust the width of the scrollbar */
+}
+  
+::-webkit-scrollbar-track {
+    background: transparent; /* The track color */
+}
+  
+::-webkit-scrollbar-thumb {
+    background: #888; /* The thumb color */
+    border-radius: 4px; /* To make the thumb rounded */
+}
+  
+::-webkit-scrollbar-thumb:hover {
+    background: #555; /* The thumb color on hover */
+}

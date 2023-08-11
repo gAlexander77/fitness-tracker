@@ -1,6 +1,7 @@
 .home-page {
-    min-width: 100vw;
+    min-width: 100%;
     min-height: 100vh;
+    min-height: calc(100vh - 90px);
     background-color: #1B1B1B;
     display: flex;
     flex-direction: column;
