@@ -2,6 +2,11 @@ import React, { useState } from 'react';
 import Nav from '../../components/Nav';
 import '../../styles/pages/UserDashboard/UserDashboard.css';
 
+/*
+    the dailyIntake and dailyTotal hardcoded data needs to be replaced with the api call for the user's correponding data
+*/
+
+
 function UserDashboard(){
 
     const [selection, setSelection] = useState("overview")
@@ -12,6 +17,11 @@ function UserDashboard(){
             <h1 id="page-header">Dashboard</h1>
             <DashboardMenu selection={selection} setSelection={setSelection}/>
             <DashboardDisplay selection={selection} setSelection={setSelection}/>
+        </div>
+        <div className='Activity-Ring'>
+                <DonutChart id="User-Calorie-Intake" dailyIntake={2.5} dailyTotal={10}></DonutChart>
+                <DonutChart id="User-Protein-Intake" dailyIntake={ 6.5} dailyTotal={10}></DonutChart>
+                <DonutChart id="User-Carbs-Intake" dailyIntake={ 6.5} dailyTotal={10}></DonutChart>
         </div>
     );
 }
