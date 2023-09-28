@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Nav from '../../components/Nav';
+import Background from '../../components/Background';
 import Footer from '../../components/Footer';
 import Search from './components/Search';
 import Display from './components/Display';
@@ -30,13 +31,18 @@ function Workouts(){
         <>
             <Nav/>
             <div className="workouts-page">
-                <h1 id="page-title">Workouts</h1>
-                <Search handleSearchChange={handleSearchChange}/>
-                <Display 
-                    data={filteredWorkouts}
-                    currentPage={currentPage}
-                    setCurrentPage={setCurrentPage}
-                />
+                <div className="content">
+                    <Search 
+                        handleSearchChange={handleSearchChange}
+                    />
+                    <Display 
+                        handleSearchChange={handleSearchChange}
+                        data={filteredWorkouts}
+                        currentPage={currentPage}
+                        setCurrentPage={setCurrentPage}
+                    />
+                </div>
+                <Background/>
             </div>
             <Footer/>
         </>

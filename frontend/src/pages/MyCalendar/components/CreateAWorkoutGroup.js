@@ -1,4 +1,5 @@
 import React, { useState} from 'react';
+import ReactDOM from 'react-dom';
 import { Link } from 'react-router-dom';
 import { BsXLg, BsPlusLg, BsDashLg, BsFillEyeFill, BsSearch } from 'react-icons/bs';
 import '../../../styles/pages/MyCalendar/Components/CreateAWorkoutGroup.css';
@@ -25,7 +26,7 @@ function CreateAWorkoutGroup(props){
         props.setTrigger(false);
     }
 
-    return(props.trigger)?(
+    return(props.trigger) ? ReactDOM.createPortal(
         <div className="my-calendar-create-a-workout-group-outer">
             <div className="my-calendar-create-a-workout-group-inner">
                 <button id="exit-button" onClick={exitPopupHandler}>
@@ -60,7 +61,7 @@ function CreateAWorkoutGroup(props){
                     </div>
                 </div>
             </div>
-        </div>
+        </div>,document.getElementById('navbar')
     ):'';
 }
 

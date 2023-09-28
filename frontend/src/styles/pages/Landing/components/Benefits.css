@@ -1,0 +1,74 @@
+.landing-page > #benefits {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: default;
+    height: calc(100vh - 20px);
+    min-height: 800px;
+    position: relative;
+}
+
+.landing-page > #benefits > .benefits-content-container {
+    position: absolute;
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%);  
+    
+    color: white;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 100px;
+}
+
+.landing-page > #benefits > .benefits-content-container > #title {
+    font-size: 38px;
+    font-weight: bold;
+    background: linear-gradient(180deg, #8693AB 0%, #BDD4E7 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.landing-page > #benefits > .benefits-content-container > .timeline-container {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.landing-page > #benefits > .benefits-content-container > .timeline-container #benefit-container {
+    width: 400px;
+   
+}
+
+.landing-page > #benefits > .benefits-content-container > .timeline-container #left {
+    position: relative;
+    text-align: right;
+    height: 100%;
+}
+
+.landing-page > #benefits > .benefits-content-container > .timeline-container #right {
+    position: relative;
+    text-align: left;
+    height: 100%;
+}
+
+#left .benefit-2-container {
+    position: relative;
+    top: calc((415px / 2) - 10px);
+}
+
+#right .benefit-3-container {
+    position: absolute;
+    top: calc(415px - 25px );
+}
+
+#timeline {
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}

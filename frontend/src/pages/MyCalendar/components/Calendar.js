@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import ReactDOM from 'react-dom';
 import { BsFillCaretLeftFill, BsFillCaretRightFill, BsXLg } from 'react-icons/bs';
 import '../../../styles/pages/MyCalendar/MyCalendar.css';
 
@@ -117,7 +118,7 @@ function CalendarDay(props){
                     </button>
                 :''}
                 </div>
-            </div>
+            </div> 
             <WorkoutDetails 
                 trigger={viewWorkouts} 
                 setTrigger={setViewWorkouts}
@@ -129,6 +130,7 @@ function CalendarDay(props){
 }
 
 function WorkoutDetails(props) {
+   
     const [workouts, setWorkouts] = useState(props.workouts);
    
     const innerRef = useRef();
@@ -157,8 +159,8 @@ function WorkoutDetails(props) {
         );
     }
     
-    return(props.trigger) ? (
-        <div className="my-calendar-calendar-workout-details-outter" >
+    return (props.trigger) ? ReactDOM.createPortal(
+        <div className="my-calendar-calendar-workout-details-outter">
              <div className="my-calendar-calendar-workout-details-inner" ref={innerRef}>
                 <h1>{props.split} Workouts</h1>
                 {workouts.map((workout, index)=>{
@@ -173,7 +175,7 @@ function WorkoutDetails(props) {
                     <BsXLg id="icon"/>
                 </button>
              </div>
-        </div>) : '';
+        </div>,document.getElementById('navbar')) : null;
 }
 
 const getTheDate = (x) => {

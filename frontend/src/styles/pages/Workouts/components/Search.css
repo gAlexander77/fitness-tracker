@@ -1,0 +1,74 @@
+/* Search.js */
+.search-component-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 1342px;
+    max-width: 90vw;
+    position: relative;
+
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.17);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(42.3px);
+    -webkit-backdrop-filter: blur(42.3px);
+    border: 1px solid var(--gray-2);
+    margin-bottom: 10px;
+}
+
+.search-component-container > h1 {
+    font-size: 42px;
+    padding: 10px;
+    cursor: default;
+}
+
+.workouts-search-component {
+    display: flex;
+    flex-direction: row;
+    width: 40%;
+    max-width: 500px;
+    height: 34px;
+    border-radius: 10px;
+    border: solid 1px rgb(48, 48, 48);
+    position: absolute;
+    right: 20px;
+}
+
+.workouts-search-component input{
+    all: unset;
+    width: 100%;
+    margin-left: 20px;
+}
+
+.workouts-search-component button{
+    all: unset;
+    width: 70px;
+    background-color: rgb(48, 48, 48);
+    border-radius: 0px 10px 10px  0px;
+    border-radius: solid 1px white;
+    color: white;
+    font-size: 21px;
+    text-align: center;
+    position: relative;
+    cursor: pointer;
+}
+
+
+.workouts-search-component button:hover{
+    all: unset;
+    width: 70px;
+    background-image: linear-gradient(180deg, #008CFF 0%, #00F7FF 100%);
+    border-radius: 0px 10px 10px  0px;
+    border-radius: solid 1px white;
+    color: rgb(0, 0, 0);
+    font-size: 21px;
+    text-align: center;
+    position: relative;
+    cursor: pointer;
+}
+
+.workouts-search-component button #icon{
+    position: relative;
+    top: 2px;
+    right: 2px;
+}
