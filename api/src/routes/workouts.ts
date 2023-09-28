@@ -46,7 +46,7 @@ workouts.post("/create", async (req: Request, res: Response) => {
             ? res.status(200).json({ ok: "added workout"})
             : res.status(500).json({ error: "internal server error"});
     } catch(error) {
-        res.status(400).json({error: error});
+        res.status(400).json({ error });
     }
 });
 

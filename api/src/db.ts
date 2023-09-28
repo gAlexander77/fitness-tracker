@@ -1,13 +1,15 @@
 // NPM
 import { MongoClient, Collection, Db } from 'mongodb';
+import dotenv from 'dotenv';
 import fs from 'fs';
 
+dotenv.config();
+
 const dbHost = process.env.API_DB_HOST || "localhost";
-const dbPort = parseInt(process.env.API_DB_PORT) || 27017;
 const dbUser = process.env.API_DB_USERNAME || "testing";
 const dbPass = process.env.API_DB_PASSWORD || "testing";
 const dbNamespace = process.env.API_DB_NAMESPACE || "testing";
-const dbUrl = `mongodb://${dbHost}:${dbPort}/${dbNamespace}`;
+const dbUrl = `mongodb+srv://${dbUser}:${dbPass}@${dbHost}/${dbNamespace}?retryWrites=true&w=majority`;
 
 // collections table, declaring master list of collections in our database
 export const collections: {
