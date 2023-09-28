@@ -10,6 +10,15 @@ const userWorkoutGroups = async (id: ObjectId) => (await collections.users.findO
 
 splits.use(auth);
 
+/*
+splits.get("/", async (_req: Request, res: Response)=> {
+    try{
+        res.status(200).json(await collections.splits.find({}).toArray());
+    } catch (error) {
+        res.status(500).json({error: "internal server error"});
+    }
+})*/
+
 splits.post("/", async (req: Request, res: Response) => {
     try{
         // we will receive the weekly split as an array of WorkoutGroup object types. We will set the groupName and use these 
