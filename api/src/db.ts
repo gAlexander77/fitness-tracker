@@ -7,7 +7,7 @@ const dbPort = parseInt(process.env.API_DB_PORT) || 27017;
 const dbUser = process.env.API_DB_USERNAME || "testing";
 const dbPass = process.env.API_DB_PASSWORD || "testing";
 const dbNamespace = process.env.API_DB_NAMESPACE || "testing";
-const dbUrl = `mongodb://${dbUser}:${dbPass}@${dbHost}:${dbPort}/${dbNamespace}`;
+const dbUrl = `mongodb://${dbHost}:${dbPort}/${dbNamespace}`;
 
 // collections table, declaring master list of collections in our database
 export const collections: {
