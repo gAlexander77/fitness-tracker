@@ -23,6 +23,7 @@ function UserDashboard(){
                 <DonutChart id="User-Protein-Intake" dailyIntake={ 6.5} dailyTotal={10}></DonutChart>
                 <DonutChart id="User-Carbs-Intake" dailyIntake={ 6.5} dailyTotal={10}></DonutChart>
         </div>
+        <LineGraph/>
     );
 }
 
