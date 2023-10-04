@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import Nav from '../../components/Nav';
+import DonutChart  from './DonutChart';
+import LineGraph from './LineGraph';
 import '../../styles/pages/UserDashboard/UserDashboard.css';
 
 /*
@@ -12,18 +14,20 @@ function UserDashboard(){
     const [selection, setSelection] = useState("overview")
 
     return(
-        <div className="user-dashboard-page">
-            <Nav/>
-            <h1 id="page-header">Dashboard</h1>
-            <DashboardMenu selection={selection} setSelection={setSelection}/>
-            <DashboardDisplay selection={selection} setSelection={setSelection}/>
-        </div>
-        <div className='Activity-Ring'>
-                <DonutChart id="User-Calorie-Intake" dailyIntake={2.5} dailyTotal={10}></DonutChart>
-                <DonutChart id="User-Protein-Intake" dailyIntake={ 6.5} dailyTotal={10}></DonutChart>
-                <DonutChart id="User-Carbs-Intake" dailyIntake={ 6.5} dailyTotal={10}></DonutChart>
-        </div>
-        <LineGraph/>
+        <>
+            <div className="user-dashboard-page">
+                <Nav/>
+                <h1 id="page-header">Dashboard</h1>
+                <DashboardMenu selection={selection} setSelection={setSelection}/>
+                <DashboardDisplay selection={selection} setSelection={setSelection}/>
+            </div>
+            <div className='Activity-Ring'>
+                    <DonutChart id="User-Calorie-Intake" dailyIntake={2.5} dailyTotal={10}></DonutChart>
+                    <DonutChart id="User-Protein-Intake" dailyIntake={ 6.5} dailyTotal={10}></DonutChart>
+                    <DonutChart id="User-Carbs-Intake" dailyIntake={ 6.5} dailyTotal={10}></DonutChart>
+            </div>
+            <LineGraph/>
+        </>
     );
 }
 
