@@ -1,11 +1,12 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Home from './pages/Home/Home';
+import Landing from './pages/Landing/Landing';
 import Login from './pages/Login/Login';
 import SignUp from './pages/SignUp/SignUp';
 import SignInSignUp from './pages/SignInSignUp/SignInSignUp';
-import UserDashboard from './pages/UserDashboard/UserDashboard';
-import MyJournal from './pages/MyJournal/MyJournal';
+import UserDashboard from './pages/UserDashboardV2/UserDashboard';
+//import MyJournal from './pages/MyJournal/MyJournal';
+import MyJournal from './pages/MyJournalV2/MyJournal'
 import MyCalendar from './pages/MyCalendar/MyCalendar';
 import Workouts from './pages/Workouts/Workouts';
 import Workout from './pages/Workout/Workout';
@@ -21,7 +22,7 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Home/>}/>
+        <Route path="/" element={<Landing/>}/>
         <Route path="/login" element={<Login/>}/>
         <Route path="/signup" element={<SignUp/>}/>
         <Route path="/user" element={<SignInSignUp/>}/>

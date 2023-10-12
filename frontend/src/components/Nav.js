@@ -36,11 +36,11 @@ function Nav({isUserSignedIn}) {
 		return () => window.removeEventListener('scroll', handleScroll);
 	}, []);
 
-	/*const navClass = isNavbarShrunk ? 'nav shrunk' : 'nav';*/
-	const navClass = isNavbarShrunk ? 'nav' : 'nav';
+	const navClass = isNavbarShrunk ? 'nav shrunk' : 'nav';
+	/*const navClass = isNavbarShrunk ? 'nav' : 'nav';*/
 
 	return (
-		<nav className={navClass} ref={navRef}>
+		<nav className={navClass} ref={navRef} id="navbar">
 			<div className="nav-left">
 				<Home/>
 			</div>
@@ -54,7 +54,7 @@ function Nav({isUserSignedIn}) {
 
 function Home() {
 	
-	const navigate = useRef(useNavigate())
+	const navigate = useRef(useNavigate());
 
     const goToHome = () => {
 	    navigate.current('/');

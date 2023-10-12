@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Skeleton } from '@mui/material';
+import Search from './Search';
+import '../../../styles/pages/Workouts/components/Display.css';
 
 function Display(props) {
     
@@ -125,13 +127,13 @@ function Workout(props) {
     }
 
     return(
-        <div className="workouts-display-workout-container" onClick={goToWorkout} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+        <a className="workouts-display-workout-container" onClick={goToWorkout} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} href={link}>
             <div className="workouts-display-workout">
                 {!imageLoaded && <Skeleton animation="wave" variant="rectangle" sx={{ bgcolor: 'grey.900', borderRadius: '10px',}} width="100%" height="100%" />}
                 <img id="image" src={props.images[imageIndex]} onLoad={handleImageLoad} style={{ display: imageLoaded ? 'block' : 'none' }}/>
                 <h1 id="name">{props.name}</h1>
             </div>
-        </div>
+        </a>
     );
 }
 
