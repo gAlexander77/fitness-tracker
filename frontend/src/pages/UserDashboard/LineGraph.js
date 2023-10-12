@@ -1,29 +1,65 @@
+import data from '../../test-data/journalRequest.json';
+
 import React from 'react';
-import { Line } from 'react-chartjs-2';
 import {
 	Chart as ChartJS,
 	LineElement, // whatever element you are trying to install, if you want a arcchart you would type ArcElement
-	CategoryScale,
+	TimeScale, // for X axis, needs to be converted to Time scale
 	LinearScale, // y axis
 	PointElement,
 	Legend,
 	Tooltip
 } from 'chart.js';
 
+import 'chartjs-adapter-date-fns';
+
+import { Line } from 'react-chartjs-2';
+
+
 ChartJS.register(
 	LineElement,
-	CategoryScale, 
+	TimeScale, 
 	LinearScale, 
 	PointElement,
 	Legend,
 	Tooltip
 )
 
+/* this function gets all the entries and returns the dates in the format required by react-chartjs-2 in an array */
+function DatesReformat(Entries){
+
+	let validDatesArr = [];
+
+	for (var i = 0; i < Entries.length; i++){
+		let validDate;
+		let dateString = Entries[i].journalEntry;
+		
+		let sections = dateString.split('-');
+		let year = parseInt(sections[2]),
+			month = parseInt(sections[0]) - 1,
+			day = parseInt(sections[1]);
+		validDate = new Date(year, month, day).toLocaleDateString('en-CA'); // validDate = "YYYY-MM-dd"
+		validDatesArr.push(validDate)
+	}	
+	
+	return validDatesArr;
+}
+
 const LineGraph = () => {
-    const config = {
-      labels: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-      // each data in each dataset needs to be pulled from the api
-      // we might want to decide if we want to show current week info or last 7 days info
+	// whenever we start pulling data from the 
+	let Entries = data.journalEntries;
+	
+	let validDates = DatesReformat(Entries);
+
+	let stringTemp = '2023-03-11';
+	
+	const config = {
+		// let us use the date from the test data
+	
+    	labels: [validDates[0], validDates[1], validDates[2]], // so we have to send the dates as string types
+      	// each data in each dataset needs to be pulled from the api
+		// we might want to decide if we want to show current week info or last 7 days info
+		
 		datasets: [
 			{
 				/* 
@@ -41,7 +77,7 @@ const LineGraph = () => {
 			},
 			{
 				label: 'Calories',
-				data: [1500, 1200, 1100, 1450, 1500, 2400, 2200], // going to have to pull the information here
+				data: [data.journalEntries[0].macros[0].amount, data.journalEntries[1].macros[0].amount, 1100, 1450, 1500, 2400, 2200], // going to have to pull the information here
 				backgroundColor: '#6AFF00',
 				borderColor: '#6AFF00',
 				pointBorderColor: '#6AFF00',
@@ -77,8 +113,14 @@ const LineGraph = () => {
 			legend: true
 		},
 		scales: {
+			x: { 
+				type: 'time',
+				time: {
+					unit: 'day'
+				}
+			},
 			y:{
-				min: 0,
+				beginAtZero: true,
 			},
 			
 		}
@@ -97,7 +139,8 @@ const LineGraph = () => {
 				<Line
 					data={config}
 					options={options}
-				/>
+				>
+				</Line>
 			</div>
 		</div>
 
