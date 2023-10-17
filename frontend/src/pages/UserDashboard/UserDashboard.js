@@ -20,13 +20,16 @@ function UserDashboard(){
                 <h1 id="page-header">Dashboard</h1>
                 <DashboardMenu selection={selection} setSelection={setSelection}/>
                 <DashboardDisplay selection={selection} setSelection={setSelection}/>
+                <div className='Activity-Ring'>
+                    <>
+                        <DonutChart id="User-Calorie-Intake" dailyIntake={2.5} dailyTotal={10} macro={"Carbs"} color={"#2DEDF9"}></DonutChart>
+                        <DonutChart id="User-Protein-Intake" dailyIntake={ 6.5} dailyTotal={10} macro={"Calories"} color={"#6AFF00"}></DonutChart>
+                        <DonutChart id="User-Carbs-Intake" dailyIntake={ 6.5} dailyTotal={10} macro={"Carbs"} color={"#FF006A"}></DonutChart>
+                    </>
+                </div>
+                <LineGraph/>
             </div>
-            <div className='Activity-Ring'>
-                    <DonutChart id="User-Calorie-Intake" dailyIntake={2.5} dailyTotal={10}></DonutChart>
-                    <DonutChart id="User-Protein-Intake" dailyIntake={ 6.5} dailyTotal={10}></DonutChart>
-                    <DonutChart id="User-Carbs-Intake" dailyIntake={ 6.5} dailyTotal={10}></DonutChart>
-            </div>
-            <LineGraph/>
+            
         </>
     );
 }
