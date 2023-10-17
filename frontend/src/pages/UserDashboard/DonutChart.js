@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 
-const DonutChart = ({ dailyIntake, dailyTotal }) => {
+const DonutChart = ({ dailyIntake, dailyTotal, macro, color}) => {
 const svgRef = useRef(null);
 
 useEffect(() => {
@@ -13,15 +13,8 @@ useEffect(() => {
     const wholePie = 2 * Math.PI;
 
     const usedPercent = dailyIntake / dailyTotal;
-    const activeColor = '#2DEDF9';
-    const inactiveColor = '#edecec';
-
-    // empty background to contrast total
-    const arcBackground = d3.arc()
-    .innerRadius(45)
-    .outerRadius(60)
-    .startAngle(0)
-    .endAngle(wholePie);  // This will create a full circle for the background
+    const activeColor = color;
+    // const inactiveColor = '#edecec';
 
     // this will be the percentage that has been used
     const arcForeground = d3.arc()
@@ -44,17 +37,17 @@ useEffect(() => {
         .attr("text-anchor", "middle")  // This will center the text
         .attr('dy', '5')  // This will position the text vertically in the center
         .attr("fill", "#edecec")
-        .text("Macros");
+        .text(`${macro}`);
 
-    const background = svg.append("path")
-            .datum({ endAngle: wholePie })  // Full circle
-            .style("fill", inactiveColor)
-            .attr("d", arcBackground.toString());
+    // const background = svg.append("path")
+    //         .datum({ endAngle: wholePie })  // Full circle
+    //         .style("fill", inactiveColor)
+    //         .attr("d", arcBackground.toString());
 
     const foreground = svg.append("path")
         .datum({ endAngle: startChart })  // Will be updated in transition
         .style("fill", activeColor)
-        .attr("d", arcForeground.toString());
+        .attr("d", arcForeground({ endAngle : startChart}));
 
     const newNum = (wholePie * usedPercent) + startChart;
 
@@ -75,7 +68,7 @@ useEffect(() => {
     };
 
     drawDonutChart();
-}, [dailyIntake, dailyTotal]);
+}, [dailyIntake, dailyTotal, macro, color]);
 
 return (
     <div className="wrapper">
