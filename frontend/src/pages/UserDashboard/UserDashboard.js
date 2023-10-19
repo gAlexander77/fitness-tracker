@@ -8,7 +8,7 @@ function UserDashboard(){
 
     return(
         <div className="user-dashboard-page">
-            <Nav/>
+            <Nav />
             <h1 id="page-header">Dashboard</h1>
             <DashboardMenu selection={selection} setSelection={setSelection}/>
             <DashboardDisplay selection={selection} setSelection={setSelection}/>

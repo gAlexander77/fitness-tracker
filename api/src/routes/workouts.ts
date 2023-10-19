@@ -6,10 +6,16 @@ import { ObjectId } from 'mongodb';
 const workouts = Router();
 const userWorkouts = async (id: ObjectId) => (await collections.users.findOne({ _id: id})).customWorkouts;
 
-workouts.get("/", async (_req: Request, res: Response) => {
+workouts.get("/", async (req: Request, res: Response) => {
+    const pipeline = [
+        { $skip: parseInt(req.query.skip as string) || 0 },
+        { $limit: parseInt(req.query.limit as string) || 10 }
+    ];
     try {
-        res.status(200).json(await collections.workouts.find({}).toArray());
+        const result = await collections.workouts.aggregate(pipeline).toArray();
+        res.status(200).json(result);
     } catch (error) {
+        console.log(error);
         res.status(500).json({error: "internal server error"});
     }
 });

@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import { useNavigate } from "react-router-dom";
 import { BsArrowLeft } from "react-icons/bs";
 import '../../styles/pages/Login/Login.css';
+import axios from 'axios';
 
 function Login(){
 
@@ -29,7 +30,9 @@ function Login(){
     };
 
     const loginHandler = () => {
-        console.log(input);
+        axios.post('http://localhost:3001/api/sign-in', input, {withCredentials: true})
+            .then(response => console.log(response.data))
+            .catch(error => console.log(error));
     };
 
     return(

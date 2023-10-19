@@ -4,21 +4,20 @@ import { FaUserCircle } from 'react-icons/fa';
 import { BsPencilSquare, BsCalendarFill, BsCalculatorFill } from 'react-icons/bs';
 import { MdDirectionsRun } from 'react-icons/md';
 import '../styles/components/Nav.css';
+import axios from 'axios';
 
-function Nav({isUserSignedIn}) {
+function Nav() {
 
-	const [isUser, setIsUser] = useState(true);
+	const [user, setUser] = useState(undefined);
 	const [menuIsOpen, setMenuIsOpen] = useState(false);
 
 	useEffect(() => {
-		if(isUserSignedIn===false) {
-			setIsUser(false);
+		if (user === undefined) {
+			axios.get('http://localhost:3001/api/', {withCredentials: true})
+				.then(response => setUser(response.data))
+				.catch(() => setUser(null));
 		}
-		else if(isUserSignedIn===true) {
-			setIsUser(true);
-		}
-	},[isUserSignedIn])
-
+	}, [user]);
 
 	const [isNavbarShrunk, setIsNavbarShrunk] = useState(false);
 	const navRef = useRef(null);
@@ -45,8 +44,8 @@ function Nav({isUserSignedIn}) {
 				<Home/>
 			</div>
 			<div className="nav-right">
-				{isUser ? <Dashboard/> : <LoginOptions/>}
-				<Menu isUser={isUser}/>
+				{user ? <Dashboard/> : <LoginOptions/>}
+				<Menu user={user}/>
 			</div>
 		</nav>
 	);
@@ -103,7 +102,7 @@ function LoginOptions(){
 	);
 }
 
-function Menu({isUser}) {
+function Menu({user}) {
 	
 	function MenuLink(props){
     
@@ -181,7 +180,7 @@ function Menu({isUser}) {
 		</div>
 		<div className="nav-menu" ref={menuRef}>
 		  	<ul>
-				{options(isUser).map((option, index) => {
+				{options(!!user).map((option, index) => {
 			  		return <MenuLink key={index} option={option} />;
 				})}
 		  	</ul>
