@@ -1,7 +1,8 @@
 .home-page {
-    min-width: 100vw;
+    min-width: 100%;
     min-height: 100vh;
-    background-color: #1B1B1B;
+    min-height: calc(100vh - 90px);
+    background-color: var(--background-color);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -77,40 +78,48 @@
     margin: auto;
 }
 
-.home-menu-options-container div {
+.home-menu-options-container div{
+    display: flex;
+    flex-direction: column;
+}
+
+.home-menu-options-container div #link-button{
+    all: unset;
     font-weight: 800;
     font-size: 40px;
     color: white;
+    cursor: pointer;
 }
 
 /* HomeAccount.js */
 .home-account-container {
-    color: white;
     position: absolute;
     top: 0;
     right: 0;
-    margin-top: 10px;
-    margin-right: 10px;
+    
+    height: 110px;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    
+    margin-right: 1%;
 }
 
-.home-account-container a {
-    all: unset;
-}
 
-.home-account-container a button {
+.home-account-container button {
     all: unset;
     display: flex;
     flex-direction: row;
     align-items: center;
     cursor: pointer;
+    color: white;
 }
 
-.home-account-container a button p {
-    margin-right: 10px;
-    font-size: 18px;
-}
-
-.home-account-container a button #icon {
+.home-account-container button p {
     margin-right: 5px;
+}
+
+.home-account-container button #icon {
     font-size: 30px;
 }

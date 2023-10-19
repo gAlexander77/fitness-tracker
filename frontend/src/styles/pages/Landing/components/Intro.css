@@ -1,0 +1,83 @@
+.landing-page > #intro {
+    width: 100%;
+    height: calc(100vh - 75px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.landing-page .background-container {
+    width: 100%;
+    height: calc(100vh - 75px);
+    z-index: 0;
+    background-color: transparent;
+    position: absolute;
+    overflow: hidden;
+}
+
+.landing-page .background-container .screen {
+    width: 100%;
+    height: calc(100vh - 75px);
+    z-index: 2;
+    background: var(--background-color);
+    backdrop-filter: blur(105px);
+    -webkit-backdrop-filter: blur(105px);
+    position: absolute;
+}
+
+.landing-page .background-container .circle-1 {
+    position: absolute;
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%);  
+    width: 70%;
+    height: 55%;
+    border-radius: 10vh;
+    background: linear-gradient(180deg, #008cff7e 0%, #00f7ff2d 100%);
+}
+
+.landing-page > #intro > .content-container {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 40px;
+    z-index: 2;
+    margin-bottom: 5%;
+    position: relative;
+}
+
+.landing-page > #intro > .content-container .text-container {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    font-size: 28px;
+    cursor: default;
+    z-index: 3;
+}
+
+.landing-page > #intro > .content-container > .text-container > #row-1 {
+    background: linear-gradient(180deg, #8693AB 0%, #BDD4E7 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;    
+}
+
+.landing-page > #intro > .content-container > .text-container > #row-2 {
+    background: linear-gradient(180deg, #008CFF 0%, #00F7FF 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.landing-page > #intro > .content-container > .get-started-btn {
+    all: unset;
+    color: white;
+    font-weight: 500;
+    border-radius: 15px;
+    border: 3px solid white;
+    padding: 10px 40px;
+    cursor: pointer;
+}
+

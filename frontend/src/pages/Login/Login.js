@@ -1,6 +1,5 @@
 import React, { useState, useRef } from 'react';
 import { useNavigate } from "react-router-dom";
-import { CustomTextField1 as TextField } from '../../custom-mui-components/TextField';
 import { BsArrowLeft } from "react-icons/bs";
 import '../../styles/pages/Login/Login.css';
 
@@ -42,22 +41,7 @@ function Login(){
                 </button>
                 <h1>Login</h1>
                 <div className="login-input-container">
-                    <TextField
-                        id = 'username'
-                        label="Username"
-                        type="text"
-                        value={input.username}
-                        onChange={inputHandler}   
-                        margin="dense"                     
-                    /> 
-                    <TextField
-                        id = 'password'
-                        label="Password"
-                        type="password"
-                        value={input.password}
-                        onChange={inputHandler}
-                        margin="dense"
-                    />
+
                 </div>
                 <button className="login-login-btn" onClick={loginHandler}>
                     Login
@@ -69,5 +53,29 @@ function Login(){
         </div>
     );
 }
+
+/*
+Replace
+----------------------------------------
+<div className="login-input-container">
+        <TextField
+            id = 'username'
+            label="Username"
+            type="text"
+            value={input.username}
+            onChange={inputHandler}   
+            margin="dense"                     
+        /> 
+        <TextField
+            id = 'password'
+            label="Password"
+            type="password"
+            value={input.password}
+            onChange={inputHandler}
+            margin="dense"
+        />
+    </div>
+
+*/
 
 export default Login;

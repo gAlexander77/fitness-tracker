@@ -1,4 +1,44 @@
+:root {
+    --primary-color: #2DEDF3;
+    --secondary-color: #006AFF;
+
+    --warning: #f2a600;
+    --success: #12c99b;
+    --error: #e41749;
+
+    --gray-1: #414141;
+    --gray-2: #242424;
+    --page-background-color: #1B1B1B;
+
+    --gradient: linear-gradient(180deg, #008CFF 0%, #00F7FF 100%);
+}
+
 * {
     margin: 0;
     font-family: 'Inter', sans-serif;
+}
+
+body {
+    background-color: var(--page-background-color);
+}
+
+::-webkit-scrollbar {
+    width: 8px; /* Adjust the width of the scrollbar */
+}
+  
+::-webkit-scrollbar-track {
+    background: transparent; /* The track color */
+    background: rgba(0, 0, 0, 0.055);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(42.3px);
+    -webkit-backdrop-filter: blur(42.3px);
+}
+  
+::-webkit-scrollbar-thumb {
+    background: #222222; /* The thumb color */
+    border-radius: 4px; /* To make the thumb rounded */
+}
+  
+::-webkit-scrollbar-thumb:hover {
+    background: #555; /* The thumb color on hover */
 }

@@ -1,4 +1,5 @@
-import React from 'react';
+import React, {useRef} from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../../../styles/pages/Home/Home.css';
 
 function HomeMenuOptions(props){
@@ -7,7 +8,10 @@ function HomeMenuOptions(props){
             <div>
                 {options(props.isUser).map((option, index)=> {
                     return(
-                        <p key={index}>{option}</p>
+                        <MenuLink
+                            key={index}
+                            option={option}
+                        />
                     );
                 })}
             </div>
@@ -15,14 +19,32 @@ function HomeMenuOptions(props){
     );
 }
 
+function MenuLink(props){
+    
+    const option = props.option;
+    const link = "/"+option.toLowerCase().replace(/\s+/g, "-");
+
+    let navigate = useRef(useNavigate());
+
+    const goToLink = () => {
+        navigate.current(link);
+    };
+
+    return(
+        <button id="link-button" onClick={goToLink}>
+            {option}
+        </button>
+    );
+}
+
 function options(isUser) {
     let menuTitles = [];
     
     if(isUser === true){
-        menuTitles = ["MY JOURNAL", "MY CALENDAR", "WORKOUTS", "WARM-UPS", "CALCULATORS"];
+        menuTitles = ["MY JOURNAL", "MY CALENDAR", "WORKOUTS", "CALCULATORS"];
     }
     else{
-        menuTitles = ["WORKOUTS", "WARM-UPS", "CALCULATORS"];
+        menuTitles = ["WORKOUTS", "CALCULATORS"];
     }
     
     return menuTitles;

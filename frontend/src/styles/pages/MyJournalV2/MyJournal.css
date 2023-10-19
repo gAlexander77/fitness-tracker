@@ -1,0 +1,53 @@
+.my-journal-page {
+    min-width: 100%;
+    min-height: calc(100vh - 75px);
+    background-color: #1B1B1B;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+.my-journal-page > .my-journal-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+
+.my-journal-dashboard {
+    margin: 70px 0px;
+    min-height: calc(100vh - 215px);
+    width: 90vw;
+    max-width: 1500px;
+    padding: 20px;
+
+
+    background: rgba(0, 0, 0, 0.17);
+    backdrop-filter: blur(42.3px);
+    -webkit-backdrop-filter: blur(42.3px);
+    border: 1px solid var(--gray-2);
+    border-radius: 10px;
+}
+
+.my-journal-dashboard > .header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.header > .title {
+    align-self: center;
+    justify-self: start;
+}
+
+.header > .journal-toggle-btn {
+    align-self: center;
+    justify-self: end;
+}
+
+.my-journal-dashboard > .content {
+    width: 100%;
+    height: 100%;
+}
