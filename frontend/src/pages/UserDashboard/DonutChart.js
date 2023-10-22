@@ -14,12 +14,11 @@ useEffect(() => {
 
     const usedPercent = dailyIntake / dailyTotal;
     const activeColor = color;
-    // const inactiveColor = '#edecec';
 
     // this will be the percentage that has been used
     const arcForeground = d3.arc()
-        .innerRadius(45)
-        .outerRadius(60)
+        .innerRadius(60)
+        .outerRadius(75)
         .startAngle(startChart);  
         
         /* need to add something in case the user overlaps their rings */
@@ -37,7 +36,7 @@ useEffect(() => {
         .attr("text-anchor", "middle")  // This will center the text
         .attr('dy', '5')  // This will position the text vertically in the center
         .attr("fill", "#edecec")
-        .text(`${macro}`);
+        .text(`${dailyIntake} ${macro}`);
 
     // const background = svg.append("path")
     //         .datum({ endAngle: wholePie })  // Full circle
