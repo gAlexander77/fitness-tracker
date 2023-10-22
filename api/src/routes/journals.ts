@@ -23,22 +23,4 @@ journals.post('/', async (req: Request, res: Response) => {
     }
 });
 
-// Route accessing last 30 journal entries
-journals.get('/', async (req: Request, res: Response) => {
-    const uid = new ObjectId(req.session._id);
-    try {
-        const user = await collections.users.findOne({ _id: uid });
-
-        // get last 30 records from an authenticated user, otherwise return 404
-        if (user) {
-            const journalEntries = user.journalEntries.slice(-30);
-            res.status(200).json(journalEntries);
-        } else {
-            res.status(404).json({ error: "User not found" });
-        }
-    } catch (error) {
-        res.status(500).json({ error: error });
-    }
-});
-
 export default journals;
