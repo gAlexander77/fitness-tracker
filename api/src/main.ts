@@ -9,6 +9,7 @@ import workouts from './routes/workouts';
 import splits from './routes/splits';
 import users from './routes/users';
 import index from './routes/index';
+import journals from './routes/journals';
 
 const apiHost = process.env.API_HOST || "127.0.0.1";
 const apiPort = parseInt(process.env.API_PORT) || 3001;
