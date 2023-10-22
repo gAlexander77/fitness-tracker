@@ -19,7 +19,8 @@ const apiRoutes = [
 	{ path: "/", 	     router: index },
 	{ path: "/users",    router: users },
 	{ path: "/splits",   router: splits },
-	{ path: "/workouts", router: workouts }
+	{ path: "/workouts", router: workouts },
+	{ path: "/journals", router: journals }
 ];
 
 export const serve = (db: Db, routes: Array<Route>, host: string, port: number) => {
