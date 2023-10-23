@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import Nav from '../../components/Nav';
-import DonutChart  from './DonutChart';
+import DonutChart from './DonutChart';
 import LineGraph from './LineGraph';
+import MacroIDHelper from './MacroIDHelper';
 import '../../styles/pages/UserDashboard/UserDashboard.css';
 
-/*
-    the dailyIntake and dailyTotal hardcoded data needs to be replaced with the api call for the user's correponding data
-*/
 
-
-function UserDashboard(){
+function UserDashboard() {
+        
+    var macros = [];
+    macros = MacroIDHelper();
 
     const [selection, setSelection] = useState("overview")
 
@@ -22,9 +22,10 @@ function UserDashboard(){
                 <DashboardDisplay selection={selection} setSelection={setSelection}/>
                 <div className='Activity-Ring'>
                     <>
-                        <DonutChart id="User-Calorie-Intake" dailyIntake={2.5} dailyTotal={10} macro={"Carbs"} color={"#2DEDF9"}></DonutChart>
-                        <DonutChart id="User-Protein-Intake" dailyIntake={ 6.5} dailyTotal={10} macro={"Calories"} color={"#6AFF00"}></DonutChart>
-                        <DonutChart id="User-Carbs-Intake" dailyIntake={ 6.5} dailyTotal={10} macro={"Carbs"} color={"#FF006A"}></DonutChart>
+                        <DonutChart id="User-Carbs-Intake" dailyIntake={macros[2]} dailyTotal={100} macro={"g Carbs"} color={"#2DEDF9"}></DonutChart>
+                        <DonutChart id="User-Calorie-Intake" dailyIntake={ macros[0] } dailyTotal={1000} macro={"Calories"} color={"#6AFF00"}></DonutChart>
+                        <DonutChart id="User-Protein-Intake" dailyIntake={macros[1]} dailyTotal={100} macro={"g Protein"} color={"#FF006A"}></DonutChart>
+                   
                     </>
                 </div>
                 <LineGraph/>
