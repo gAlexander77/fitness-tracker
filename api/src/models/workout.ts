@@ -3,19 +3,19 @@ import { ObjectId } from 'mongodb';
 export class Workout {
     constructor(
         public workoutName: string,
-        public muscle: Array<string>,
-        public diagram: string,
         public description: string, 
-        public tutorialVideo: string,
-        public uid: ObjectId = null,
+        public diagram: string,
+        public muscle: string,
+        public equipment: string,
+        public images: Array<string> = [],
+        public videos: Array<string> = [],
         public _id?: ObjectId
     ) {}
-}
+};
 
 export class WorkoutGroup {
     constructor(
         public groupName: string,
         public workouts: Array<Workout> = [],
-        public _id: ObjectId = new ObjectId()
     ) {}
-}
+};

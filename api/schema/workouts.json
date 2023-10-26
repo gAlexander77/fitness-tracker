@@ -1,17 +1,21 @@
 {"$jsonSchema": {
     "bsonType": "object",
     "title": "Workouts",
+    "required": ["workoutName"],
     "properties": {
         "workoutName": {
             "bsonType": "string"
         },
-        "muscle": {
+        "description": {
+            "bsonType": "string"
+        },
+        "equipment": {
             "bsonType": "string"
         },
         "diagram": {
             "bsonType": "string"
         },
-        "description": {
+        "muscle": {
             "bsonType": "string"
         },
 		"images": {

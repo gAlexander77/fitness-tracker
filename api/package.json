@@ -4,10 +4,8 @@
   "description": "HTTP JSON API service for Shape Shift",
   "scripts": {
     "test": "mocha -r ts-node/register './src/tests/**/*.ts'",
-    "start": "ts-node ./src/main.ts",
-    "clean": "rm -rf node_modules",
-    "initdb": "ts-node ./src/main.ts initdb",
-    "nukedb": "ts-node ./src/main.ts nukedb"
+    "start": "ts-node ./src/app.ts",
+    "clean": "rm -rf node_modules"
   },
   "keywords": [],
   "author": "The Worst Team",

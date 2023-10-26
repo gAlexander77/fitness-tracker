@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Nav from '../../components/Nav';
 import Background from '../../components/Background';
 import Footer from '../../components/Footer';
@@ -11,6 +11,12 @@ import workoutData from '../../test-data/workoutsRequest.json';
 function Workouts(){
     
     const data = workoutData;
+
+    useEffect(() => {
+        if (data === workoutData) {
+            
+        }
+    }, [data]);
 
     const [currentPage, setCurrentPage] = useState(1);
 

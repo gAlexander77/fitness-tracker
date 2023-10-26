@@ -52,6 +52,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
     session = load_session(COOKIE_PATH)
 
+
     if args.post:
         response = session.post(args.url, data=parse_params(args.data))
     elif args.json:
