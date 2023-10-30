@@ -79,9 +79,9 @@ function ProteinIntakeCalculator() {
 
         props.setResults({ proteinIntake: proteinIntake });
         if(props.results.proteinIntake > 0
-          && props.input.feet != 0
-          && props.input.weight != 0
-          && props.input.age !=0) {
+          && props.input.feet !== 0
+          && props.input.weight !== 0
+          && props.input.age !==0) {
           props.setShowResults(true);
         }
         else {
