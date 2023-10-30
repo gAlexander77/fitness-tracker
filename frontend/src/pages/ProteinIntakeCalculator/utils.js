@@ -1,4 +1,3 @@
-
 export function heightToInches(feet, inches){
     feet = parseInt(feet);
     inches = parseInt(inches);
@@ -10,23 +9,40 @@ export function heightToInches(feet, inches){
     } 
 }
 
-// Return ProteinIntake based on user input
-export function calculateProtein(height, weight, activityLevel) {
-    if(height > 0 && weight > 0 && activityLevel > 0) 
-    {
-        switch(activityLevel)
-        {
-            case 1://sedentary
-            return (weight*0.36+ height*0.25);
+export function calculateProtein(height, weight, gender, activityLevel, age) {
+    let bmr;
 
-            case 2://moderate
-            return (weight*0.54 + height*0.35);
-
-            case 3://active
-            return (weight*0.68 + height*0.45);
-        }
+    // calculate BMR between male and female
+    if (gender === 'male') {
+      bmr = 88.362 + (13.397 * weight) + (4.799 * height) - (5.677 * age);
+    } else if (gender === 'female') {
+      bmr = 447.593 + (9.247 * weight) + (3.098 * height) - (4.330 * age);
     }
-    else {
-        return -1;
+    
+    // Adjust BMR for activity level to find TDEE
+    let tdee; // Total Daily Energy Expenditure
+    switch (activityLevel) {
+      case 'sedentary':
+        tdee = bmr * 1.2;
+        break;
+      case 'light':
+        tdee = bmr * 1.375;
+        break;
+      case 'moderate':
+        tdee = bmr * 1.55;
+        break;
+      case 'active':
+        tdee = bmr * 1.725;
+        break;
+      case 'very active':
+        tdee = bmr * 1.9;
+        break;
+      default:
+        tdee = bmr;
     }
-}
+  
+    // Calculate protein intake as a percentage of total daily caloric intake
+    const proteinIntake = (.20 * tdee) / 4; 
+    return Math.ceil(proteinIntake);
+  }
+  
