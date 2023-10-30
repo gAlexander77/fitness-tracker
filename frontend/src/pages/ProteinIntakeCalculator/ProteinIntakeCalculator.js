@@ -2,9 +2,8 @@ import React, { useState } from 'react';
 import Nav from '../../components/Nav';
 import '../../styles/pages/ProteinIntakeCalculator/ProteinIntakeCalculator.css';
 
-import { heightToInches, calculateProteinIntake} from './utils';
+import { heightToInches, calculateProtein} from './utils';
 
-// Todo: make results pop up on click
 
 function ProteinIntakeCalculator() {
     const [showResults, setShowResults] = useState(false);
@@ -57,14 +56,14 @@ function ProteinIntakeCalculator() {
           case "inches":
             props.setInput((prev) => ({ ...prev, inches: value }));
             break;
+          case "age":
+            props.setInput((prev) => ({ ...prev, age: value }));
+            break;
           case "weight":
             props.setInput((prev) => ({ ...prev, weight: value }));
             break;
           case "gender":
             props.setInput((prev) => ({ ...prev, gender: value }));
-            break;
-          case "age":
-            props.setInput((prev) => ({ ...prev, age: value }));
             break;
           case "activityLevel":
             props.setInput((prev) => ({ ...prev, activityLevel: value }));
@@ -75,13 +74,20 @@ function ProteinIntakeCalculator() {
       };
 
       const calculateHandler = () => {
-        // let height = heightToInches(props.input.feet, props.input.inches);
-        // console.log(height);
-        let proteinIntake = 1;
+        let height = heightToInches(props.input.feet, props.input.inches);
+        let proteinIntake = calculateProtein(height, props.input.weight, props.input.gender, props.input.activityLevel, props.input.age);
 
         props.setResults({ proteinIntake: proteinIntake });
-        props.setShowResults(true);
-    }
+        if(props.results.proteinIntake > 0
+          && props.input.feet != 0
+          && props.input.weight != 0
+          && props.input.age !=0) {
+          props.setShowResults(true);
+        }
+        else {
+            props.setShowResults(false);
+        }                
+      }
       
     return (
         <div className="protein-intake-calculator-calculator-component">
@@ -108,15 +114,16 @@ function ProteinIntakeCalculator() {
               </div>
               <h1 id="title">Age</h1>
               <div id="input-container">
-                <input
+              <input
                   id="age"
                   type="number"
                   value={props.input.age}
                   onChange={setValueHandler}
                 />
-                <p id="tag">years</p>
-
+                <p id="tag">Years</p>
               </div>
+
+
             </div>
             <div className="protein-intake-calculator-calculator-right-container">
               <h1 id="title">Weight</h1>
@@ -156,7 +163,7 @@ function ProteinIntakeCalculator() {
               </div>
             </div>
           </div>
-          <button className="protein-intake-calculator-calculator-calculate-btn" onClick={props.calculateHandler}>
+          <button className="protein-intake-calculator-calculator-calculate-btn" onClick={calculateHandler}>
             Calculate
           </button>
         </div>
