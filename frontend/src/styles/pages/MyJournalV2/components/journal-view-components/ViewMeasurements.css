@@ -1,0 +1,65 @@
+.view-measurements-component {
+    margin-bottom: 20px;
+    /*background-color: rgba(245, 245, 220, 0.123);*/
+    width: 100%;
+    height: 100%;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.view-measurements-component > #component-title {
+    margin-bottom: 15px;
+}
+
+.view-measurements-component > .view-measurements-component-display {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}
+
+.view-measurements-component-display > .bottom-and-top-border {
+    border-top: 1px solid transparent;
+    border-bottom: 1px solid transparent;
+    /* For the top faded border */
+    background-image: 
+        linear-gradient(to right, transparent 0%, white 5%, white 95%, transparent 100%),
+        linear-gradient(to right, transparent 0%, white 5%, white 95%, transparent 100%);
+    background-size: 100% 1px, 100% 1px; /* For both gradients */
+    background-repeat: no-repeat;
+    background-position: top, bottom;
+}
+
+.individual-measurement {
+    display: flex;
+    flex-direction: row;
+    
+    border-top: 1px solid transparent;
+    background-image: linear-gradient(to right, transparent 0%, white 5%, white 95%, transparent 100%);
+    background-size: 100% 1px;
+    background-repeat: no-repeat;
+    background-position: top;
+
+    /*
+    background-color: var(--gray-1);
+    border-radius: 10px;
+    */
+    margin: 0px 40px;
+}
+
+.individual-measurement-container {
+    padding: 15px;
+    padding-left: 4%;
+    display: flex;
+    font-size: 20px;
+}
+
+.individual-measurement-container > p {
+    margin-right: 30px;
+}
+
+.individual-measurement-container > .type-of-measurement {
+    text-transform: capitalize;
+}

@@ -1,14 +1,23 @@
 import React, { useState } from 'react';
 import { BsGraphUp, BsFillJournalBookmarkFill } from 'react-icons/bs';
+// Default Imports
 import Nav from '../../components/Nav'
 import Background from '../../components/Background';
 import Footer from '../../components/Footer';
+// Page specific imports
 import Journal from './components/Journal';
+import Graphs from './components/JournalData';
 import '../../styles/pages/MyJournalV2/MyJournal.css';
 
+// Test Data
+import data from '../../test-data/journalRequest.json';
 
 function MyJournal() {
-    const [viewJournal, setViewJournal] = useState(true); 
+
+    // Replace with data from GET /journal-entries
+    let journalEntries = data.journalEntries;
+
+    const [viewJournal, setViewJournal] = useState(true);
 
     return (
         <>
@@ -24,7 +33,15 @@ function MyJournal() {
                             />
                         </div>
                         <div className="content">
-                            {viewJournal ? <Journal/> : "data"}
+                            {viewJournal ? 
+                                <Journal 
+                                    journalEntries={journalEntries}
+                                />
+                                : 
+                                <Graphs 
+                                    journalEntries={journalEntries}
+                                />
+                            }
                         </div>
                     </div>
                 </div>
@@ -41,11 +58,17 @@ function HeaderToggle({viewJournal, setViewJournal}) {
         setViewJournal(!viewJournal);
     }
     
-    return viewJournal ? 
-    <BsGraphUp onClick={toggle} className="journal-toggle-btn"/>
-    : 
-    <BsFillJournalBookmarkFill onClick={toggle} className="journal-toggle-btn"/>
+    return (viewJournal ? 
+        <BsGraphUp 
+            onClick={toggle} 
+            className="journal-toggle-btn"
+        />
+        : 
+        <BsFillJournalBookmarkFill 
+            onClick={toggle} 
+            className="journal-toggle-btn"
+        />
+    );
 }
-
 
 export default MyJournal;

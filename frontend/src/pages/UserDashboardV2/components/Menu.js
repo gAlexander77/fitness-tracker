@@ -22,10 +22,10 @@ function TodayWidget() {
         <div className="today-widget">
             <h1 id="today">Today</h1>
             <div id="date">
-                <h1>Aug</h1>
-                <h1>23</h1>
+                <h1>Oct</h1>
+                <h1>31</h1>
             </div>
-            <h1 id="group">Legs</h1>
+            <h1 id="group">Rest</h1>
             <div className="background-container">
                 <span id="background"/>
             </div>

@@ -1,0 +1,39 @@
+.view-journal-entries-dashboard {
+    flex: 1;
+    padding: 20px 0px;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 180px auto;
+    gap: 20px;    
+}
+
+.select-journal-entry-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-height: 100%;
+}
+
+.select-journal-entry-container > .select-entry-btn {
+    all: unset;
+    background-color: var(--gray-1);
+    height: 50px;
+    border-radius: 10px;
+    text-align: center;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 18px;
+}
+
+.select-journal-entry-container > .select-entry-btn:hover {
+    background-color: var(--gray-2);
+}
+
+.view-journal-entries-dashboard > .view-journal-entry-display {
+    border-radius: 10px;
+    background-color: var(--gray-2);
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
