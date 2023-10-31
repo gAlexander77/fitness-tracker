@@ -154,9 +154,9 @@ const LineGraph = () => {
 					options={options}
 				>
 				</Line>
-				<button id="twoDayButton" onClick={() => handleExpandClick(2)}> 2 days Button </button>
-				<button onClick={() => handleExpandClick(3)}> 3 days Button </button>
-				<button onClick={() => handleExpandClick(7)}> 7 days Button </button>
+				<button id="twoDayButton" onClick={() => handleExpandClick(2)}> 2 days </button>
+				<button onClick={() => handleExpandClick(3)}> 3 days </button>
+				<button onClick={() => handleExpandClick(7)}> 7 days </button>
 
 			</div>
 		</div>
