@@ -1,4 +1,4 @@
-import data from '../../test-data/test.json';
+import data from '../../test-data/journalRequest.json';
 
 /*
     This function checks for all valid data available. which will be used for data display. If there is no data
