@@ -1,7 +1,7 @@
 import Nav from '../../components/Nav';
 import Footer from '../../components/Footer';
 import Menu from './components/Menu';
-import Macros from './components/Macros';
+import MacrosWidget from './dysc-components/macroswidget'
 import '../../styles/pages/UserDashboardV2/UserDashboard.css';
 
 function UserDashboard() {
@@ -17,7 +17,8 @@ function UserDashboard() {
                         <h1 id="welcome">Welcome,</h1>  
                         <h1 id="username">{username}</h1>
                     </div>
-                    <Menu/>
+                    <Menu />
+                    <MacrosWidget/>
                 </div>
                 <Background/>            
             </div>
