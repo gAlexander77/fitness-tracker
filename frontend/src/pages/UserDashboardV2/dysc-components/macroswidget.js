@@ -18,7 +18,7 @@ function MacrosWidget() {
                 <DonutChart id="User-Calorie-Intake" dailyIntake={ macros[0] } dailyTotal={1000} macro={"Calories"} color={"#6AFF00"}></DonutChart>
                 <DonutChart id="User-Protein-Intake" dailyIntake={macros[1]} dailyTotal={100} macro={"g Protein"} color={"#FF006A"}></DonutChart>
             </div>
-            <LineGraph />
+            <LineGraph Entries={data.journalEntries}/>
         </div>
     );
 }

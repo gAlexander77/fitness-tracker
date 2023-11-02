@@ -1,4 +1,3 @@
-
 /*
     This function checks for all valid data available. which will be used for data display. If there is no data
     or the data is out of order, this will deal with populating that

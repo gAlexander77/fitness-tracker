@@ -1,4 +1,3 @@
-import data from '../../../test-data/journalRequest.json';
 import MacroDA from './MacroDA';
 // import '../../../styles/pages/UserDashboardV2/dysc-components/MacrosWidget.css';
 
@@ -55,12 +54,12 @@ function DatesReformat(Entries){
 	return validDatesArr;
 }
 
-const LineGraph = () => {
+const LineGraph = ({ Entries }) => {
 	const [activeButton, setActiveButton] = useState(14);
 
 	const [daysToShow, setDaysToShow] = useState(14); // 3 is the initial number of days visible
 
-	var Entries = data.journalEntries;
+		// var Entries = data.journalEntries;
 	var Macros = MacrosDivi(Entries);
 	var validDates = DatesReformat(Entries);
 	var calories = [], protein = [], carbs = [];
