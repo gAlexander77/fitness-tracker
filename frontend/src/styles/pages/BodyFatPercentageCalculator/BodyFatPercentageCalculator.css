@@ -165,4 +165,13 @@
     width: 100%;
 }
 
-  
+/* toggle fading container */
+.fade-on
+{
+    opacity: .2;
+}
+
+.fade-off
+{
+    opacity: 1;
+}
