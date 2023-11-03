@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import Nav from '../../components/Nav';
+import Background from '../../components/Background';
+import Footer from '../../components/Footer';
 import '../../styles/pages/BodyMassIndexCalculator/BodyMassIndexCalculator.css';
 
 import { heightToInches, calculateBMI, calculateClassification } from './utils';
@@ -18,23 +20,29 @@ function BodyMassIndexCalculator(){
     });
     
     return(
+        <>
+        <Nav/>
         <div className="body-mass-index-calculator-page">
-            <Nav/>
-            <h1 id="title">BMI CALCULATOR</h1>
-            <Calculator
-                input={input}
-                setInput={setInput} 
-                setResults={setResults}
-                results={results}
-                setShowResults={setShowResults}
-            />
-            <CalculatorResults
-                trigger={showResults}
-                setTiggers={setShowResults}
-                bmi={results.bmi}
-                classification={results.classification}
-            />
+            <div className="body-mass-index-calculator-content">
+                <h1 id="title">BMI CALCULATOR</h1>
+                <Calculator
+                    input={input}
+                    setInput={setInput} 
+                    setResults={setResults}
+                    results={results}
+                    setShowResults={setShowResults}
+                />
+                <CalculatorResults
+                    trigger={showResults}
+                    setTiggers={setShowResults}
+                    bmi={results.bmi}
+                    classification={results.classification}
+                />
+            </div>            
+            <Background/>
         </div>
+        <Footer/>
+        </>
     );
 }
 
@@ -66,6 +74,11 @@ function Calculator(props){
         props.setResults({ bmi: bmi, classification: classification });
         if(props.results.bmi > 0 && props.results.classification !== "") {
             props.setShowResults(true);
+            // Set 
+            // The
+            // POST
+            // Request
+            // Here
         }
         else {
             props.setShowResults(false);

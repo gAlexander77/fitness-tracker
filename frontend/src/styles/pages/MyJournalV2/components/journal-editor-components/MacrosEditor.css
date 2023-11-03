@@ -1,0 +1,18 @@
+.add-meal-button-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.add-meal-button-container > button{
+    all: unset;
+    background-color: var(--gray-1);
+    padding: 10px 10%;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.add-meal-button-container > button:hover{
+    background-color: var(--primary-color);
+    color: black;
+}

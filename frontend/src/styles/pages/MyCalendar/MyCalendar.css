@@ -312,6 +312,9 @@
 
 .my-calendar-calendar-day-content #journal-entry-btn {
     all: unset;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     font-size: 12px;
     border-radius: 10px;
     width: 90%;

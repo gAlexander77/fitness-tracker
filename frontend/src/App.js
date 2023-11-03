@@ -27,7 +27,8 @@ function App() {
         <Route path="/signup" element={<SignUp/>}/>
         <Route path="/user" element={<SignInSignUp/>}/>
         <Route path="/dashboard" element={<UserDashboard/>}/>
-        <Route path="/my-journal" element={<MyJournal/>}/>
+        <Route path="/my-journal/:dateFromUrl" element={<MyJournal/>}/>
+        <Route path="/my-journal/" element={<MyJournal/>}/>
         <Route path="/my-calendar" element={<MyCalendar/>}/>
         <Route path="/workouts" element={<Workouts/>}/>
         <Route path="/workout/:name" element={<Workout/>}/>

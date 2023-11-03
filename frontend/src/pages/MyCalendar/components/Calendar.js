@@ -112,11 +112,11 @@ function CalendarDay(props){
                     {props.split}
                 </div>
                 <div id="journal-entry-wrapper">
-                {hasJournalEntry ? 
-                    <button id="journal-entry-btn" onClick={viewJournalEntryHandler}>
-                        Journal Entry
-                    </button>
-                :''}
+                    {hasJournalEntry ? 
+                        <a id="journal-entry-btn" href={`/my-journal/${calendarDate}`}> 
+                            Journal Entry
+                        </a>
+                    :''}
                 </div>
             </div> 
             <WorkoutDetails 
