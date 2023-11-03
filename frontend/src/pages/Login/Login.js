@@ -21,14 +21,6 @@ function Login(){
         password: ''
     });
 
-    const inputHandler = (evt) => {
-        setInput({
-            ...input,
-            [evt.target.id]: evt.target.value
-        });
-        console.log(input);
-    };
-
     const loginHandler = () => {
         axios.post('http://localhost:3001/api/sign-in', input, {withCredentials: true})
             .then(response => console.log(response.data))

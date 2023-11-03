@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Form, useNavigate } from 'react-router-dom';
 import { BsFillPersonFill, BsKeyFill, BsFillEyeFill, BsFillEyeSlashFill, BsArrowLeft } from 'react-icons/bs';
 import '../../../styles/pages/SignInSignUp/components/SignIn.css';
-import axios, { formToJSON } from 'axios';
+import axios from 'axios';
 
 function SignIn(){
     const navigate = useNavigate();
@@ -11,10 +11,10 @@ function SignIn(){
     const handleSignInClick = (event) => {
         event.preventDefault();
         const form = new FormData(event.target);
-        axios.post('http://localhost:3001/api/sign-in', 
+        axios.post('http://localhost:3001/api/sign-in',
             { username: form.get('username'), password: form.get('password') },
             { withCredentials: true })
-            .then(response => console.log(response))
+            .then(() => navigate('/'))
             .catch(error => setError(error.message));
     };
 

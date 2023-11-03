@@ -51,22 +51,19 @@ const middleware = [ // global middleware array
 	})
 ];
 
-const connect = async () => {
-	const client: MongoClient = new MongoClient(`mongodb+srv://${db.username}:${db.password}@${db.host}/${db.namespace}`);
-	await client.connect();
-	
-	const cursor = client.db(db.namespace);
+export const httpConfig = async () => {
+	const [ app, api ] = [ express(), Router() ];
+
+	const mongoClient = new MongoClient(`mongodb+srv://${db.username}:${db.password}@${db.host}/${db.namespace}`);
+	await mongoClient.connect();
+
+	const cursor = mongoClient.db(db.namespace);
 
 	collections.users = cursor.collection('users');
 	collections.workouts = cursor.collection('workouts');
-};
-
-export const httpConfig = async () => {
-	const [app, api] = [ express(), Router() ];
-	await connect(); // initialize the collections object
-
-	routes.forEach(({ path, route }) => api.use(path, route));
+	
 	middleware.forEach(ext => app.use(ext));
+	routes.forEach(({ path, route }) => api.use(path, route));
 	app.use('/api', api);
 
 	return { app, db, address };

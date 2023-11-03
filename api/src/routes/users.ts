@@ -6,22 +6,23 @@ import User from '../models/user';
 
 const route = Router();
 
-route.post("/create", async (req: Request, res: Response) => {
+route.post("/create", async (request: Request, response: Response) => {
     try {
+        const { username, password } = request.body;
         const salt = randomBytes(16).toString("hex");
-        scrypt(req.body.password, salt, 64, async (_error: Error, buffer: Buffer) => {    
-            const user = new User(req.body.username, buffer.toString("hex"), salt);
+        scrypt(password, salt, 64, async (_error: Error, buffer: Buffer) => {    
             try {
+                const user = new User(username, buffer.toString("hex"), salt);
 				await collections.users.insertOne(user)
-                	? res.status(200).json({ ok: "user created" })
-                	: res.status(500).json({ error: "internal server error" });
+                	? response.status(200).json({ ok: "user created" })
+                	: response.status(500).json({ error: "unable to create user" });
 			} catch (error) {
-				res.status(400).json({ error: "username already exists" })
+				response.status(400).json({ error: "username already exists" });
 			}
         });
     } catch (error) {
         console.log(error);
-        res.status(500).json({ error: "internal server error" });
+        response.status(500).json({ error: "internal server error" });
     }
 });
 

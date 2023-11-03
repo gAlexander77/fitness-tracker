@@ -38,13 +38,20 @@ function Nav() {
 	const navClass = isNavbarShrunk ? 'nav shrunk' : 'nav';
 	/*const navClass = isNavbarShrunk ? 'nav' : 'nav';*/
 
+	let menu;
+	if (user === undefined) {
+		menu = <LoginOptions />;
+	} else {
+		menu = <Dashboard />;
+	}
+
 	return (
 		<nav className={navClass} ref={navRef} id="navbar">
 			<div className="nav-left">
 				<Home/>
 			</div>
 			<div className="nav-right">
-				{user ? <Dashboard/> : <LoginOptions/>}
+				{ menu }
 				<Menu user={user}/>
 			</div>
 		</nav>
