@@ -41,6 +41,7 @@ function BodyFatPercentageCalculator() {
 function Calculator(props) {
   const [currentGender, setCurrentGender] = useState(5);
 
+
   const handleGenderButtonClick = (genderModifier) => {
     setCurrentGender(genderModifier);
   };
@@ -158,16 +159,34 @@ function Calculator(props) {
             />
             <p id="tag">Inches</p>
           </div>
-          <h1 id="title">Hip Circumference</h1>
-          <div id="input-container">
-            <input
-              id="hipInches"
-              type="number"
-              value={props.input.hipInches}
-              onChange={setValueHandler}
-            />
-            <p id="tag">Inches</p>
-          </div>
+
+          {currentGender === -161 ? (
+          <div id="fade-off" class = "fade-off">
+            <h1 id="title">Hip Circumference</h1>
+            <div id="input-container">
+                <input
+                id="hipInches"
+                type="number"
+                value={props.input.hipInches}
+                onChange={setValueHandler}
+                />
+                <p id="tag">Inches</p>
+            </div>
+            </div>
+          ):(
+            <div id="fade-off" class = "fade-on">
+            <h1 id="title">Hip Circumference</h1>
+            <div id="input-container">
+                <input
+                id="hipInches"
+                type="number"
+                value={props.input.hipInches}
+                onChange={setValueHandler}
+                />
+                <p id="tag">Inches</p>
+            </div>
+            </div>
+          )}
         </div>
       </div>
       <div className='body-fat-percentage-calculator-gender-btns'>
