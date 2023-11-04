@@ -21,12 +21,13 @@ function Menu() {
 
 // Display Currents day and the workouts planned for the day
 function TodayWidget() {
+    const date = new Date();
     return(
         <div className="today-widget">
             <h1 id="today">Today</h1>
             <div id="date">
-                <h1>Oct</h1>
-                <h1>31</h1>
+                <h1>{date.toLocaleString('default', { month: 'short' })}</h1>
+                <h1>{date.toLocaleString('default', { day: '2-digit' })}</h1>
             </div>
             <h1 id="group">Rest</h1>
             <div className="background-container">
