@@ -60,10 +60,11 @@ function SignUp(){
         if (input.password !== form.get("verify"))
             return; // dont complete if not verified ;)
         
-        axios.post('http://localhost:3001/api/users/create', input)
-            .then(() => axios.post("http://localhost:3001/api/sign-in", input, {withCredentials: true}))
+        axios.post(`${process.env.REACT_APP_API_URL}/users/create`, input)
+            .then(() => axios.post("/sign-in", input, {withCredentials: true}))
             .then(() => navigate('/dashboard'))
-            .catch(error => setError(JSON.stringify(error)));
+            .catch(error => setError(error?.response.status === 400
+                ? "Someone already took that username" : "System error, please try again later"));
     };
 
     function inputStyle(bool) {

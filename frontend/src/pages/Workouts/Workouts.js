@@ -13,7 +13,6 @@ function Workouts(){
     const [data, setData] = useState([]);
 
     const [currentPage, setCurrentPage] = useState(1);
-
     const [searchQuery, setSearchQuery] = useState("");
     
     const filteredWorkouts = data.filter((workout) =>
@@ -26,7 +25,7 @@ function Workouts(){
     };
 
     const getWorkoutList = () => {
-        axios.get(`http://localhost:3001/api/workouts?limit=200`)
+        axios.get(`${process.env.REACT_APP_API_URL}/workouts?limit=144`)
             .then(response => setData(response.data))
     };
 

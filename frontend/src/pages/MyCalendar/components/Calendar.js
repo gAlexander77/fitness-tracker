@@ -24,6 +24,8 @@ function Calendar(props){
         setWeeksFromNow(weeksFromNow+1)
     }
 
+    console.log(journalData);
+
     return(
         <div className="my-calendar-calendar-component">
             <h1>CALENDAR</h1>

@@ -1,14 +1,14 @@
-import React, { useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../../../styles/pages/UserDashboardV2/componets/Menu.css';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { logout } from '../../../redux/store';
 
-function Menu() {
+function Menu({ currentSplit }) {
     return(
         <div className="user-dashboard-menu">
-            <TodayWidget/>
+            <TodayWidget currentSplit={currentSplit}/>
             <MyCalendarBtn/>
             <MyJournalBtn/>
             <CalculatorsBtn/>
@@ -20,7 +20,7 @@ function Menu() {
 }
 
 // Display Currents day and the workouts planned for the day
-function TodayWidget() {
+function TodayWidget({ currentSplit }) {
     const date = new Date();
     return(
         <div className="today-widget">
@@ -29,7 +29,7 @@ function TodayWidget() {
                 <h1>{date.toLocaleString('default', { month: 'short' })}</h1>
                 <h1>{date.toLocaleString('default', { day: '2-digit' })}</h1>
             </div>
-            <h1 id="group">Rest</h1>
+            <h1 id="group">{ currentSplit || "Rest" }</h1>
             <div className="background-container">
                 <span id="background"/>
             </div>

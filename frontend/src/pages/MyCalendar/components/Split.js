@@ -1,9 +1,11 @@
 import axios from 'axios';
 import React, { useState, useRef, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function Split(props){
     // Test Data
-    let data = {};
+    let data = props.data;
+
     const [selectedMenu, setSelectedMenu] = useState("current-split")
 
     const selectMenuHandler = (evt) => {
@@ -57,15 +59,17 @@ function Split(props){
 
 function CurrentSplit(props){
 
-    const [data, setData] = useState([]);
+    // const [data, setData] = useState([]);
 
-    useEffect(() => {
-        if (data.length === 0) {
-            axios.get('http://localhost:3001/api/split', {withCredentials: true})
-                .then(response => setData(response.data));
-        }
-    }, [data]);
-
+    // useEffect(() => {
+    //     if (data.length === 0) {
+    //         axios.get('http://localhost:3001/api/split', {withCredentials: true})
+    //             .then(response => setData(response.data))
+    //             .catch(() => navigate('/'));
+    //     }
+    // }, [data]);
+    
+    const data = props.data.workoutSplit;
     const days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
     
     const Day = (props) => {
@@ -100,17 +104,18 @@ function CurrentSplit(props){
 
 function CreateASplit(props) {
     
-    const [data, setData] = useState([]);
+    const navigate = useNavigate();
+    // const [data, setData] = useState([]);
 
-    useEffect(() => {
-        if (data.length === 0) {
-            axios.get('http://localhost:3001/api/split/workouts', {withCredentials: true})
-                .then(response => setData(response.data))
-                .catch(() => setData([{ groupName: "Rest" }]));
-        }
-    }, [data]);
-
-    const groupNames = data.map(obj => obj.groupName);
+    // useEffect(() => {
+    //     if (data.length === 0) {
+    //         axios.get('http://localhost:3001/api/split/workouts', {withCredentials: true})
+    //             .then(response => setData(response.data))
+    //             .catch(() => navigate('/'));
+    //     }
+    // }, [data]);
+    
+    const groupNames = props.data.workoutGroups.map(obj => obj.groupName);
  
     const [split, setSplit] = useState([
         {day: "Sunday",workoutGroup: "Select",},
@@ -131,9 +136,8 @@ function CreateASplit(props) {
     };
 
     function Day(props) {
-        
-        const dropDownRef = useRef();
-        
+                
+        const btnRef = useRef(null);
         const [dropDown, setDropDown] = useState(false);
 
         const SelectionMenuButton = (props) => {            
@@ -141,7 +145,7 @@ function CreateASplit(props) {
             useEffect(() => {
                 if(props.trigger){
                     let outsideClickHandler = (evt) => {
-                        if(!dropDownRef.current.contains(evt.target)) {
+                        if(!btnRef.current.contains(evt.target)) {
                             props.setTrigger(false);
                         }
                     }
@@ -169,7 +173,7 @@ function CreateASplit(props) {
             }
 
             return (
-                <button id="drop-down-btn" ref={dropDownRef} onClick={menuHandler} style={style}>{props.workoutGroup}</button>
+                <button id="drop-down-btn" ref={btnRef} onClick={menuHandler} style={style}>{props.workoutGroup}</button>
             );
         }
 
@@ -186,7 +190,7 @@ function CreateASplit(props) {
             }
 
             return (props.trigger) ? (
-                <div className="my-calendar-split-create-a-split-menu" ref={dropDownRef}>
+                <div className="my-calendar-split-create-a-split-menu" ref={btnRef}>
                     {props.groupNames.map((name, index)=>{
                         return(
                             <Selection key={index} name={name} splitIndex={props.splitIndex}/>
@@ -200,7 +204,7 @@ function CreateASplit(props) {
             <div className="my-calendar-split-create-a-split-day-container">
                 <h1>{props.day}</h1>
                 <SelectionMenuButton 
-                    trigger={dropDown} 
+                    trigger={dropDown}
                     setTrigger={setDropDown} 
                     workoutGroup={props.workoutGroup}
                 />
@@ -214,9 +218,31 @@ function CreateASplit(props) {
         );
     }
     
-    const setCurrentSplitHandler = (evt) => {
-        console.log('set Current Split')
+    const [errors, setErrors] = useState('');
+
+    const setCurrentSplitHandler = () => {
+
+        const currentErrors = [];
+
+        split.forEach(weekDay => {
+            if (weekDay.workoutGroup == "Select")
+                currentErrors.push(weekDay.day);
+        })
+
+        if (currentErrors.length > 0) {
+            const n = currentErrors.length - 1;
+            setErrors(currentErrors.length === 1
+                ? currentErrors[0]
+                : currentErrors.slice(0, n).join(', ') + ' and ' + currentErrors[n]);
+        } else {
+            axios.post('http://localhost:3001/api/split', 
+                { workoutSplit: split.map(weekDay => weekDay.workoutGroup) },
+                { withCredentials: true })
+                .then(() => navigate(0))
+                .catch(() => navigate('/'));
+        }
     }
+
 
     return (
         <div className="my-calendar-split-create-a-split-container">
@@ -234,6 +260,7 @@ function CreateASplit(props) {
                     );
                 })}
             </div>
+            <p>{ errors ? `You still need to set ${errors}` : '' }</p>
             <button id="set-split-btn" onClick={setCurrentSplitHandler}>Set</button>
         </div>
     );
@@ -243,14 +270,16 @@ function CreateASplit(props) {
 
 function ViewWorkoutGroups(props) {
     
-    const [workoutGroups, setWorkoutGroups] = useState([]);
+    const workoutGroups = props.data.workoutGroups;
+    // const [workoutGroups, setWorkoutGroups] = useState([]);
 
-    useEffect(() => {
-        if (workoutGroups.length === 0) {
-            axios.get('http://localhost:3001/api/split/workouts', {withCredentials: true})
-                .then(response => setWorkoutGroups(response.data))
-        }
-    }, [workoutGroups]);
+    // useEffect(() => {
+    //     if (workoutGroups.length === 0) {
+    //         axios.get('http://localhost:3001/api/split/workouts', {withCredentials: true})
+    //             .then(response => setWorkoutGroups(response.data))
+    //             .catch(() => navigate('/'));
+    //     }
+    // }, [workoutGroups]);
     
     const WorkoutGroup = (props) => {
         return (

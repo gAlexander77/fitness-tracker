@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BsGraphUp, BsFillJournalBookmarkFill } from 'react-icons/bs';
 // Default Imports
 import Nav from '../../components/Nav'
@@ -8,14 +8,21 @@ import Footer from '../../components/Footer';
 import Journal from './components/Journal';
 import Graphs from './components/JournalData';
 import '../../styles/pages/MyJournalV2/MyJournal.css';
-
-// Test Data
-import data from '../../test-data/journalRequest.json';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function MyJournal() {
-
-    // Replace with data from GET /journal-entries
-    let journalEntries = data.journalEntries;
+    
+    const [journalEntries, setJournalEntries] = useState([]);
+    const navigate = useNavigate();
+    
+    useEffect(() => {
+        if (journalEntries.length === 0) {
+            axios.get(`${process.env.REACT_APP_API_URL}/journal`, {withCredentials: true})
+                .then(response => setJournalEntries(response.data))
+                .catch(() => navigate('/'));
+        }
+    })
 
     const [viewJournal, setViewJournal] = useState(true);
 

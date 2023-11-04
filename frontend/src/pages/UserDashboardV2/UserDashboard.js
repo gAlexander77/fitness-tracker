@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-function UserDashboard({ username }) {
+function UserDashboard() {
         
     const navigate = useNavigate();
     const user = useSelector(state => state.user);
@@ -25,7 +25,7 @@ function UserDashboard({ username }) {
                         <h1 id="welcome">Welcome,</h1>  
                         <h1 id="username">{user?.username}</h1>
                     </div>
-                    <Menu/>
+                    <Menu currentSplit={user?.currentSplit}/>
                 </div>
                 <Background/>            
             </div>

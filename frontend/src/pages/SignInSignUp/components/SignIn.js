@@ -12,9 +12,10 @@ function SignIn(){
         event.preventDefault();
         const form = new FormData(event.target);
         const input = { username: form.get("username"), password: form.get("password") };
-        axios.post('http://localhost:3001/api/sign-in', input, { withCredentials: true })
+        axios.post(`${process.env.REACT_APP_API_URL}/sign-in`, input, { withCredentials: true })
             .then(() => navigate('/'))
-            .catch(error => setError(error.response.status == 401 ? "Invalid username or password" : error.response.statusText));
+            .catch(error => setError(error?.response?.status === 401 
+                ? "Invalid username or password" : "System error, please try again later" ));
     };
 
     const handleSignUpClick = (event) => {

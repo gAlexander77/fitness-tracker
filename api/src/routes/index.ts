@@ -8,10 +8,26 @@ const route = Router();
 
 route.get("/", authorized, async (request: Request, response: Response) => {
     try {
-        const { _id, username } = request.user;
-        response.status(200).json({ id: _id, username });
+        const weekdays: { [index:string]: number } = { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 };
+        const weekday: string = new Date().toLocaleString('default', { weekday: 'short' });
+        const today: number = weekdays[weekday];
+        const { _id, username, workoutSplit } = request.user;
+        response.status(200).json({ id: _id, username, currentSplit: workoutSplit[today] });
     } catch (error) {
         response.status(500).json({ error: error || "internal server error" })
+        console.log(error);
+    }
+});
+
+route.get("/calendar", authorized, async (request: Request, response: Response) => {
+    try {
+        const { workoutSplit, workoutGroups, journalEntries } = request.user;
+        response.status(200).json({ 
+            calendar: { workoutSplit, workoutGroups }, 
+            journal: journalEntries
+        });
+    } catch (error) {
+        response.status(500).json({ error: error || "internal server error" });
         console.log(error);
     }
 });

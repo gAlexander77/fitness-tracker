@@ -1,4 +1,5 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
+import { useNavigate } from 'react-router-dom'
 import Nav from '../../components/Nav';
 import Background from '../../components/Background';
 import Footer from '../../components/Footer';
@@ -7,11 +8,26 @@ import Calendar from './components/Calendar';
 import CreateAWorkoutGroup from './components/CreateAWorkoutGroup';
 import '../../styles/pages/MyCalendar/MyCalendar.css';
 
-import calendarRequestData from '../../test-data/calendarRequest.json';
-import journalRequestData from '../../test-data/journalRequest.json';
+import axios from 'axios';
+
+const defaultRequestData = {
+    calendar: { workoutGroups: [], workoutSplit: new Array(7).fill("Rest") },
+    journal: []
+};
 
 function WorkoutCalendar(){
     const [createAWorkoutGroup, setCreateAWorkoutGroup] = useState(false);
+    const [requestData, setRequestData] = useState(defaultRequestData);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (requestData === defaultRequestData) {
+            axios.get(`${process.env.REACT_APP_API_URL}/calendar`, {withCredentials: true})
+                .then(response => setRequestData(response.data))
+                .catch(() => navigate('/'));
+        }
+    }, [requestData]);
+
     return(
         <>
             <Nav/>
@@ -19,12 +35,12 @@ function WorkoutCalendar(){
                 <div className="my-calendar-content">
                     <h1 id="page-header">MY CALENDAR</h1>
                     <Split 
-                        data={calendarRequestData}
+                        data={requestData.calendar}
                         setCreateAWorkoutGroup={setCreateAWorkoutGroup}
                     />
                     <Calendar 
-                        data={calendarRequestData}
-                        data2={[]}
+                        data={requestData.calendar}
+                        data2={requestData.journal}
                     />
                     <CreateAWorkoutGroup 
                         trigger={createAWorkoutGroup} 
