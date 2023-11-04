@@ -118,7 +118,7 @@ function LogoutBtn() {
     const dispatch = useDispatch();
 
     const handleLogout = () => {
-        axios.post('http://localhost:3001/api/sign-out', {}, {withCredentials: true})
+        axios.post(`${process.env.REACT_APP_API_URL}/sign-out`, {}, {withCredentials: true})
             .finally(() => {
                 dispatch(logout());
                 navigate.current('/');

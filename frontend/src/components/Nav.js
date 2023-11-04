@@ -15,7 +15,7 @@ function Nav() {
 
 	useEffect(() => {
 		if (user === null) {
-			axios.get('http://localhost:3001/api/', {withCredentials: true})
+			axios.get(process.env.REACT_APP_API_URL, {withCredentials: true})
 			.then(response => dispatch(login(response.data)))
 			.catch(() => dispatch(logout()));
 		}
