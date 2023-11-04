@@ -6,17 +6,11 @@ import Search from './components/Search';
 import Display from './components/Display';
 import '../../styles/pages/Workouts/Workouts.css';
 
-import workoutData from '../../test-data/workoutsRequest.json';
+import axios from 'axios';
 
 function Workouts(){
-    
-    const data = workoutData;
 
-    useEffect(() => {
-        if (data === workoutData) {
-            
-        }
-    }, [data]);
+    const [data, setData] = useState([]);
 
     const [currentPage, setCurrentPage] = useState(1);
 
@@ -31,7 +25,15 @@ function Workouts(){
         setCurrentPage(1);
     };
 
-    console.log(data);
+    const getWorkoutList = () => {
+        axios.get(`http://localhost:3001/api/workouts?limit=200`)
+            .then(response => setData(response.data))
+    };
+
+    useEffect(() => {
+        if (data.length === 0)
+            getWorkoutList();
+    }, [data]);
 
     return(
         <>

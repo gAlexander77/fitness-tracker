@@ -9,8 +9,8 @@ export default class User {
 		public password: string,
 		public salt: string,
 		public journalEntries: Array<JournalEntry> = [],
-		public workoutGroups: Array<WorkoutGroup> = [],
-		public workoutSplit: Array<string> = new Array(7).fill('rest'),
+		public workoutGroups: Array<WorkoutGroup> = [ { groupName: "Rest", workouts: [] } ],
+		public workoutSplit: Array<string> = new Array(7).fill('Rest'),
 		public _id?: ObjectId
 	) {}
 };

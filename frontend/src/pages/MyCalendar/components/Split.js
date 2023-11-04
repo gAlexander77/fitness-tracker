@@ -1,9 +1,9 @@
+import axios from 'axios';
 import React, { useState, useRef, useEffect } from 'react';
 
 function Split(props){
     // Test Data
-    let data = props.data
-    
+    let data = {};
     const [selectedMenu, setSelectedMenu] = useState("current-split")
 
     const selectMenuHandler = (evt) => {
@@ -56,8 +56,16 @@ function Split(props){
 }
 
 function CurrentSplit(props){
-    
-    const split = props.data.workoutSplit;
+
+    const [data, setData] = useState([]);
+
+    useEffect(() => {
+        if (data.length === 0) {
+            axios.get('http://localhost:3001/api/split', {withCredentials: true})
+                .then(response => setData(response.data));
+        }
+    }, [data]);
+
     const days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
     
     const Day = (props) => {
@@ -77,7 +85,7 @@ function CurrentSplit(props){
     
     return (
         <div className="my-calendar-split-current-split-container">
-            {split.map((workoutGroup, index)=>{
+            {data.map((workoutGroup, index)=>{
                 return(
                     <Day
                         key={index}
@@ -92,10 +100,17 @@ function CurrentSplit(props){
 
 function CreateASplit(props) {
     
-    console.log(props.data.workoutGroups);
-    const groupNames = props.data.workoutGroups.map(obj => obj.groupName);
-    groupNames.push("Rest");
-    console.log(groupNames);
+    const [data, setData] = useState([]);
+
+    useEffect(() => {
+        if (data.length === 0) {
+            axios.get('http://localhost:3001/api/split/workouts', {withCredentials: true})
+                .then(response => setData(response.data))
+                .catch(() => setData([{ groupName: "Rest" }]));
+        }
+    }, [data]);
+
+    const groupNames = data.map(obj => obj.groupName);
  
     const [split, setSplit] = useState([
         {day: "Sunday",workoutGroup: "Select",},
@@ -228,11 +243,16 @@ function CreateASplit(props) {
 
 function ViewWorkoutGroups(props) {
     
-    const workoutGroups = props.data.workoutGroups;
-    console.log(workoutGroups);
+    const [workoutGroups, setWorkoutGroups] = useState([]);
+
+    useEffect(() => {
+        if (workoutGroups.length === 0) {
+            axios.get('http://localhost:3001/api/split/workouts', {withCredentials: true})
+                .then(response => setWorkoutGroups(response.data))
+        }
+    }, [workoutGroups]);
     
     const WorkoutGroup = (props) => {
-        console.log(props.groupName)
         return (
             <button id="group-name-btn">{props.groupName}</button>
         );

@@ -11,11 +11,10 @@ function SignIn(){
     const handleSignInClick = (event) => {
         event.preventDefault();
         const form = new FormData(event.target);
-        axios.post('http://localhost:3001/api/sign-in',
-            { username: form.get('username'), password: form.get('password') },
-            { withCredentials: true })
+        const input = { username: form.get("username"), password: form.get("password") };
+        axios.post('http://localhost:3001/api/sign-in', input, { withCredentials: true })
             .then(() => navigate('/'))
-            .catch(error => setError(error.message));
+            .catch(error => setError(error.response.status == 401 ? "Invalid username or password" : error.response.statusText));
     };
 
     const handleSignUpClick = (event) => {

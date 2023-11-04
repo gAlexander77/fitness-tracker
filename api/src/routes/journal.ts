@@ -10,7 +10,7 @@ route.get('/', authorized, async (request: Request, response: Response) => {
     try {
         response.status(200).json(request.user.journalEntries.slice(-30));
     } catch (error) {
-        response.status(500).json({ error: "internal server error" });
+        response.status(500).json({ error: error || "internal server error" });
         console.log(error);
     }
 });
@@ -35,7 +35,7 @@ route.post('/', authorized, async (request: Request, response: Response) => {
             ? response.status(200).json({ ok: "updated today's journal entry" })
             : response.status(400).json({ error: "could not update journal" });
     } catch (error) {
-        response.status(500).json({ error: "internal server error" });
+        response.status(500).json({ error: error || "internal server error" });
         console.log(error);
     }
 });

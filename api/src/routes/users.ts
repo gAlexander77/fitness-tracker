@@ -17,12 +17,12 @@ route.post("/create", async (request: Request, response: Response) => {
                 	? response.status(200).json({ ok: "user created" })
                 	: response.status(500).json({ error: "unable to create user" });
 			} catch (error) {
-				response.status(400).json({ error: "username already exists" });
+				response.status(400).json({ error: error || "username already exists" });
 			}
         });
     } catch (error) {
+        response.status(500).json({ error: error || "internal server error" });
         console.log(error);
-        response.status(500).json({ error: "internal server error" });
     }
 });
 

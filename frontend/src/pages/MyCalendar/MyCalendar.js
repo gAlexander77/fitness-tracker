@@ -24,7 +24,7 @@ function WorkoutCalendar(){
                     />
                     <Calendar 
                         data={calendarRequestData}
-                        data2={journalRequestData}
+                        data2={[]}
                     />
                     <CreateAWorkoutGroup 
                         trigger={createAWorkoutGroup} 

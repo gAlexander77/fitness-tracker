@@ -7,7 +7,6 @@ function Calendar(props){
     // Test Data
     const data = props.data;
     const journalData = props.data2;
-    console.log(journalData.journalEntries)
 
     const [dates, setDates] = useState([]);    
     const [weeksFromNow, setWeeksFromNow] = useState(0);
@@ -41,7 +40,7 @@ function Calendar(props){
                                 split= {data.workoutSplit[date.day]}
                                 dateValue = {date.dateValue}
                                 data={data.workoutGroups}
-                                journalData={journalData.journalEntries}
+                                journalData={[]}
                             />
                         )
                     })}

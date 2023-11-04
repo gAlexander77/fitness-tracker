@@ -5,17 +5,19 @@ import { BsPencilSquare, BsCalendarFill, BsCalculatorFill } from 'react-icons/bs
 import { MdDirectionsRun } from 'react-icons/md';
 import '../styles/components/Nav.css';
 import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import { login, logout } from '../redux/store';
 
 function Nav() {
 
-	const [user, setUser] = useState(undefined);
-	const [menuIsOpen, setMenuIsOpen] = useState(false);
+	const user = useSelector((state) => state.user);
+	const dispatch = useDispatch();
 
 	useEffect(() => {
-		if (user === undefined) {
+		if (user === null) {
 			axios.get('http://localhost:3001/api/', {withCredentials: true})
-				.then(response => setUser(response.data))
-				.catch(() => setUser(null));
+			.then(response => dispatch(login(response.data)))
+			.catch(() => dispatch(logout()));
 		}
 	}, [user]);
 
@@ -38,20 +40,13 @@ function Nav() {
 	const navClass = isNavbarShrunk ? 'nav shrunk' : 'nav';
 	/*const navClass = isNavbarShrunk ? 'nav' : 'nav';*/
 
-	let menu;
-	if (user === undefined) {
-		menu = <LoginOptions />;
-	} else {
-		menu = <Dashboard />;
-	}
-
 	return (
 		<nav className={navClass} ref={navRef} id="navbar">
 			<div className="nav-left">
 				<Home/>
 			</div>
 			<div className="nav-right">
-				{ menu }
+				{user === null ? <LoginOptions /> : <Dashboard />}
 				<Menu user={user}/>
 			</div>
 		</nav>

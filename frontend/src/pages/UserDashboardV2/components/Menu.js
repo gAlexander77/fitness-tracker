@@ -1,6 +1,9 @@
 import React, { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../../../styles/pages/UserDashboardV2/componets/Menu.css';
+import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { logout } from '../../../redux/store';
 
 function Menu() {
     return(
@@ -109,9 +112,21 @@ function SettingsBtn() {
 // Pops up a confirming if the user would like to logout
 // Then redirects to "/"
 function LogoutBtn() {
+
+    const navigate = useRef(useNavigate());
+    const dispatch = useDispatch();
+
+    const handleLogout = () => {
+        axios.post('http://localhost:3001/api/sign-out', {}, {withCredentials: true})
+            .finally(() => {
+                dispatch(logout());
+                navigate.current('/');
+            })
+    };
+
     return(
-        <button className="logout-btn" id="menu-btn">
-            <>Logout</>
+        <button className="logout-btn" id="menu-btn" onClick={handleLogout}>
+            Logout
         </button>
     );
 }

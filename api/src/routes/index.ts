@@ -11,7 +11,7 @@ route.get("/", authorized, async (request: Request, response: Response) => {
         const { _id, username } = request.user;
         response.status(200).json({ id: _id, username });
     } catch (error) {
-        response.status(500).json({ error: "internal server error" })
+        response.status(500).json({ error: error || "internal server error" })
         console.log(error);
     }
 });
@@ -33,7 +33,7 @@ route.post("/sign-in", async (request: Request, response: Response) => {
             response.status(401).json({ error: "unauthorized" });
         }
     } catch (error) {
-        response.status(500).json({ error: "internal server error" });
+        response.status(500).json({ error: error || "internal server error" });
         console.log(error);
     }
 });
