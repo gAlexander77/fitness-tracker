@@ -235,7 +235,7 @@ function CreateASplit(props) {
                 ? currentErrors[0]
                 : currentErrors.slice(0, n).join(', ') + ' and ' + currentErrors[n]);
         } else {
-            axios.post('http://localhost:3001/api/split', 
+            axios.post(`${process.env.REACT_APP_API_URL}/split`, 
                 { workoutSplit: split.map(weekDay => weekDay.workoutGroup) },
                 { withCredentials: true })
                 .then(() => navigate(0))
