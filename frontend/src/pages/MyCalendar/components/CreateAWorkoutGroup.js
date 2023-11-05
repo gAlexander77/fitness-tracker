@@ -32,7 +32,7 @@ function CreateAWorkoutGroup(props){
 
     const submitWorkoutGroup = () => {
         const input = { groupName: workoutGroupName, workouts: selectedWorkouts};
-        axios.post('http://localhost:3001/api/split/workouts', input, {withCredentials: true})
+        axios.post(`${process.env.REACT_APP_API_URL}/api/split/workouts`, input, {withCredentials: true})
             .then(() => navigate(0))
             .catch(() => navigate('/'))
     };
