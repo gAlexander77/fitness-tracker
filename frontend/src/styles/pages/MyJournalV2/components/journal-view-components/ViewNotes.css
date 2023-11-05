@@ -1,0 +1,65 @@
+.view-notes-component {
+    margin-bottom: 20px;
+    /* background-color: rgba(245, 245, 220, 0.123); */
+    width: 100%;
+    height: 100%;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.view-notes-component > #view-notes-title {
+    margin-bottom: 15px;
+}
+
+.view-notes-component > .display-notes {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}
+
+.display-notes > .individual-note {
+    display: flex;
+    flex-direction: row;
+    
+    border-top: 1px solid transparent;
+    background-image: linear-gradient(to right, transparent 0%, white 5%, white 95%, transparent 100%);
+    background-size: 100% 1px;
+    background-repeat: no-repeat;
+    background-position: top;
+
+    /* Uncomment the below if you want them */
+    /*
+    background-color: var(--gray-1);
+    border-radius: 10px;
+    */
+    margin: 0px 40px;
+}
+
+.display-notes > .bottom-and-top-border {
+    border-top: 1px solid transparent;
+    border-bottom: 1px solid transparent;
+    /* For the top faded border */
+    background-image: 
+        linear-gradient(to right, transparent 0%, white 5%, white 95%, transparent 100%),
+        linear-gradient(to right, transparent 0%, white 5%, white 95%, transparent 100%);
+    background-size: 100% 1px, 100% 1px; /* For both gradients */
+    background-repeat: no-repeat;
+    background-position: top, bottom;
+}
+
+.individual-note > #note-title{
+    padding: 15px;
+    padding-left: 4%;
+    font-size: 20px;
+}
+
+.individual-note > #note {
+    align-self: center;
+    text-transform: capitalize;
+    padding: 15px;
+    padding-left: 4%;
+    font-size: 12px;
+}

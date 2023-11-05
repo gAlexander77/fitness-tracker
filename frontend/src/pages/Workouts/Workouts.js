@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Nav from '../../components/Nav';
 import Background from '../../components/Background';
 import Footer from '../../components/Footer';
@@ -6,14 +6,13 @@ import Search from './components/Search';
 import Display from './components/Display';
 import '../../styles/pages/Workouts/Workouts.css';
 
-import workoutData from '../../test-data/workoutsRequest.json';
+import axios from 'axios';
 
 function Workouts(){
-    
-    const data = workoutData;
+
+    const [data, setData] = useState([]);
 
     const [currentPage, setCurrentPage] = useState(1);
-
     const [searchQuery, setSearchQuery] = useState("");
     
     const filteredWorkouts = data.filter((workout) =>
@@ -25,7 +24,15 @@ function Workouts(){
         setCurrentPage(1);
     };
 
-    console.log(data);
+    const getWorkoutList = () => {
+        axios.get(`${process.env.REACT_APP_API_URL}/workouts?limit=144`)
+            .then(response => setData(response.data))
+    };
+
+    useEffect(() => {
+        if (data.length === 0)
+            getWorkoutList();
+    }, [data]);
 
     return(
         <>

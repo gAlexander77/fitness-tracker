@@ -1,10 +1,22 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Form, useNavigate } from 'react-router-dom';
 import { BsFillPersonFill, BsKeyFill, BsFillEyeFill, BsFillEyeSlashFill, BsArrowLeft } from 'react-icons/bs';
 import '../../../styles/pages/SignInSignUp/components/SignIn.css';
+import axios from 'axios';
 
 function SignIn(){
     const navigate = useNavigate();
+    const [error, setError] = useState('');
+
+    const handleSignInClick = (event) => {
+        event.preventDefault();
+        const form = new FormData(event.target);
+        const input = { username: form.get("username"), password: form.get("password") };
+        axios.post(`${process.env.REACT_APP_API_URL}/sign-in`, input, { withCredentials: true })
+            .then(() => navigate('/'))
+            .catch(error => setError(error?.response?.status === 401 
+                ? "Invalid username or password" : "System error, please try again later" ));
+    };
 
     const handleSignUpClick = (event) => {
         event.preventDefault();
@@ -24,15 +36,15 @@ function SignIn(){
 
     return(
         <>
-            <form className="sign-in-container">
+            <form className="sign-in-container" method="POST" onSubmit={handleSignInClick}>
                 <h1>Sign in to Shape Shift</h1>
                 <div className="username-input-container">
                     <BsFillPersonFill id="user-icon"/>
-                    <input type="text" placeholder="Username"></input>
+                    <input type="text" placeholder="Username" name="username" />
                 </div>
                 <div className="password-input-container">
                     <BsKeyFill id="key-icon"/>
-                    <input type={visible ? 'text' : 'password'} placeholder="Password"></input>
+                    <input type={visible ? 'text' : 'password'} placeholder="Password" name="password"/>
                     {
                         visible ? 
                         <BsFillEyeSlashFill id="eye-icon" onClick={toggleVisibility} /> : 
@@ -40,12 +52,15 @@ function SignIn(){
                     }
                 </div>
                 <div className="buttons-container">
-                    <button className="sign-in-btn">Sign In</button>
+                    <button type="submit" className="sign-in-btn">Sign In</button>
                     <a onClick={handleSignUpClick}>
                         Don't have a account
                     </a>
                 </div>
             </form>
+            <div className="errors">
+                <p>{ error }</p>
+            </div>
             <div>
             <a className="sign-in-return-home-btn" onClick={handleReturnHomeClick}>
                 <BsArrowLeft id="arrow-icon"/>

@@ -1,15 +1,23 @@
-import React, { useState} from 'react';
+import React, { useEffect, useState} from 'react';
 import ReactDOM from 'react-dom';
-import { Link } from 'react-router-dom';
+import { Link, useAsyncError, useNavigate } from 'react-router-dom';
 import { BsXLg, BsPlusLg, BsDashLg, BsFillEyeFill, BsSearch } from 'react-icons/bs';
 import '../../../styles/pages/MyCalendar/Components/CreateAWorkoutGroup.css';
-
-import workoutData from '../../../test-data/workoutsRequest.json';
+import axios from 'axios';
 
 function CreateAWorkoutGroup(props){
 
-    const data = workoutData;
-    console.log(data);
+
+    const navigate = useNavigate();
+    const [data, setData] = useState([]);
+
+    useEffect(() => {
+        if (data.length === 0) {
+            axios.get(`${process.env.REACT_APP_API_URL}/workouts?limit=128`)
+            .then(response => setData(response.data))
+            .catch(() => navigate('/'));
+        }        
+    })
 
     const [searchQuery, setSearchQuery] = useState("");
     const filteredWorkouts = data.filter((workout) =>
@@ -21,6 +29,13 @@ function CreateAWorkoutGroup(props){
 
     const [selectedWorkouts, setSelectedWorkouts] = useState([]);
     const [workoutGroupName, setWorkoutGroupName] = useState("");
+
+    const submitWorkoutGroup = () => {
+        const input = { groupName: workoutGroupName, workouts: selectedWorkouts};
+        axios.post('http://localhost:3001/api/split/workouts', input, {withCredentials: true})
+            .then(() => navigate(0))
+            .catch(() => navigate('/'))
+    };
 
     const exitPopupHandler = () => {
         props.setTrigger(false);
@@ -36,7 +51,7 @@ function CreateAWorkoutGroup(props){
                     <h1>Create A Workout Group</h1>
                     <div className="my-calendar-create-a-workout-group-name-container">
                         <p>Group Name</p>
-                        <input/>
+                        <input onChange={(event) => setWorkoutGroupName(event.target.value)} />
                     </div>
                 </div>
                 <div className="my-calendar-create-a-workout-group-body">
@@ -46,7 +61,7 @@ function CreateAWorkoutGroup(props){
                             selectedWorkouts={selectedWorkouts}
                             setSelectedWorkouts={setSelectedWorkouts}
                         />
-                        <button>Create Workout Group</button>
+                        <button onClick={submitWorkoutGroup}>Create Workout Group</button>
                     </div>
                     <div className="my-calendar-create-a-workout-group-add-workouts" id="right-container">
                         <div className="my-calendar-create-a-workout-group-workout-search-container" id="workout-search-container">

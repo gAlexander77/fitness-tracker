@@ -1,78 +1,67 @@
-// NPM
-import { Router, Request, Response } from 'express';
-import { ObjectId } from 'mongodb';
+import { Request, Response, Router } from 'express';
 import { scrypt } from 'crypto';
 
-// local
-import { usersFilter } from './users';
-import { collections } from '../db';
-import { authRequired, log } from '../utils';
+import { collections } from '../config';
+import { authorized } from '../middleware';
 
-// create the auth route
-const index = Router();
+const route = Router();
 
-// hacky way to add userIDs to sessions in TypeScript
-declare module "express-session" {
-    interface SessionData {
-        userID?: ObjectId,
-    }
-}
-
-// API v1: /
-//      method: GET
-// description: Get user for current session
-//      params: none
-//      output: Details for signed in user
-index.get("/", authRequired, async (req: Request, res: Response) => {
+route.get("/", authorized, async (request: Request, response: Response) => {
     try {
-        const id = new ObjectId(req.session.userID);
-        const user = await collections.users.findOne({ _id: id }, usersFilter);
-        user
-            ? res.status(200).send(user)
-            : res.status(404).send('"user not found"');
+        const weekdays: { [index:string]: number } = { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 };
+        const weekday: string = new Date().toLocaleString('default', { weekday: 'short' });
+        const today: number = weekdays[weekday];
+        const { _id, username, workoutSplit } = request.user;
+        response.status(200).json({ id: _id, username, currentSplit: workoutSplit[today] });
     } catch (error) {
-        log.error(error);
-        res.status(500).send('"internal server error"');
+        response.status(500).json({ error: error || "internal server error" })
+        console.log(error);
     }
 });
 
-// API v1: /sign-in
-//      method: POST
-// description: Authenticate a user and update their session
-//      params: *username string, *password: string
-//      output: 200 response on successful authentication, 400 on exception, 404 on email not found
-index.post("/sign-in", async (req: Request, res: Response) => {
+route.get("/calendar", authorized, async (request: Request, response: Response) => {
     try {
-        const user = await collections.users.findOne({username: req.body.username});
-        user ? scrypt(req.body.password, user.salt, 64, (error: Error, password: Buffer) => {
-            if (error) throw error;
-            if (user.password === password.toString("hex")) {
-                req.session.userID = user._id;
-                res.status(200).send('"signed in successfully"');
-            } else {
-                res.status(401).send('"invalid password"')
-            }
-        }) : res.status(404).send('"user not found"');
+        const { workoutSplit, workoutGroups, journalEntries } = request.user;
+        response.status(200).json({ 
+            calendar: { workoutSplit, workoutGroups }, 
+            journal: journalEntries
+        });
     } catch (error) {
-        log.error(error);
-        res.status(400).send(`"${error.message}"`);
+        response.status(500).json({ error: error || "internal server error" });
+        console.log(error);
     }
 });
 
-// API v1: /sign-out
-//      method: POST
-// description: Drop an authenticated session
-//      params: none
-//      output: 200 on successful log out, 500 + error message on error
-index.post("/sign-out", authRequired, async (req: Request, res: Response) => {
-    let error: any = null;
-    req.session.destroy((err: any) => error = err);
-    if (error) {
-        log.error(new Error(error));
-        res.status(500).send(`"${error.toString()}"`);
-    } else {
-        res.status(200).send('"signed out successfully"');
+route.post("/sign-in", async (request: Request, response: Response) => {
+    try {
+        const { username, password } = request.body;
+        const user = await collections.users.findOne({ username });
+        if (user) {
+            scrypt(password, user.salt, 64, (_error: Error, buffer: Buffer) => {
+                if (user.password === buffer.toString("hex")) {
+                    request.session._id = user._id;
+                    response.status(200).json({ ok: "signed in successfully" })
+                } else {
+                    response.status(401).json({ error: "unauthorized" });
+                }
+            });
+        } else {
+            response.status(401).json({ error: "unauthorized" });
+        }
+    } catch (error) {
+        response.status(500).json({ error: error || "internal server error" });
+        console.log(error);
     }
 });
 
-export default index;
+route.post("/sign-out", authorized, async (req: Request, res: Response) => {
+    try {
+        req.session.destroy((error: Error) => console.log(error));
+        res.status(200).json({ ok: "signed out successfully" });
+    } catch (error) {
+        res.status(500).json({ error: "internal server error" });
+        console.log(error);
+    }
+});
+
+export default route;

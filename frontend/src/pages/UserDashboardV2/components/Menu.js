@@ -1,11 +1,14 @@
-import React, { useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../../../styles/pages/UserDashboardV2/componets/Menu.css';
+import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { logout } from '../../../redux/store';
 
-function Menu() {
+function Menu({ currentSplit }) {
     return(
         <div className="user-dashboard-menu">
-            <TodayWidget/>
+            <TodayWidget currentSplit={currentSplit}/>
             <MyCalendarBtn/>
             <MyJournalBtn/>
             <CalculatorsBtn/>
@@ -17,15 +20,16 @@ function Menu() {
 }
 
 // Display Currents day and the workouts planned for the day
-function TodayWidget() {
+function TodayWidget({ currentSplit }) {
+    const date = new Date();
     return(
         <div className="today-widget">
             <h1 id="today">Today</h1>
             <div id="date">
-                <h1>Aug</h1>
-                <h1>23</h1>
+                <h1>{date.toLocaleString('default', { month: 'short' })}</h1>
+                <h1>{date.toLocaleString('default', { day: '2-digit' })}</h1>
             </div>
-            <h1 id="group">Legs</h1>
+            <h1 id="group">{ currentSplit || "Rest" }</h1>
             <div className="background-container">
                 <span id="background"/>
             </div>
@@ -109,9 +113,21 @@ function SettingsBtn() {
 // Pops up a confirming if the user would like to logout
 // Then redirects to "/"
 function LogoutBtn() {
+
+    const navigate = useRef(useNavigate());
+    const dispatch = useDispatch();
+
+    const handleLogout = () => {
+        axios.post(`${process.env.REACT_APP_API_URL}/sign-out`, {}, {withCredentials: true})
+            .finally(() => {
+                dispatch(logout());
+                navigate.current('/');
+            })
+    };
+
     return(
-        <button className="logout-btn" id="menu-btn">
-            <>Logout</>
+        <button className="logout-btn" id="menu-btn" onClick={handleLogout}>
+            Logout
         </button>
     );
 }

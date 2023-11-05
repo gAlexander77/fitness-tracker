@@ -1,17 +1,16 @@
-// NPM
 import { ObjectId } from 'mongodb';
 
-// local
 import { WorkoutGroup } from './workout';
+import { JournalEntry } from './journal';
 
-// defines the fields for a User in the database
 export default class User {
 	constructor(
 		public username: string,
 		public password: string,
 		public salt: string,
-		public workoutGroups: Array<WorkoutGroup> = [],
-		public workoutSplit: Array<string> = new Array(7),
+		public journalEntries: Array<JournalEntry> = [],
+		public workoutGroups: Array<WorkoutGroup> = [ { groupName: "Rest", workouts: [] } ],
+		public workoutSplit: Array<string> = new Array(7).fill('Rest'),
 		public _id?: ObjectId
 	) {}
-}
+};

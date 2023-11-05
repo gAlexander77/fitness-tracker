@@ -1,14 +1,30 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BsGraphUp, BsFillJournalBookmarkFill } from 'react-icons/bs';
+// Default Imports
 import Nav from '../../components/Nav'
 import Background from '../../components/Background';
 import Footer from '../../components/Footer';
+// Page specific imports
 import Journal from './components/Journal';
+import Graphs from './components/JournalData';
 import '../../styles/pages/MyJournalV2/MyJournal.css';
-
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function MyJournal() {
-    const [viewJournal, setViewJournal] = useState(true); 
+    
+    const [journalEntries, setJournalEntries] = useState([]);
+    const navigate = useNavigate();
+    
+    useEffect(() => {
+        if (journalEntries.length === 0) {
+            axios.get(`${process.env.REACT_APP_API_URL}/journal`, {withCredentials: true})
+                .then(response => setJournalEntries(response.data))
+                .catch(() => navigate('/'));
+        }
+    })
+
+    const [viewJournal, setViewJournal] = useState(true);
 
     return (
         <>
@@ -24,7 +40,15 @@ function MyJournal() {
                             />
                         </div>
                         <div className="content">
-                            {viewJournal ? <Journal/> : "data"}
+                            {viewJournal ? 
+                                <Journal 
+                                    journalEntries={journalEntries}
+                                />
+                                : 
+                                <Graphs 
+                                    journalEntries={journalEntries}
+                                />
+                            }
                         </div>
                     </div>
                 </div>
@@ -41,11 +65,17 @@ function HeaderToggle({viewJournal, setViewJournal}) {
         setViewJournal(!viewJournal);
     }
     
-    return viewJournal ? 
-    <BsGraphUp onClick={toggle} className="journal-toggle-btn"/>
-    : 
-    <BsFillJournalBookmarkFill onClick={toggle} className="journal-toggle-btn"/>
+    return (viewJournal ? 
+        <BsGraphUp 
+            onClick={toggle} 
+            className="journal-toggle-btn"
+        />
+        : 
+        <BsFillJournalBookmarkFill 
+            onClick={toggle} 
+            className="journal-toggle-btn"
+        />
+    );
 }
-
 
 export default MyJournal;

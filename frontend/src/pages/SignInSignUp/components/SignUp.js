@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { BsFillPersonFill, BsKeyFill, BsFillEyeFill, BsFillEyeSlashFill, BsArrowLeft, BsCheckCircle  } from 'react-icons/bs';
 import '../../../styles/pages/SignInSignUp/components/SignUp.css';
+import axios from 'axios';
 
 function SignUp(){
     const navigate = useNavigate();
@@ -16,6 +17,7 @@ function SignUp(){
         navigate('/');
     };
 
+    const [error, setError] = useState('');
     const [visible, setVisible] = useState(false);
 
     const toggleVisibility = () => {
@@ -50,6 +52,21 @@ function SignUp(){
     };
 
 
+    const handleSignUpClick = (event) => {
+        event.preventDefault();
+        const form = new FormData(event.target);
+        const input = { username: form.get("username"), password: form.get("password") };
+        
+        if (input.password !== form.get("verify"))
+            return; // dont complete if not verified ;)
+        
+        axios.post(`${process.env.REACT_APP_API_URL}/users/create`, input)
+            .then(() => axios.post("/sign-in", input, {withCredentials: true}))
+            .then(() => navigate('/dashboard'))
+            .catch(error => setError(error?.response.status === 400
+                ? "Someone already took that username" : "System error, please try again later"));
+    };
+
     function inputStyle(bool) {
         if (bool === true) {
             return {
@@ -68,15 +85,15 @@ function SignUp(){
 
     return(
         <>
-            <form className="sign-up-container">
+            <form className="sign-up-container" onSubmit={handleSignUpClick}>
                 <h1>Create a Shape Shift account</h1>
                 <div className="username-input-container">
                     <BsFillPersonFill id="user-icon"/>
-                    <input style={inputStyle(validUsername)} type="text" placeholder="Username" value={username} onChange={handleUsernameChange}></input>
+                    <input style={inputStyle(validUsername)} name="username" type="text" placeholder="Username" value={username} onChange={handleUsernameChange}></input>
                 </div>
                 <div className="password-input-container">
                     <BsKeyFill id="key-icon"/>
-                    <input style={inputStyle(validPassword)} type={visible ? 'text' : 'password'} placeholder="Password" value={password} onChange={handlePasswordChange}></input>
+                    <input style={inputStyle(validPassword)} name="password" type={visible ? 'text' : 'password'} placeholder="Password" value={password} onChange={handlePasswordChange}></input>
                     {
                         visible ? 
                         <BsFillEyeSlashFill id="eye-icon" onClick={toggleVisibility} /> : 
@@ -85,15 +102,16 @@ function SignUp(){
                 </div>
                 <div className="verify-password-input-container">
                     <BsCheckCircle id="verify-icon"/>
-                    <input style={inputStyle(validVerifyPassword)} type="password" placeholder="Verify Password" value={verifyPassword} onChange={handleVerifyPasswordChange}></input>
+                    <input style={inputStyle(validVerifyPassword)} name="verify" type="password" placeholder="Verify Password" value={verifyPassword} onChange={handleVerifyPasswordChange}></input>
                 </div>
                 <div className="buttons-container">
-                    <button className="sign-up-btn">Sign Up</button>
+                    <button type="submit" className="sign-up-btn">Sign Up</button>
                     <a onClick={handleSignInClick}>
                         I already have a account
                     </a>
                 </div>
             </form>
+            <p className='errors'>{ error }</p>
             <div>
                 <a className="sing-up-return-home-btn" onClick={handleReturnHomeClick}>
                     <BsArrowLeft id="arrow-icon"/>

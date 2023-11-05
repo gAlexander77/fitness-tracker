@@ -54,7 +54,7 @@ function Workout() {
                             />:''
                         }
                         <div id="info-text">
-                            {data.muscles === undefined ? '' : <p>Muscles: {data.muscles}</p>}
+                            {data.muscle === undefined ? '' : <p>Muscles: {data.muscle}</p>}
                             {data.equipment === undefined ? '' : <p>Equipment: {data.equipment}</p>}
                         </div>
                     </div>

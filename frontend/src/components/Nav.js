@@ -4,21 +4,22 @@ import { FaUserCircle } from 'react-icons/fa';
 import { BsPencilSquare, BsCalendarFill, BsCalculatorFill } from 'react-icons/bs';
 import { MdDirectionsRun } from 'react-icons/md';
 import '../styles/components/Nav.css';
+import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import { login, logout } from '../redux/store';
 
-function Nav({isUserSignedIn}) {
+function Nav() {
 
-	const [isUser, setIsUser] = useState(true);
-	const [menuIsOpen, setMenuIsOpen] = useState(false);
+	const user = useSelector((state) => state.user);
+	const dispatch = useDispatch();
 
 	useEffect(() => {
-		if(isUserSignedIn===false) {
-			setIsUser(false);
+		if (user === null) {
+			axios.get(process.env.REACT_APP_API_URL, {withCredentials: true})
+			.then(response => dispatch(login(response.data)))
+			.catch(() => dispatch(logout()));
 		}
-		else if(isUserSignedIn===true) {
-			setIsUser(true);
-		}
-	},[isUserSignedIn])
-
+	}, [user]);
 
 	const [isNavbarShrunk, setIsNavbarShrunk] = useState(false);
 	const navRef = useRef(null);
@@ -45,8 +46,8 @@ function Nav({isUserSignedIn}) {
 				<Home/>
 			</div>
 			<div className="nav-right">
-				{isUser ? <Dashboard/> : <LoginOptions/>}
-				<Menu isUser={isUser}/>
+				{user === null ? <LoginOptions /> : <Dashboard />}
+				<Menu user={user}/>
 			</div>
 		</nav>
 	);
@@ -103,7 +104,7 @@ function LoginOptions(){
 	);
 }
 
-function Menu({isUser}) {
+function Menu({user}) {
 	
 	function MenuLink(props){
     
@@ -181,7 +182,7 @@ function Menu({isUser}) {
 		</div>
 		<div className="nav-menu" ref={menuRef}>
 		  	<ul>
-				{options(isUser).map((option, index) => {
+				{options(!!user).map((option, index) => {
 			  		return <MenuLink key={index} option={option} />;
 				})}
 		  	</ul>

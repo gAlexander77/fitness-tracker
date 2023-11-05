@@ -1,0 +1,21 @@
+.journal-view {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+}
+
+.journal-view > .journal-view-selector {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    padding: 20px;
+}
+
+
+.journal-view-selector > .category-btn {
+    all: unset;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
