@@ -13,13 +13,13 @@ import { useNavigate } from 'react-router-dom';
 
 function MyJournal() {
     
-    const [journalEntries, setJournalEntries] = useState([]);
+    const [journalEntries, setJournalEntries] = useState(undefined);
     const navigate = useNavigate();
     
     useEffect(() => {
-        if (journalEntries.length === 0) {
+        if (journalEntries === undefined) {
             axios.get(`${process.env.REACT_APP_API_URL}/journal`, {withCredentials: true})
-                .then(response => setJournalEntries(response.data))
+                .then(response => setJournalEntries(response.data || []))
                 .catch(() => navigate('/'));
         }
     })

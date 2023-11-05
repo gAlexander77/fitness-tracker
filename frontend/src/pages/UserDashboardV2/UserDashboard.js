@@ -26,7 +26,7 @@ function UserDashboard() {
                         <h1 id="welcome">Welcome,</h1>  
                         <h1 id="username">{user?.username}</h1>
                     </div>
-                    <Menu />
+                    <Menu currentSplit={user?.currentSplit}/>
                     <MacrosWidget/>
                 </div>
                 <Background/>            
