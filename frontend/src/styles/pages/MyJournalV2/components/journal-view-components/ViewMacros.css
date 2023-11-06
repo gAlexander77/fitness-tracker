@@ -2,7 +2,7 @@
     margin-bottom: 20px;
     width: 90%;
     height: 100%;
-    
+
     display: flex;
     flex-direction: column;
     gap: 30px;
@@ -42,6 +42,6 @@
     border-radius: 10px;
 }
 
-.individual-macro > #title{
+.individual-macro > #title {
     text-transform: capitalize;
 }

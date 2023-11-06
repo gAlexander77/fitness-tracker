@@ -115,7 +115,7 @@ function MacroEntry({
                 <input
                     value={type}
                     onChange={handleTypeChange}
-                    placeholder="ex Protien"
+                    placeholder="ex Protein"
                 ></input>
             </div>
             <div className="input-container">
