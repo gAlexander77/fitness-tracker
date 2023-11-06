@@ -1,0 +1,154 @@
+.macros-editor-module-component {
+    margin-bottom: 20px;
+    width: 90%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.macros-editor-module-component > .macros-editor-module-content {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    width: 100%;
+}
+
+.macros-editor-module-content > button {
+    all: unset;
+    padding: 5px;
+    border-radius: 5px;
+    align-self: flex-start;
+    font-size: 24px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--gray-1);
+}
+
+.macros-editor-module-content > button:hover {
+    background-color: white;
+    color: black;
+}
+
+.macros-editor-module-content > .total-calories-container {
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--gray-1);
+    padding: 10px 20px;
+    border-radius: 10px;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.total-calories-container > #title {
+    font-size: 20px;
+}
+
+.total-calories-container > .input-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    gap: 10px;
+}
+
+.total-calories-container > .input-container > input {
+    all: unset;
+    font-size: 14px;
+    color: black;
+    background-color: white;
+    border-radius: 5px;
+    width: 70px;
+    padding: 5px 10px;
+}
+
+.total-calories-container > .input-container > h1 {
+    font-size: 18px;
+}
+
+.macros-entries-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-grow: 1;
+}
+
+.macros-editor {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.macros-editor > .add-macro-entry-btn {
+    all: unset;
+    font-size: 14px;
+    padding: 10px 10px;
+    margin-top: 10px;
+    background-color: var(--gray-1);
+    color: white;
+    border-radius: 10px;
+    font-weight: 500;
+    cursor: pointer;
+    margin-bottom: 40px;
+}
+
+.add-macro-entry-to-journal-btn {
+    all: unset;
+    margin-top: auto;
+    background-color: var(--primary-color);
+    color: black;
+    padding: 10px 10px;
+    border-radius: 10px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.individual-macro-entry-editor {
+    align-self: center;
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    margin-top: 10px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    gap: 10px;
+    background-color: var(--gray-1);
+}
+
+.individual-macro-entry-editor > .input-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+.individual-macro-entry-editor > .input-container > h1 {
+    font-size: 14px;
+}
+
+.individual-macro-entry-editor > .input-container > input {
+    all: unset;
+    font-size: 14px;
+    color: black;
+    background-color: white;
+    border-radius: 5px;
+    width: 70px;
+    padding: 5px 10px;
+}
+
+.individual-macro-entry-editor > .remove-btn {
+    all: unset;
+    font-size: 12px;
+    background-color: var(--primary-color);
+    color: black;
+    padding: 5px 5px;
+    border-radius: 5px;
+    cursor: pointer;
+}
