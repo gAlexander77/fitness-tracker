@@ -1,22 +1,23 @@
-import React, {useState, useEffect} from 'react';
-import MacrosEditor from './journal-editor-components/MacrosEditor';
+import React, { useState, useEffect } from "react";
+import MacrosEditor from "./journal-editor-components/MacrosEditor";
+import CalculatorResultEditor from "./journal-editor-components/CalculatorResultsEditor";
 
-function JournalEditor({currentDate, journalEntry}){
-    
+function JournalEditor({ currentDate, journalEntry, reloadJournal }) {
     //console.log(journalEntry)
 
     const [selectedCategory, setSelectedCategory] = useState("Macros");
 
     const [selectedCategoryData, setSelectedCategoryData] = useState(null);
-    
+
     useEffect(() => {
-        if (journalEntry && journalEntry[categoryKey(selectedCategory)]){
-            setSelectedCategoryData(journalEntry[categoryKey(selectedCategory)] ? 
-                journalEntry[categoryKey(selectedCategory)] 
-                : 
-                null);
+        if (journalEntry && journalEntry[categoryKey(selectedCategory)]) {
+            setSelectedCategoryData(
+                journalEntry[categoryKey(selectedCategory)]
+                    ? journalEntry[categoryKey(selectedCategory)]
+                    : null
+            );
         }
-    },[selectedCategory, journalEntry]);
+    }, [selectedCategory, journalEntry]);
 
     //console.log(journalEntry);
     //console.log(selectedCategoryData)
@@ -27,21 +28,36 @@ function JournalEditor({currentDate, journalEntry}){
                 selectedCategory={selectedCategory}
                 setSelectedCategory={setSelectedCategory}
             />
-            {selectedCategory === "Macros" ? <MacrosEditor 
-                currentDate={currentDate}
-                macrosData={selectedCategoryData}
-            />: null}
+            {selectedCategory === "Macros" ? (
+                <MacrosEditor
+                    currentDate={currentDate}
+                    macrosData={selectedCategoryData}
+                    reloadJournal={reloadJournal}
+                />
+            ) : null}
+            {selectedCategory === "Calculator Results" ? (
+                <CalculatorResultEditor
+                    currentDate={currentDate}
+                    calculatorResultsData={selectedCategoryData}
+                    reloadJournal={reloadJournal}
+                />
+            ) : null}
         </div>
     );
 }
 
-function JournalViewSelector({selectedCategory, setSelectedCategory}){
-    
-    const categories = ["Macros", "Measurements", "Personal Records", "Calculator Results", "Notes"]
+function JournalViewSelector({ selectedCategory, setSelectedCategory }) {
+    const categories = [
+        "Macros",
+        "Measurements",
+        "Personal Records",
+        "Calculator Results",
+        "Notes",
+    ];
 
     return (
         <div className="journal-view-selector">
-            {categories.map(category => (
+            {categories.map((category) => (
                 <CategoryButton
                     key={category}
                     category={category}
@@ -53,19 +69,17 @@ function JournalViewSelector({selectedCategory, setSelectedCategory}){
     );
 }
 
-
-function CategoryButton({category, selectedCategory, setSelectedCategory}){
-    
+function CategoryButton({ category, selectedCategory, setSelectedCategory }) {
     const selectCategory = () => {
         setSelectedCategory(category);
-    }
+    };
 
     const buttonStyle = {
         backgroundColor: selectedCategory === category ? "#2DEDF3" : "#414141",
-        color: selectedCategory === category ? "black" : "white"
-    }
+        color: selectedCategory === category ? "black" : "white",
+    };
 
-    return(
+    return (
         <button
             className="category-btn"
             style={buttonStyle}
@@ -78,14 +92,13 @@ function CategoryButton({category, selectedCategory, setSelectedCategory}){
 
 function categoryKey(category) {
     const categoryMap = {
-        "Macros": "macros",
-        "Measurements": "measurements",
+        Macros: "macros",
+        Measurements: "measurements",
         "Personal Records": "personalRecords",
         "Calculator Results": "calculatorResults",
-        "Notes": "notes"
+        Notes: "notes",
     };
     return categoryMap[category];
 }
-
 
 export default JournalEditor;
