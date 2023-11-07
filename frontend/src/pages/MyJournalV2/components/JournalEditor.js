@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import MacrosEditor from "./journal-editor-components/MacrosEditor";
 import MeasurementsEditor from "./journal-editor-components/MeasurementsEditor";
+import PersonalRecordEditor from "./journal-editor-components/PersonalRecordsEditor";
 import CalculatorResultEditor from "./journal-editor-components/CalculatorResultsEditor";
 
 function JournalEditor({ currentDate, journalEntry, reloadJournal }) {
@@ -40,6 +41,13 @@ function JournalEditor({ currentDate, journalEntry, reloadJournal }) {
                 <MeasurementsEditor
                     currentDate={currentDate}
                     measurementsData={selectedCategoryData}
+                    reloadJournal={reloadJournal}
+                />
+            ) : null}
+            {selectedCategory === "Personal Records" ? (
+                <PersonalRecordEditor
+                    currentDate={currentDate}
+                    personalRecordsData={selectedCategoryData}
                     reloadJournal={reloadJournal}
                 />
             ) : null}
