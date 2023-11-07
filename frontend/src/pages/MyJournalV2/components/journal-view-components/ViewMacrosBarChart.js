@@ -21,7 +21,9 @@ export default function ViewMacrosBarChart({macrosData}) {
     
             const labels = [];
             const data = [];
-    
+            const backgroundColor = 'rgba(45, 237, 254, 0.6)';
+            const borderColor = '#2DEDFE';
+
             sortedMacrosData.forEach(macro => {
                 labels.push(macro.type);
                 data.push(macro.amount);
@@ -32,8 +34,8 @@ export default function ViewMacrosBarChart({macrosData}) {
                 datasets: [{
                     label: "grams",
                     data: data,
-                    backgroundColor: 'rgba(254, 62, 45, 0.6)',
-                    borderColor: '#FE3E2D',
+                    backgroundColor: backgroundColor,
+                    borderColor: borderColor,
                     borderWidth: 1,
                     borderRadius: 10,
                 }]
@@ -51,7 +53,7 @@ export default function ViewMacrosBarChart({macrosData}) {
                 beginAtZero: true,
                 ticks: {
                     font: {
-                        size: 16
+                        size: 20
                     }
                 }
             },
@@ -60,7 +62,7 @@ export default function ViewMacrosBarChart({macrosData}) {
                 beginAtZero: true,
                 ticks: {
                     font: {
-                        size: 16
+                        size: 20
                     }
                 }
             }
@@ -69,7 +71,7 @@ export default function ViewMacrosBarChart({macrosData}) {
 
     return(showChart) ? (
         <div className='container'>
-            <div style={{ width: '500px', height: '300px'}}>
+            <div style={{ width: '600px', height: '400px'}}>
                 <Bar data={chartData}  options={options}/>
             </div>
         </div>
