@@ -19,12 +19,13 @@
     min-height: 390px;
     margin-top: 50px;
     margin-bottom: 50px;
+
     background-color: #2B2B2B;
     border-radius: 10px;
     display: flex;
     justify-content: center;
     position: relative;
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5); /* Adjust shadow properties as needed */
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5); 
 
 }
 
@@ -68,7 +69,7 @@
     width: 70px;
     border-radius: 5px;
     background-color: #414141;
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5); /* Adjust shadow properties as needed */
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5); 
 
 }
 
@@ -97,8 +98,6 @@
     flex-direction: column;
     align-items: center;
     gap: 20px;
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5); /* Adjust shadow properties as needed */
-
 }
 
 .body-fat-percentage-calculator-calculator-results-component #inner {
@@ -110,6 +109,8 @@
     flex-direction: column;
     align-items: center;
     gap: 10px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5); 
+
 }
 
 .body-fat-percentage-calculator-calculator-results-component #line {
@@ -143,6 +144,8 @@
     border-radius: 50%;
     border: none;
     margin: 0 10px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5); 
+
 }
 
 .body-fat-percentage-calculator-gender-btns > #female {
@@ -156,6 +159,8 @@
     border-radius: 50%;
     border: none;
     margin: 0 10px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5); 
+
 }
 
 .body-fat-percentage-calculator-gender-btns > #male.active,
