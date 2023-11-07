@@ -1,6 +1,4 @@
 /* default background page layout */
-
-/* transparent gradient on background square */
 .protein-intake-calculator-page {
     min-width: 100vw;
     min-height: 100vh;
@@ -26,7 +24,7 @@
     display: flex;
     justify-content: center;
     position: relative;
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5); /* Adjust shadow properties as needed */
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5); 
 
 }
 
@@ -70,7 +68,7 @@
     width: 70px;
     border-radius: 5px;
     background-color: #414141;
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5); /* Adjust shadow properties as needed */
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5); 
 
 }
 
@@ -99,8 +97,6 @@
     flex-direction: column;
     align-items: center;
     gap: 20px;
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5); /* Adjust shadow properties as needed */
-
 }
 
 .protein-intake-calculator-calculator-results-component #inner {
@@ -112,6 +108,8 @@
     flex-direction: column;
     align-items: center;
     gap: 10px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5); 
+
 }
 
 .protein-intake-calculator-calculator-results-component #line {
@@ -176,9 +174,15 @@
 
 #activityLevel
 {
-    /* margin-left: 20px; */
-    color: white;
     background-color: #414141;
+    color: white;
+    width: 150px;
+}
 
+/* remove arrows on input box */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0; 
 }
 
