@@ -61,7 +61,7 @@ function SignUp(){
             return; // dont complete if not verified ;)
         
         axios.post(`${process.env.REACT_APP_API_URL}/users/create`, input)
-            .then(() => axios.post("/sign-in", input, {withCredentials: true}))
+            .then(() => axios.post(`${process.env.REACT_APP_API_URL}/sign-in`, input, {withCredentials: true}))
             .then(() => navigate('/dashboard'))
             .catch(error => setError(error?.response.status === 400
                 ? "Someone already took that username" : "System error, please try again later"));
