@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "../../../../styles/pages/MyJournalV2/components/journal-view-components/ViewPersonalRecords.css";
+import "../../../../styles/pages/MyJournalV2/components/journal-editor-components/PersonalRecordsEditor.css";
 
 function PersonalRecordEditor({
     personalRecordsData,
@@ -90,8 +91,9 @@ function AddPersonalRecordEditor({ toggleEditor, reloadJournal }) {
     };
 
     return (
-        <div>
-            <div>
+        <div className="add-personal-records-editor-component">
+            <h1>Enter Personal Record</h1>
+            <div className="input-container">
                 <p>Workout</p>
                 <input
                     name="workout"
@@ -100,7 +102,7 @@ function AddPersonalRecordEditor({ toggleEditor, reloadJournal }) {
                     onChange={handleChange}
                 />
             </div>
-            <div>
+            <div className="input-container">
                 <p>Weight</p>
                 <input
                     name="weight"
@@ -109,7 +111,7 @@ function AddPersonalRecordEditor({ toggleEditor, reloadJournal }) {
                     onChange={handleChange}
                 />
             </div>
-            <div>
+            <div className="input-container">
                 <p>Unit</p>
                 <input
                     name="weightUnit"
@@ -118,8 +120,8 @@ function AddPersonalRecordEditor({ toggleEditor, reloadJournal }) {
                     onChange={handleChange}
                 />
             </div>
-            <div>
-                <p>Number of repetitions</p>
+            <div className="input-container">
+                <p>Repetitions</p>
                 <input
                     name="reps"
                     placeholder="ex 5"
@@ -127,8 +129,13 @@ function AddPersonalRecordEditor({ toggleEditor, reloadJournal }) {
                     onChange={handleChange}
                 />
             </div>
-            <div>
-                <button onClick={saveMeasurement}>Save Record</button>
+            <div className="button-container">
+                <button
+                    className="save-personal-record-btn"
+                    onClick={saveMeasurement}
+                >
+                    Save Record
+                </button>
             </div>
         </div>
     );

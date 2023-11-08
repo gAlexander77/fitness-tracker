@@ -3,6 +3,7 @@ import MacrosEditor from "./journal-editor-components/MacrosEditor";
 import MeasurementsEditor from "./journal-editor-components/MeasurementsEditor";
 import PersonalRecordEditor from "./journal-editor-components/PersonalRecordsEditor";
 import CalculatorResultEditor from "./journal-editor-components/CalculatorResultsEditor";
+import NotesEditor from "./journal-editor-components/NotesEditor";
 
 function JournalEditor({ currentDate, journalEntry, reloadJournal }) {
     //console.log(journalEntry)
@@ -55,6 +56,13 @@ function JournalEditor({ currentDate, journalEntry, reloadJournal }) {
                 <CalculatorResultEditor
                     currentDate={currentDate}
                     calculatorResultsData={selectedCategoryData}
+                    reloadJournal={reloadJournal}
+                />
+            ) : null}
+            {selectedCategory === "Notes" ? (
+                <NotesEditor
+                    currentDate={currentDate}
+                    notesData={selectedCategoryData}
                     reloadJournal={reloadJournal}
                 />
             ) : null}

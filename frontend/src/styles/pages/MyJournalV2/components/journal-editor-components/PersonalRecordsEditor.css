@@ -1,0 +1,39 @@
+.add-personal-records-editor-component {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--gray-1);
+    padding: 10px;
+    border-radius: 10px;
+    gap: 10px;
+}
+
+.add-personal-records-editor-component > .input-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.add-personal-records-editor-component > .button-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.add-personal-records-editor-component > .input-container > input {
+    all: unset;
+    background-color: white;
+    width: 120px;
+    padding: 2px 5px;
+    border-radius: 5px;
+}
+
+.add-personal-records-editor-component
+    .button-container
+    > .save-personal-record-btn {
+    all: unset;
+    align-self: center;
+    padding: 5px 10px;
+    background-color: var(--primary-color);
+    color: black;
+    border-radius: 10px;
+}
