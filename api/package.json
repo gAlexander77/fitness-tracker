@@ -4,13 +4,14 @@
   "description": "HTTP JSON API service for Shape Shift",
   "scripts": {
     "test": "mocha -r ts-node/register './src/tests/**/*.ts'",
-    "start": "ts-node ./src/main.ts",
+    "start": "ts-node ./src/app.ts",
     "clean": "rm -rf node_modules"
   },
   "keywords": [],
   "author": "The Worst Team",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "ts-node": "^10.9.1"
   },

@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import Nav from '../../components/Nav';
 import '../../styles/pages/BasalMetabolicRateCalculator/BasalMetabolicRateCalculator.css';
-import { heightToInches, calculateMaleBMR, calculateFemaleBMR } from './utils';
+import { heightToCm, calculateBMR,  } from './utils';
 
-// Removed MaterialUI styling so new styling is needed 
 
 function BasalMetabolicRateCalculator(){
 
@@ -41,11 +40,11 @@ function BasalMetabolicRateCalculator(){
 }
 
 function Calculator(props){
+    const [currentGender, setCurrentGender] = useState(5);
 
-    const [value, setValue] = useState(0);
-    const handleChange = (event, newValue) => {
-        setValue(newValue);
-      };
+    const handleGenderButtonClick = (genderModifier) => {
+        setCurrentGender(genderModifier);
+    };
 
     const BMRValueSetting = (event) => {
         const { id, value } = event.target;
@@ -68,10 +67,9 @@ function Calculator(props){
           }
     }
 
-    const BMRMaleCalculation = () => {
-        let height = heightToInches(props.input.feet, props.input.inches);
-        console.log(height);
-        let MaleBMR = calculateMaleBMR(height, props.input.weight, props.input.age);
+    const BMRCalculation = () => {
+        let height = heightToCm(props.input.feet, props.input.inches);
+        let MaleBMR = calculateBMR(height, props.input.weight, props.input.age, currentGender);
         props.setResults({bmr: MaleBMR});
         if(props.results.bmr > 0){
             props.setShowResults(true);
@@ -81,26 +79,92 @@ function Calculator(props){
         console.log(MaleBMR);
     }
 
-    const BMRFemaleCalculation = () => {
-        let height = heightToInches(props.input.feet, props.input.inches);
-        console.log(height);
-        let FemaleBMR = calculateFemaleBMR(height, props.input.weight, props.input.age);
-        props.setResults({bmr: FemaleBMR});
-        if(props.results.bmr > 0){
-            props.setShowResults(true);
-        } else{
-            props.setShowResults(false);
-        }
-        console.log(FemaleBMR);
-    }
 
 
-    // might need one for males and another for females ^ 
+    // const BMRFemaleCalculation = () => {
+    //     let height = heightToCm(props.input.feet, props.input.inches);
+    //     console.log(height);
+    //     let FemaleBMR = calculateFemaleBMR(height, props.input.weight, props.input.age);
+    //     props.setResults({bmr: FemaleBMR});
+    //     if(props.results.bmr > 0){
+    //         props.setShowResults(true);
+    //     } else{
+    //         props.setShowResults(false);
+    //     }
+    //     console.log(FemaleBMR);
+    // }
 
-    return(
-        <div className="basal-metabolic-rate-calculator-calculator-component">
+
+return(
+    <div className="basal-metabolic-rate-calculator-calculator-component">
+        <div className="basal-metabolic-rate-calculator-calculator-inner">
+            <div className="basal-metabolic-rate-calculator-calculator-left-container">
+                <h1 className="Height">Height</h1>
+                <div id="input-container">
+                <input
+                    id="feet"
+                    type="number"
+                    value={props.input.feet}
+                    onChange={BMRValueSetting}
+                />
+                <p id="tag">Feet</p>
+                </div>
+                <div id="input-container">
+                <input
+                    id="inches"
+                    type="number"
+                    value={props.input.inches}
+                    onChange={BMRValueSetting}
+                />
+                <p id="tag">Inches</p>
+                </div>
+            </div>
+            <div className="basal-metabolic-rate-calculator-calculator-middle-container">
+                <h1 id="title">Weight</h1>
+                <div id="input-container">
+                <input
+                    id="weight"
+                    type="number"
+                    value={props.input.weight}
+                    onChange={BMRValueSetting}
+                />
+                <p id="tag">lbs</p>
+                </div>
+            </div>
+            <div className="basal-metabolic-rate-calculator-calculator-right-container">
+                <h1 id="title">Age</h1>
+                <div id="input-container">
+                <input
+                    id="age"
+                    type="number"
+                    value={props.input.age}
+                    onChange={BMRValueSetting}
+                />
+                <p id="tag">years</p>
+            </div>
         </div>
-    );
+    </div>
+    <div className='basal-metabolic-rate-calculator-gender-btns'>
+            <button
+                id='male'
+                className={ `basal-metabolic-rate-calculator-gender-btn ${currentGender === 5 ? 'active' : ''}`}
+                onClick={() => handleGenderButtonClick(5)}>
+            M        
+        </button>
+            <button
+                id='female'
+                className={`basal-metabolic-rate-calculator-gender-btn ${currentGender === -161 ? 'active' : ''}`}
+                onClick={() => handleGenderButtonClick(-161)}>
+            F
+        </button>
+    </div>
+
+    <button className="basal-metabolic-rate-calculator-calculator-calculate-btn" onClick={BMRCalculation}>
+        Calculate
+    </button>
+</div>
+
+);
 }
 function CalculatorResults(props){
     return(props.trigger)?(
@@ -108,7 +172,7 @@ function CalculatorResults(props){
             <div id="inner">
                 <div id="display-container">
                     <h2>BMR:</h2>
-                    <h2>{props.bmr}</h2>
+                    <h2>{Math.floor(props.bmr)}</h2>
                     <h2> Calories</h2>
                 </div>
             </div>

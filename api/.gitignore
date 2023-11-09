@@ -1,2 +1,4 @@
 node_modules/
-.vscoade/
+.vscode/
+.DS_Store
+.env

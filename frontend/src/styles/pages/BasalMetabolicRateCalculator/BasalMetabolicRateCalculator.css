@@ -13,8 +13,8 @@
 }
 
 .basal-metabolic-rate-calculator-calculator-component {
-    min-width: 500px;
-    min-height: 300px;
+    min-width: 600px;
+    min-height: 350px;
     margin-top: 50px;
     margin-bottom: 50px;
     background-color: #2B2B2B;
@@ -23,45 +23,34 @@
     position: relative;
 }
 
-.BMR-component {
-    width: 500px;
-    min-height: 300px;
-    margin-top: 50px;
-    margin-bottom: 50px;
-    justify-content: center;
-    border-radius: 10px;
-    background-color: #2B2B2B;
-
-}
-
 .basal-metabolic-rate-calculator-calculator-inner {
     display: flex;
     flex-direction: row;
-    align-items:flex-start;
+    align-items: flex-start;
     margin-top: 30px;
     gap: 20px;
 }
 
-.basal-metabolic-rate-calculator-calculator-left-container {
-    display: flex;
-    flex-direction: column;
-    margin-left: 100px;
-    gap: 7px;
+.basal-metabolic-rate-calculator-calculator-left-container{
+    margin-left: 50px;
 }
 
-.basal-metabolic-rate-calculator-calculator-middle-container {
-    display: flex;
-    flex-direction: column;
-    margin: 0px 20px 100px;
-    gap: 7px;
-}
-
+.basal-metabolic-rate-calculator-calculator-left-container,
+.basal-metabolic-rate-calculator-calculator-middle-container,
 .basal-metabolic-rate-calculator-calculator-right-container {
+    flex: 1;
     display: flex;
     flex-direction: column;
-    margin-right:50px;
     gap: 7px;
 }
+
+.basal-metabolic-rate-calculator-calculator-left-container h1,
+.basal-metabolic-rate-calculator-calculator-middle-container h1,
+.basal-metabolic-rate-calculator-calculator-right-container h1 {
+    font-size: 20px;
+    font-weight: normal;
+}
+
 
 .basal-metabolic-rate-calculator-calculator-component #input-container {
     display: flex;
@@ -91,13 +80,42 @@
     all: unset;
     position: absolute;
     bottom: 40px;
-
     color: black;
     background-color: #2DEDF3;
     cursor: pointer;
     font-size: 14px;
     padding: 7px 12px;
     border-radius: 10px;
+    margin-left: 265px;
+}
+
+.basal-metabolic-rate-calculator-gender-btns > #male{
+    font-size: 16px;
+    width: 30px;
+    height: 30px;
+    color: black;
+    background-color: white;
+    cursor: pointer;
+    border-radius: 50%;
+    border: none;
+    margin: 25px 10px 0px 270px;
+}
+
+.basal-metabolic-rate-calculator-gender-btns > #female {
+    font-size: 16px;
+    width: 30px;
+    height: 30px;
+    color: black;
+    background-color: white;
+    cursor: pointer;
+    border-radius: 50%;
+    border: none;
+    margin: 25px 0px 0px 10px;
+}
+
+.basal-metabolic-rate-calculator-gender-btns>#male.active,
+.basal-metabolic-rate-calculator-gender-btns>#female.active {
+    background-color: #2DEDF3;
 }
 
 .BMR-component h1 {

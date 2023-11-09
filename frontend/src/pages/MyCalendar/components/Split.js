@@ -1,9 +1,11 @@
+import axios from 'axios';
 import React, { useState, useRef, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function Split(props){
     // Test Data
-    let data = props.data
-    
+    let data = props.data;
+
     const [selectedMenu, setSelectedMenu] = useState("current-split")
 
     const selectMenuHandler = (evt) => {
@@ -56,8 +58,18 @@ function Split(props){
 }
 
 function CurrentSplit(props){
+
+    // const [data, setData] = useState([]);
+
+    // useEffect(() => {
+    //     if (data.length === 0) {
+    //         axios.get('http://localhost:3001/api/split', {withCredentials: true})
+    //             .then(response => setData(response.data))
+    //             .catch(() => navigate('/'));
+    //     }
+    // }, [data]);
     
-    const split = props.data.workoutSplit;
+    const data = props.data.workoutSplit;
     const days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
     
     const Day = (props) => {
@@ -77,7 +89,7 @@ function CurrentSplit(props){
     
     return (
         <div className="my-calendar-split-current-split-container">
-            {split.map((workoutGroup, index)=>{
+            {data.map((workoutGroup, index)=>{
                 return(
                     <Day
                         key={index}
@@ -92,10 +104,18 @@ function CurrentSplit(props){
 
 function CreateASplit(props) {
     
-    console.log(props.data.workoutGroups);
+    const navigate = useNavigate();
+    // const [data, setData] = useState([]);
+
+    // useEffect(() => {
+    //     if (data.length === 0) {
+    //         axios.get('http://localhost:3001/api/split/workouts', {withCredentials: true})
+    //             .then(response => setData(response.data))
+    //             .catch(() => navigate('/'));
+    //     }
+    // }, [data]);
+    
     const groupNames = props.data.workoutGroups.map(obj => obj.groupName);
-    groupNames.push("Rest");
-    console.log(groupNames);
  
     const [split, setSplit] = useState([
         {day: "Sunday",workoutGroup: "Select",},
@@ -116,9 +136,8 @@ function CreateASplit(props) {
     };
 
     function Day(props) {
-        
-        const dropDownRef = useRef();
-        
+                
+        const btnRef = useRef(null);
         const [dropDown, setDropDown] = useState(false);
 
         const SelectionMenuButton = (props) => {            
@@ -126,7 +145,7 @@ function CreateASplit(props) {
             useEffect(() => {
                 if(props.trigger){
                     let outsideClickHandler = (evt) => {
-                        if(!dropDownRef.current.contains(evt.target)) {
+                        if(!btnRef.current.contains(evt.target)) {
                             props.setTrigger(false);
                         }
                     }
@@ -154,7 +173,7 @@ function CreateASplit(props) {
             }
 
             return (
-                <button id="drop-down-btn" ref={dropDownRef} onClick={menuHandler} style={style}>{props.workoutGroup}</button>
+                <button id="drop-down-btn" ref={btnRef} onClick={menuHandler} style={style}>{props.workoutGroup}</button>
             );
         }
 
@@ -171,7 +190,7 @@ function CreateASplit(props) {
             }
 
             return (props.trigger) ? (
-                <div className="my-calendar-split-create-a-split-menu" ref={dropDownRef}>
+                <div className="my-calendar-split-create-a-split-menu" ref={btnRef}>
                     {props.groupNames.map((name, index)=>{
                         return(
                             <Selection key={index} name={name} splitIndex={props.splitIndex}/>
@@ -185,7 +204,7 @@ function CreateASplit(props) {
             <div className="my-calendar-split-create-a-split-day-container">
                 <h1>{props.day}</h1>
                 <SelectionMenuButton 
-                    trigger={dropDown} 
+                    trigger={dropDown}
                     setTrigger={setDropDown} 
                     workoutGroup={props.workoutGroup}
                 />
@@ -199,9 +218,31 @@ function CreateASplit(props) {
         );
     }
     
-    const setCurrentSplitHandler = (evt) => {
-        console.log('set Current Split')
+    const [errors, setErrors] = useState('');
+
+    const setCurrentSplitHandler = () => {
+
+        const currentErrors = [];
+
+        split.forEach(weekDay => {
+            if (weekDay.workoutGroup == "Select")
+                currentErrors.push(weekDay.day);
+        })
+
+        if (currentErrors.length > 0) {
+            const n = currentErrors.length - 1;
+            setErrors(currentErrors.length === 1
+                ? currentErrors[0]
+                : currentErrors.slice(0, n).join(', ') + ' and ' + currentErrors[n]);
+        } else {
+            axios.post(`${process.env.REACT_APP_API_URL}/split`, 
+                { workoutSplit: split.map(weekDay => weekDay.workoutGroup) },
+                { withCredentials: true })
+                .then(() => navigate(0))
+                .catch(() => navigate('/'));
+        }
     }
+
 
     return (
         <div className="my-calendar-split-create-a-split-container">
@@ -219,6 +260,7 @@ function CreateASplit(props) {
                     );
                 })}
             </div>
+            <p>{ errors ? `You still need to set ${errors}` : '' }</p>
             <button id="set-split-btn" onClick={setCurrentSplitHandler}>Set</button>
         </div>
     );
@@ -229,10 +271,17 @@ function CreateASplit(props) {
 function ViewWorkoutGroups(props) {
     
     const workoutGroups = props.data.workoutGroups;
-    console.log(workoutGroups);
+    // const [workoutGroups, setWorkoutGroups] = useState([]);
+
+    // useEffect(() => {
+    //     if (workoutGroups.length === 0) {
+    //         axios.get('http://localhost:3001/api/split/workouts', {withCredentials: true})
+    //             .then(response => setWorkoutGroups(response.data))
+    //             .catch(() => navigate('/'));
+    //     }
+    // }, [workoutGroups]);
     
     const WorkoutGroup = (props) => {
-        console.log(props.groupName)
         return (
             <button id="group-name-btn">{props.groupName}</button>
         );
