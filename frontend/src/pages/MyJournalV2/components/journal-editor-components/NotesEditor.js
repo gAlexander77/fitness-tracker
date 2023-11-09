@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import "../../../../styles/pages/MyJournalV2/components/journal-view-components/ViewNotes.css";
-
+import { BsArrowLeft } from "react-icons/bs";
 import "../../../../styles/pages/MyJournalV2/components/journal-editor-components/NotesEditor.css";
 
 function NotesEditor({ notesData }) {
@@ -69,18 +68,22 @@ function AddNoteButton({ toggleEditor, editor }) {
 }
 
 function AddNotes({ toggleEditor, editor }) {
+    const goBack = () => {
+        toggleEditor();
+    };
+
     const saveNote = () => {
         toggleEditor();
     };
 
     return editor ? (
         <div className="add-note-component">
+            <button className="go-back-btn" onClick={goBack}>
+                <BsArrowLeft />
+            </button>
             <div className="input-container">
-                <h1>Note Title</h1>
-                <input></input>
-            </div>
-            <div className="text-area-container">
-                <textarea></textarea>
+                <input placeholder="Title of Note"></input>
+                <textarea placeholder="Write your note here."></textarea>
             </div>
             <div className="button-container">
                 <button onClick={saveNote}>Save Note</button>
