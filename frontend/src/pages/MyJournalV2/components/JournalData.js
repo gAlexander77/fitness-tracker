@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-import '../../../styles/pages/MyJournalV2/components/JournalData.css';
+import "../../../styles/pages/MyJournalV2/components/JournalData.css";
 
 function JournalData() {
     return (

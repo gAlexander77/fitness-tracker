@@ -2,9 +2,6 @@ import React from "react";
 import "../../../../styles/pages/MyJournalV2/components/journal-view-components/ViewPersonalRecords.css";
 
 function ViewPersonalRecord({ personalRecordsData, selectedCategory }) {
-    //console.log(personalRecordsData)
-    //console.log(selectedCategory)
-
     return personalRecordsData ? (
         <div className="view-personal-records-component">
             <h1 id="component-title">Recorded Personal Records</h1>
