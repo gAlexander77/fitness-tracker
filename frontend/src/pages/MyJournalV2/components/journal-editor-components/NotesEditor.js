@@ -3,7 +3,7 @@ import "../../../../styles/pages/MyJournalV2/components/journal-view-components/
 
 import "../../../../styles/pages/MyJournalV2/components/journal-editor-components/NotesEditor.css";
 
-function ViewNotes({ notesData }) {
+function NotesEditor({ notesData }) {
     const [editor, setEditor] = useState(false);
 
     const toggleEditor = () => {
@@ -11,10 +11,21 @@ function ViewNotes({ notesData }) {
     };
 
     return (
-        <div className="view-notes-component">
-            <h1 id="view-notes-title">Notes</h1>
-            <DisplayNotes notesData={notesData} />
-            <AddNotesButton toggleEditor={toggleEditor} editor={editor} />
+        <div className="notes-editor-component">
+            {editor ? (
+                <h1 id="notes-editor-title">Add Note</h1>
+            ) : (
+                <h1 id="notes-editor-title">Notes</h1>
+            )}
+            {editor ? null : (
+                <>
+                    <DisplayNotes notesData={notesData} />
+                    <AddNoteButton
+                        toggleEditor={toggleEditor}
+                        editor={editor}
+                    />
+                </>
+            )}
             <AddNotes toggleEditor={toggleEditor} editor={editor} />
         </div>
     );
@@ -45,12 +56,14 @@ function Note({ title, note, numOfNotes, index }) {
     );
 }
 
-export default ViewNotes;
+export default NotesEditor;
 
-function AddNotesButton({ toggleEditor, editor }) {
+function AddNoteButton({ toggleEditor, editor }) {
     return editor ? null : (
-        <div>
-            <button onClick={toggleEditor}>Add Note</button>
+        <div className="add-note-btn-container">
+            <button className="add-note-btn" onClick={toggleEditor}>
+                Add Note
+            </button>
         </div>
     );
 }
@@ -61,16 +74,15 @@ function AddNotes({ toggleEditor, editor }) {
     };
 
     return editor ? (
-        <div>
-            <h1>Add Note</h1>
-            <div>
+        <div className="add-note-component">
+            <div className="input-container">
                 <h1>Note Title</h1>
                 <input></input>
             </div>
-            <div>
+            <div className="text-area-container">
                 <textarea></textarea>
             </div>
-            <div>
+            <div className="button-container">
                 <button onClick={saveNote}>Save Note</button>
             </div>
         </div>
