@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { BsGraphUp, BsFillJournalBookmarkFill } from "react-icons/bs";
-// Default Imports
 import Nav from "../../components/Nav";
 import Background from "../../components/Background";
 import Footer from "../../components/Footer";
-// Page specific imports
 import Journal from "./components/Journal";
 import Graphs from "./components/JournalData";
 import "../../styles/pages/MyJournalV2/MyJournal.css";
