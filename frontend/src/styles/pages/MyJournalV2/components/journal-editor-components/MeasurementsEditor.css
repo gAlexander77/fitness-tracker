@@ -1,0 +1,111 @@
+.measurements-editor-component {
+    margin-bottom: 20px;
+    /*background-color: rgba(245, 245, 220, 0.123);*/
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.measurements-editor-component > #component-title {
+    margin-bottom: 15px;
+}
+
+.measurements-editor-component > .measurements-editor-component-display {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}
+
+.measurements-editor-component-display > .individual-measurement {
+    all: unset;
+    display: flex;
+    flex-direction: row;
+    background-color: var(--gray-1);
+    border-radius: 10px;
+    margin: 0px 40px;
+    margin-bottom: 10px;
+}
+
+.measurements-editor-component-display
+    > .individual-measurement
+    > .individual-measurement-container {
+    padding: 15px;
+    padding-left: 4%;
+    display: flex;
+    font-size: 20px;
+}
+
+.measurements-editor-component-display
+    > .individual-measurement
+    > .individual-measurement-container
+    > p {
+    margin-right: 30px;
+}
+
+.measurements-editor-component-display
+    > .individual-measurement
+    .individual-measurement-container
+    > .type-of-measurement {
+    text-transform: capitalize;
+}
+
+.measurements-editor-component-display > button {
+    all: unset;
+    justify-self: center;
+    align-self: center;
+    background-color: var(--gray-1);
+    color: white;
+    padding: 10px 10%;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: auto;
+}
+
+.measurements-editor-component-display > button:hover {
+    background-color: var(--primary-color);
+    color: black;
+}
+
+/* EDITOR */
+.add-measurment-in-measurments-editor {
+    all: unset;
+    display: flex;
+    flex-direction: row;
+    background-color: var(--gray-1);
+    border-radius: 10px;
+    margin: 0px 40px;
+}
+
+.add-measurment-in-measurments-editor > .input-container {
+    padding: 15px;
+    padding-left: 4%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    font-size: 18px;
+}
+
+.add-measurment-in-measurments-editor > .input-container > input {
+    all: unset;
+    background-color: white;
+    color: black;
+    border-radius: 5px;
+    width: 175px;
+    padding: 5px 10px;
+}
+
+.add-measurment-in-measurments-editor > button {
+    all: unset;
+    margin-left: 20%;
+    cursor: pointer;
+}
+
+.no-measurements-have-been-recorded {
+    justify-self: center;
+    align-self: center;
+}

@@ -1,0 +1,129 @@
+.personal-records-editor-component {
+    margin-bottom: 20px;
+    /* background-color: rgba(245, 245, 220, 0.123); */
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.personal-records-editor-component > #component-title {
+    margin-bottom: 15px;
+}
+
+.personal-records-editor-component
+    > .personal-records-editor-component-display {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    gap: 10px;
+}
+
+.personal-records-editor-component-display-no-data {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centers children vertically in the container */
+    align-items: center; /* Centers children horizontally in the container */
+    height: 100%; /* Ensure the container takes full height to center vertically */
+}
+
+.personal-records-editor-component-display > .no-data {
+    align-self: center;
+    justify-self: center;
+}
+
+.personal-records-editor-component-display > .individual-personal-record {
+    all: unset;
+    display: flex;
+    flex-direction: row;
+    background-color: var(--gray-1);
+    border-radius: 10px;
+    margin: 0px 40px;
+}
+
+.individual-measurement-containter {
+    padding: 15px;
+    padding-left: 4%;
+    display: flex;
+    font-size: 20px;
+}
+
+.individual-measurement-containter > p {
+    margin-right: 30px;
+    text-transform: capitalize;
+}
+
+/* New Stuff */
+
+.personal-records-editor-component > .add-personal-record-btn {
+    all: unset;
+    background-color: var(--gray-1);
+    color: white;
+    padding: 10px 10%;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.personal-records-editor-component > .add-personal-record-btn:hover {
+    background-color: var(--primary-color);
+    color: black;
+}
+
+.add-personal-records-editor-component {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--gray-1);
+    padding: 10px;
+    border-radius: 10px;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.add-personal-records-editor-component > h1 {
+    font-size: 20px;
+}
+
+.add-personal-records-editor-component > .input-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.add-personal-records-editor-component > .button-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.add-personal-records-editor-component > .input-container > input {
+    all: unset;
+    background-color: white;
+    color: black;
+    width: 120px;
+    padding: 2px 5px;
+    border-radius: 5px;
+}
+
+.add-personal-records-editor-component
+    .button-container
+    > .save-personal-record-btn {
+    all: unset;
+    align-self: center;
+    padding: 10px 10px;
+    margin-top: 5px;
+    background-color: var(--gray-2);
+    color: white;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.add-personal-records-editor-component
+    > .button-container
+    > .save-personal-record-btn:hover {
+    background-color: var(--primary-color);
+    color: black;
+}
