@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { BsArrowLeft } from "react-icons/bs";
 import "../../../../styles/pages/MyJournalV2/components/journal-editor-components/NotesEditor.css";
 
-function NotesEditor({ notesData }) {
+function NotesEditor({ notesData, reloadJournal }) {
     const [editor, setEditor] = useState(false);
 
     const toggleEditor = () => {
@@ -25,7 +25,11 @@ function NotesEditor({ notesData }) {
                     />
                 </>
             )}
-            <AddNotes toggleEditor={toggleEditor} editor={editor} />
+            <AddNoteEditor
+                toggleEditor={toggleEditor}
+                editor={editor}
+                reloadJournal={reloadJournal}
+            />
         </div>
     );
 }
@@ -67,12 +71,28 @@ function AddNoteButton({ toggleEditor, editor }) {
     );
 }
 
-function AddNotes({ toggleEditor, editor }) {
+function AddNoteEditor({ toggleEditor, editor, reloadJournal }) {
+    const defaultNote = {
+        title: "",
+        note: "",
+    };
+
+    const [note, setNote] = useState(defaultNote);
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setNote({ ...note, [name]: value });
+    };
+
     const goBack = () => {
         toggleEditor();
     };
 
     const saveNote = () => {
+        // POST REQUEST HERE
+
+        // After successful request
+        reloadJournal();
         toggleEditor();
     };
 
@@ -82,8 +102,18 @@ function AddNotes({ toggleEditor, editor }) {
                 <BsArrowLeft />
             </button>
             <div className="input-container">
-                <input placeholder="Title of Note"></input>
-                <textarea placeholder="Write your note here."></textarea>
+                <input
+                    name="title"
+                    placeholder="Title of Note"
+                    value={note.title}
+                    onChange={handleChange}
+                />
+                <textarea
+                    name="note"
+                    placeholder="Write your note here."
+                    value={note.note}
+                    onChange={handleChange}
+                />
             </div>
             <div className="button-container">
                 <button onClick={saveNote}>Save Note</button>

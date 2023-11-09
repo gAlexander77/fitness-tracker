@@ -50,7 +50,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-grow: 1; /* Added to take up the remaining space */
+    flex-grow: 1;
     position: relative;
 }
 

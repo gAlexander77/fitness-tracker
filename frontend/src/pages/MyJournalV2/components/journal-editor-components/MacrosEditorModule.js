@@ -11,7 +11,7 @@ function MacrosEditorModule({ goBack, reloadJournal }) {
                     <BsArrowLeft />
                 </button>
                 <EnterCalories />
-                <MacroEntries reloadJournal={reloadJournal} />
+                <MacroEntries reloadJournal={reloadJournal} goBack={goBack} />
             </div>
         </div>
     );
@@ -29,7 +29,7 @@ function EnterCalories() {
     );
 }
 
-function MacroEntries({ reloadJournal }) {
+function MacroEntries({ reloadJournal, goBack }) {
     const defaultEntry = {
         type: "",
         amount: "",
@@ -55,7 +55,10 @@ function MacroEntries({ reloadJournal }) {
     // POST REQUEST HERE
     const addMacrosEntryToJournal = () => {
         // POST macros
+
+        // After Successful Request
         reloadJournal();
+        goBack();
         console.log(entries); // DATA TO SEND
     };
 
