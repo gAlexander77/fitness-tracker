@@ -90,7 +90,7 @@ function AddPersonalRecordEditor({ toggleEditor, reloadJournal }) {
     };
 
     const saveMeasurement = () => {
-        // Assuming you implement the POST request logic here
+        // Post Measurement
 
         // After successful request
         reloadJournal();

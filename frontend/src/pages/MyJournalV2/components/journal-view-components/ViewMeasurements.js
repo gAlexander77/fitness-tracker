@@ -2,7 +2,6 @@ import React from "react";
 import "../../../../styles/pages/MyJournalV2/components/journal-view-components/ViewMeasurements.css";
 
 function ViewMeasurements({ measurementsData, selectedCategory }) {
-    //console.log(measurementsData)
     return (
         <div className="view-measurements-component">
             <h1 id="component-title">Recorded Measurements</h1>
