@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "../../../../styles/pages/MyJournalV2/components/journal-view-components/ViewPersonalRecords.css";
 import "../../../../styles/pages/MyJournalV2/components/journal-editor-components/PersonalRecordsEditor.css";
 
 function PersonalRecordEditor({
@@ -16,7 +15,7 @@ function PersonalRecordEditor({
     console.log(personalRecordsData);
 
     return (
-        <div className="view-personal-records-component">
+        <div className="personal-records-editor-component">
             <h1 id="component-title">Recorded Personal Records</h1>
             <DisplayPersonalRecords personalRecordsData={personalRecordsData} />
             {editor ? (
@@ -26,15 +25,24 @@ function PersonalRecordEditor({
                 />
             ) : null}
             {editor ? null : (
-                <button onClick={toggleEditor}>Add a Personal Record</button>
+                <button
+                    className="add-personal-record-btn"
+                    onClick={toggleEditor}
+                >
+                    Add a Personal Record
+                </button>
             )}
         </div>
     );
 }
 
 function DisplayPersonalRecords({ personalRecordsData }) {
-    return personalRecordsData ? (
-        <div className="view-personal-records-component-display">
+    return personalRecordsData === null || personalRecordsData.length === 0 ? (
+        <div className="personal-records-editor-component-display-no-data">
+            <h1 className="no-data"> No Personal Records have been recorded</h1>
+        </div>
+    ) : (
+        <div className="personal-records-editor-component-display">
             {personalRecordsData.map((personalRecord, index) => (
                 <PersonalRecord
                     key={index}
@@ -47,7 +55,7 @@ function DisplayPersonalRecords({ personalRecordsData }) {
                 />
             ))}
         </div>
-    ) : null;
+    );
 }
 
 function PersonalRecord({ workout, weight, weightUnit, reps }) {
