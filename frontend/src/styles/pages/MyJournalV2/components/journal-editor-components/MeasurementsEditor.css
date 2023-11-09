@@ -57,12 +57,17 @@
     all: unset;
     justify-self: center;
     align-self: center;
-    padding: 10px 10px;
+    background-color: var(--gray-1);
+    color: white;
+    padding: 10px 10%;
     border-radius: 10px;
-    background-color: var(--primary-color);
-    color: black;
     cursor: pointer;
     margin-top: auto;
+}
+
+.measurements-editor-component-display > button:hover {
+    background-color: var(--primary-color);
+    color: black;
 }
 
 /* EDITOR */
