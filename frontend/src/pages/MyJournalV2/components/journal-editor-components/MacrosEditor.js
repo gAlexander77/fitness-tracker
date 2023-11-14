@@ -12,7 +12,7 @@ function MacrosEditor({ currentDate, macrosData, reloadJournal }) {
     useEffect(() => {
         if (macrosData) {
             const caloriesObject = macrosData.find(
-                (macro) => macro.type === "calories"
+                (macro) => macro && macro.type === "calories"
             );
             setCaloriesData(caloriesObject ? caloriesObject : null);
         }
@@ -21,7 +21,7 @@ function MacrosEditor({ currentDate, macrosData, reloadJournal }) {
     useEffect(() => {
         if (macrosData) {
             const macrosObjectArray = macrosData.filter(
-                (macro) => macro.type !== "calories"
+                (macro) => macro && macro.type !== "calories"
             );
             setOtherMacrosData(macrosObjectArray ? macrosObjectArray : null);
         }
@@ -31,7 +31,6 @@ function MacrosEditor({ currentDate, macrosData, reloadJournal }) {
         setOpenEditor(false);
     };
 
-    console.log(macrosData);
     return openEditor ? (
         <MacrosEditorModule goBack={goBack} reloadJournal={reloadJournal} />
     ) : (

@@ -9,7 +9,6 @@ export default function Journal({ journalEntries, reloadJournal }) {
     const params = useParams();
     const dateFromUrl = params.dateFromUrl;
 
-    console.log(dateFromUrl);
     const currentDate = formatDateToMDYYYY(new Date());
     const [selectedEntry, setSelectedEntry] = useState(
         dateFromUrl ? dateFromUrl : currentDate
@@ -31,8 +30,9 @@ export default function Journal({ journalEntries, reloadJournal }) {
     const [selectedEntryData, setSelectedEntryData] = useState();
     useEffect(() => {
         const entry = journalEntries.find(
-            (entry) => entry.journalEntry === selectedEntry
+            (entry) => entry.date === selectedEntry
         );
+        console.log(entry);
         if (!entry) {
             setSelectedEntryData(defaultJournalEntry);
         } else {
@@ -97,7 +97,6 @@ function SelectJournalEntry({
 function DayButton({ date, setSelectedEntry, selectedEntry }) {
     const selectEntry = () => {
         setSelectedEntry(date);
-        console.log(date);
     };
 
     const buttonStyle = {
@@ -132,9 +131,9 @@ function formatDateToMDYYYY(dateInput) {
 // Gets array of only date of journal entries from journalEntries in order from most recent to least recent
 function arrayOfJournalEntryDates(journalEntries, currentDate) {
     const journalEntriesArray =
-        journalEntries?.map((item) => item.journalEntry) || [];
+        journalEntries?.map((item) => item.date) || [];
     const filteredEntries = journalEntriesArray.filter(
-        (entry) => entry.date !== currentDate
+        (entry) => entry !== undefined && formatDateToMDYYYY(entry.date) !== currentDate
     );
     const reversedEntries = [...filteredEntries].reverse();
     return reversedEntries;

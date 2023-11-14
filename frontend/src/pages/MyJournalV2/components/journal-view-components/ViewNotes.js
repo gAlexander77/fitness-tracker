@@ -16,8 +16,8 @@ function DisplayNotes({ notesData }) {
             {notesData.map((note, index) => (
                 <Note
                     key={index}
-                    title={note.title}
-                    note={note.note}
+                    title={note?.title}
+                    note={note?.note}
                     numOfNotes={notesData.length}
                     index={index}
                 />
@@ -27,8 +27,6 @@ function DisplayNotes({ notesData }) {
 }
 
 function Note({ title, note, numOfNotes, index }) {
-    console.log(numOfNotes);
-    console.log(index);
 
     const className =
         index + 1 === numOfNotes

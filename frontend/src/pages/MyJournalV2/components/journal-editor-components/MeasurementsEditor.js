@@ -1,8 +1,9 @@
+import axios from 'axios';
 import React, { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import "../../../../styles/pages/MyJournalV2/components/journal-editor-components/MeasurementsEditor.css";
 
 function MeasurementsEditor({ measurementsData, reloadJournal }) {
-    //console.log(measurementsData)
     return (
         <div className="measurements-editor-component">
             <h1 id="component-title">Recorded Measurements</h1>
@@ -42,8 +43,8 @@ function DisplayMeasurements({ measurementsData, reloadJournal }) {
             {measurementsData.map((measurement, index) => (
                 <Measurement
                     key={index}
-                    type={measurement.type}
-                    measurement={measurement.measurement}
+                    type={measurement?.type}
+                    measurement={measurement?.measurement}
                     numOfMeasurements={measurementsData.length}
                     index={index}
                 />
@@ -78,6 +79,7 @@ function AddMeasurement({ toggleEditor, reloadJournal }) {
     };
 
     const [measurementData, setMeasurementData] = useState(defaultMeasurement);
+    const navigate = useNavigate();
 
     const changeType = (e) => {
         setMeasurementData({ ...measurementData, type: e.target.value });
@@ -88,12 +90,12 @@ function AddMeasurement({ toggleEditor, reloadJournal }) {
     };
 
     const saveMeasurement = () => {
-        // POST REQUEST
-
-        // After successful request
-        reloadJournal();
-        toggleEditor();
-        console.log(measurementData);
+        axios.post(`${process.env.REACT_APP_API_URL}/journal/measurement`, { measurement: measurementData }, {withCredentials: true})
+            .then(() => {
+                reloadJournal();
+                toggleEditor();
+            })
+            .catch(() => navigate('/'));
     };
 
     return (

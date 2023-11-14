@@ -3,7 +3,6 @@ import { Bar } from "react-chartjs-2";
 import { Chart as ChartJS } from "chart.js/auto";
 
 export default function ViewMacrosBarChart({ macrosData }) {
-    //console.log(macrosData)
     const [showChart, setShowChart] = useState(false);
     const [chartData, setChartData] = useState({
         labels: [],
