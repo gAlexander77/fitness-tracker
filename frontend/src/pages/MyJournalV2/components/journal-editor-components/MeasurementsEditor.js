@@ -1,4 +1,6 @@
+import axios from 'axios';
 import React, { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import "../../../../styles/pages/MyJournalV2/components/journal-editor-components/MeasurementsEditor.css";
 
 function MeasurementsEditor({ measurementsData, reloadJournal }) {
@@ -77,6 +79,7 @@ function AddMeasurement({ toggleEditor, reloadJournal }) {
     };
 
     const [measurementData, setMeasurementData] = useState(defaultMeasurement);
+    const navigate = useNavigate();
 
     const changeType = (e) => {
         setMeasurementData({ ...measurementData, type: e.target.value });
@@ -87,11 +90,12 @@ function AddMeasurement({ toggleEditor, reloadJournal }) {
     };
 
     const saveMeasurement = () => {
-        // POST REQUEST
-
-        // After successful request
-        reloadJournal();
-        toggleEditor();
+        axios.post(`${process.env.REACT_APP_API_URL}/journal/measurement`, { measurement: measurementData }, {withCredentials: true})
+            .then(() => {
+                reloadJournal();
+                toggleEditor();
+            })
+            .catch(() => navigate('/'));
     };
 
     return (

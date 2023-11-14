@@ -1,4 +1,6 @@
+import axios from 'axios';
 import React, { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import "../../../../styles/pages/MyJournalV2/components/journal-editor-components/PersonalRecordsEditor.css";
 
 function PersonalRecordEditor({
@@ -81,6 +83,7 @@ function AddPersonalRecordEditor({ toggleEditor, reloadJournal }) {
     const [personalRecordData, setPersonalRecordData] = useState(
         defaultPersonalRecord
     );
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -88,11 +91,12 @@ function AddPersonalRecordEditor({ toggleEditor, reloadJournal }) {
     };
 
     const saveMeasurement = () => {
-        // Post Measurement
-        
-        // After successful request
-        reloadJournal();
-        toggleEditor();
+        axios.post(`${process.env.REACT_APP_API_URL}/journal/personal-record`, { personalRecord: personalRecordData }, {withCredentials: true})
+            .then(() => {
+                reloadJournal();
+                toggleEditor();
+            })
+            .catch(() => navigate('/'));        
     };
 
     return (

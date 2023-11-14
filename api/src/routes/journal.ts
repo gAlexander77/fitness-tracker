@@ -1,19 +1,10 @@
 import { Router, Request, Response } from 'express';
 
-import { JournalEntry, Macro, Note } from '../models/journal';
-import { authorized } from '../middleware';
 import { collections } from '../config';
+import { authorized } from '../middleware';
+import { JournalEntry, Macro, Measurement, PersonalRecord, Note } from '../models/journal';
 
 const route = Router();
-
-route.get('/', authorized, async (request: Request, response: Response) => {
-    try {
-        response.status(200).json(request.user.journalEntries.slice(-30));
-    } catch (error) {
-        response.status(500).json({ error: error || "internal server error" });
-        console.log(error);
-    }
-});
 
 const loadJournalEntries = (request: Request) => {
     const journalEntries = request.user.journalEntries;
@@ -25,21 +16,34 @@ const loadJournalEntries = (request: Request) => {
     return journalEntries;
 };
 
+const updateJournalEntries = async (request: Request, journalEntries: Array<JournalEntry>) => {
+    const updated = await collections.users.updateMany({ _id: request.user._id }, { $set: { journalEntries: journalEntries }});
+    return updated.modifiedCount > 0;
+};
+
+route.get('/', authorized, async (request: Request, response: Response) => {
+    try {
+        response.status(200).json(request.user.journalEntries.slice(-30));
+    } catch (error) {
+        response.status(500).json({ error: error || "internal server error" });
+        console.log(error);
+    }
+});
+
 route.post('/macro', authorized, async (request: Request, response: Response) => {
     try {
         const journalEntries = loadJournalEntries(request);
-        const macros = request.body.macros as Array<Macro>;
+        const calories = request.body.macros[0] as Macro;
+        const macros = request.body.macros.slice(1) as Array<Macro>;
 
-        const totalCals = parseFloat(journalEntries[0].macros[0].amount) + (parseFloat(macros[0].amount) || 0);
-        journalEntries[0].macros[0].amount = totalCals.toString();
-
-        journalEntries[0].macros = journalEntries[0].macros.concat(request.body.macros.slice(1) as Array<Macro>);
-
-        const updated = await collections.users.updateMany({ _id: request.user._id }, { $set: { journalEntries: journalEntries }});
-        updated.modifiedCount > 0
-            ? response.status(200).json({ ok: "updated today's journal entry" })
-            : response.status(400).json({ error: "could not update journal" });
-        console.log(updated);
+        // calculate new total
+        const totalCals = parseFloat(journalEntries[0].macros[0].amount) + (parseFloat(calories.amount) || 0);
+        
+        journalEntries[0].macros[0].amount = totalCals.toString(); // update total amount
+        journalEntries[0].macros = journalEntries[0].macros.concat(macros); // concatenate macro list
+        updateJournalEntries(request, journalEntries)
+            ? response.status(200).json({ ok: "updated today's macros" })
+            : response.status(500).json({ error: "database error" });
     } catch (error) {
         response.status(500).json({ error: "internal server error" });
         console.log(error);
@@ -47,11 +51,29 @@ route.post('/macro', authorized, async (request: Request, response: Response) =>
 });
 
 route.post('/measurement', authorized, async (request: Request, response: Response) => {
-    response.status(200).json({ ok: "nothing happens" });
+    try {
+        const journalEntries = loadJournalEntries(request);
+        journalEntries[0].measurements.push(request.body.measurement as Measurement);
+        updateJournalEntries(request, journalEntries)
+            ? response.status(200).json({ ok: "updated today's measurements" })
+            : response.status(500).json({ error: "database error" });
+    } catch (error) {
+        response.status(500).json({ error: "internal server error" });
+        console.log(error);
+    }
 });
 
 route.post('/personal-record', authorized, async (request: Request, response: Response) => {
-    response.status(200).json({ ok: "nothing happens" });
+    try {
+        const journalEntries = loadJournalEntries(request);
+        journalEntries[0].personalRecords.push(request.body.personalRecord as PersonalRecord);
+        updateJournalEntries(request, journalEntries)
+            ? response.status(200).json({ ok: "updated today's measurements" })
+            : response.status(500).json({ error: "database error" });
+    } catch (error) {
+        response.status(500).json({ error: "internal server error" });
+        console.log(error);
+    }
 });
 
 route.post('/calculator-result', authorized, async (request: Request, response: Response) => {
@@ -61,13 +83,10 @@ route.post('/calculator-result', authorized, async (request: Request, response: 
 route.post('/note', authorized, async (request: Request, response: Response) => {
     try {
         const journalEntries = loadJournalEntries(request);
-
         journalEntries[0].notes.push(request.body.note as Note);
-
-        const updated = await collections.users.updateOne({ _id: request.user._id }, { $set: { journalEntries: journalEntries }});
-        updated.modifiedCount > 0
-            ? response.status(200).json({ ok: "updated today's journal entry" })
-            : response.status(400).json({ error: "could not update journal" });
+        updateJournalEntries(request, journalEntries)
+            ? response.status(200).json({ ok: "updated today's notes" })
+            : response.status(500).json({ error: "database error" });
     } catch (error) {
         response.status(500).json({ error: "internal server error" });
         console.log(error);

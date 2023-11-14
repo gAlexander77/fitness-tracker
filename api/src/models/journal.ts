@@ -13,7 +13,7 @@ export class Macro {
     ) {}
 };
 
-export class Measurements {
+export class Measurement {
     constructor(
         public type: string,
         public measurement: string
@@ -38,7 +38,7 @@ export class CalculatorResult {
 
 export class JournalEntry {
     constructor(
-        public measurements: Array<Measurements> = [],
+        public measurements: Array<Measurement> = [],
         public personalRecords: Array<PersonalRecord> = [],
         public calculatorResult: Array<CalculatorResult> = [],
         public macros: Array<Macro> = [ new Macro("calories", "0", "KCal") ],
