@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import "../../../../styles/pages/MyJournalV2/components/journal-editor-components/MeasurementsEditor.css";
 
 function MeasurementsEditor({ measurementsData, reloadJournal }) {
-    //console.log(measurementsData)
     return (
         <div className="measurements-editor-component">
             <h1 id="component-title">Recorded Measurements</h1>
@@ -42,8 +41,8 @@ function DisplayMeasurements({ measurementsData, reloadJournal }) {
             {measurementsData.map((measurement, index) => (
                 <Measurement
                     key={index}
-                    type={measurement.type}
-                    measurement={measurement.measurement}
+                    type={measurement?.type}
+                    measurement={measurement?.measurement}
                     numOfMeasurements={measurementsData.length}
                     index={index}
                 />
@@ -93,7 +92,6 @@ function AddMeasurement({ toggleEditor, reloadJournal }) {
         // After successful request
         reloadJournal();
         toggleEditor();
-        console.log(measurementData);
     };
 
     return (

@@ -12,8 +12,6 @@ function PersonalRecordEditor({
         setEditor(!editor);
     };
 
-    console.log(personalRecordsData);
-
     return (
         <div className="personal-records-editor-component">
             <h1 id="component-title">Recorded Personal Records</h1>
@@ -91,11 +89,10 @@ function AddPersonalRecordEditor({ toggleEditor, reloadJournal }) {
 
     const saveMeasurement = () => {
         // Post Measurement
-
+        
         // After successful request
         reloadJournal();
         toggleEditor();
-        console.log(personalRecordData);
     };
 
     return (

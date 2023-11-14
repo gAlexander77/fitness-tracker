@@ -6,7 +6,6 @@ import CalculatorResultEditor from "./journal-editor-components/CalculatorResult
 import NotesEditor from "./journal-editor-components/NotesEditor";
 
 function JournalEditor({ currentDate, journalEntry, reloadJournal }) {
-    //console.log(journalEntry)
 
     const [selectedCategory, setSelectedCategory] = useState("Macros");
 
@@ -21,9 +20,6 @@ function JournalEditor({ currentDate, journalEntry, reloadJournal }) {
             );
         }
     }, [selectedCategory, journalEntry]);
-
-    //console.log(journalEntry);
-    //console.log(selectedCategoryData)
 
     return (
         <div className="journal-view">

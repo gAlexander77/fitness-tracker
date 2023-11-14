@@ -18,7 +18,7 @@ function ViewMacros({ currentDate, macrosData }) {
     useEffect(() => {
         if (macrosData) {
             const macrosObjectArray = macrosData.filter(
-                (macro) => macro.type !== "calories"
+                (macro) => macro !== null && macro.type !== "calories"
             );
             setOtherMacrosData(macrosObjectArray ? macrosObjectArray : null);
         }
@@ -48,9 +48,9 @@ function DisplayMacros({ otherMacrosData }) {
         <div className="macros-display-container">
             {otherMacrosData.map((macro, index) => (
                 <div key={index} className="individual-macro">
-                    <p id="title">{macro.type}</p>
+                    <p id="title">{macro?.type}</p>
                     <p id="ammount">
-                        {macro.amount} {macro.unit}
+                        {macro.amount} {macro?.unit}
                     </p>
                 </div>
             ))}

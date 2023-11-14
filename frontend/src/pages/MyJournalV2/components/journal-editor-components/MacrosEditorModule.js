@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { BsArrowLeft } from "react-icons/bs";
+import { useNavigate } from 'react-router-dom';
 import "../../../../styles/pages/MyJournalV2/components/journal-editor-components/MacrosEditorModule.css";
+import axios from 'axios';
 
 function MacrosEditorModule({ goBack, reloadJournal }) {
     return (
@@ -10,20 +12,7 @@ function MacrosEditorModule({ goBack, reloadJournal }) {
                 <button className="go-back-btn" onClick={goBack}>
                     <BsArrowLeft />
                 </button>
-                <EnterCalories />
                 <MacroEntries reloadJournal={reloadJournal} goBack={goBack} />
-            </div>
-        </div>
-    );
-}
-
-function EnterCalories() {
-    return (
-        <div className="total-calories-container">
-            <h1 id="title">Total Calories</h1>
-            <div className="input-container">
-                <input placeholder="ex 1000" type="text"></input>
-                <h1 id="unit">kCal</h1>
             </div>
         </div>
     );
@@ -37,6 +26,12 @@ function MacroEntries({ reloadJournal, goBack }) {
     };
 
     const [entries, setEntries] = useState([defaultEntry]);
+    const [calorieAmount, setCalorieAmount] = useState(0);
+    const navigate = useNavigate();
+
+    const handleCalorieChange = (event) => {
+        setCalorieAmount(event.target.value);
+    };
 
     const addEntry = () => {
         setEntries([...entries, { ...defaultEntry }]);
@@ -54,15 +49,25 @@ function MacroEntries({ reloadJournal, goBack }) {
 
     // POST REQUEST HERE
     const addMacrosEntryToJournal = () => {
-        // POST macros
+        entries.unshift({ type: 'calories', amount: calorieAmount, unit: 'KCal' });
 
-        // After Successful Request
-        reloadJournal();
-        goBack();
-        console.log(entries); // DATA TO SEND
+        axios.post(`${process.env.REACT_APP_API_URL}/journal/macro`, { macros: entries.slice(0, -1) }, {withCredentials: true})
+            .then(() => {
+                reloadJournal();
+                goBack();
+            })
+            .catch(() => navigate('/'));        
     };
 
     return (
+        <>
+        <div className="total-calories-container">
+            <h1 id="title">Total Calories</h1>
+            <div className="input-container">
+                <input placeholder="ex 1000" type="text" onChange={handleCalorieChange}></input>
+                <h1 id="unit">kCal</h1>
+            </div>
+        </div>
         <div className="macros-entries-container">
             <div className="macros-editor">
                 {entries.map((entry, index) => (
@@ -87,6 +92,7 @@ function MacroEntries({ reloadJournal, goBack }) {
                 Add Macro Entry to Journal
             </button>
         </div>
+        </>
     );
 }
 

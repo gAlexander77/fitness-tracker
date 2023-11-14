@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { BsArrowLeft } from "react-icons/bs";
 import "../../../../styles/pages/MyJournalV2/components/journal-editor-components/NotesEditor.css";
+import axios from 'axios';
 
 function NotesEditor({ notesData, reloadJournal }) {
     const [editor, setEditor] = useState(false);
@@ -78,6 +80,7 @@ function AddNoteEditor({ toggleEditor, editor, reloadJournal }) {
     };
 
     const [note, setNote] = useState(defaultNote);
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -89,11 +92,12 @@ function AddNoteEditor({ toggleEditor, editor, reloadJournal }) {
     };
 
     const saveNote = () => {
-        // POST REQUEST HERE
-
-        // After successful request
-        reloadJournal();
-        toggleEditor();
+        axios.post(`${process.env.REACT_APP_API_URL}/journal/note`, { note }, {withCredentials: true})
+            .then(() => {
+                reloadJournal();
+                toggleEditor();
+            })
+            .catch(() => navigate('/'))        
     };
 
     return editor ? (

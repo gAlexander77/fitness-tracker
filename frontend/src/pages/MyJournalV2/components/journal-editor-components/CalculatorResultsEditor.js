@@ -2,7 +2,6 @@ import React from "react";
 import "../../../../styles/pages/MyJournalV2/components/journal-editor-components/CalculatorResultsEditor.css";
 
 function CalculatorResultEditor({ calculatorResultsData }) {
-    console.log(calculatorResultsData);
 
     return (
         <div className="calculator-results-editor-component">
@@ -19,7 +18,6 @@ function DisplayCalculatorResults({ calculatorResultsData }) {
         const result = calculatorResultsData.find(
             (result) => result.calculator === calculator
         );
-        console.log(result);
         return result ? result.result : null;
     };
 
