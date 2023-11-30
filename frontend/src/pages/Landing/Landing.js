@@ -9,7 +9,7 @@ import '../../styles/pages/Landing/Landing.css';
 function Landing() {
     return(
         <>
-            <Nav/>
+            <Nav />
             <div className="landing-page">
                 <Intro/>
                 <Features/>

@@ -3,11 +3,20 @@ import Footer from '../../components/Footer';
 import Menu from './components/Menu';
 import MacrosWidget from './dysc-components/macroswidget'
 import '../../styles/pages/UserDashboardV2/UserDashboard.css';
+import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function UserDashboard() {
-    
-    const username = 'username';
-    
+        
+    const navigate = useNavigate();
+    const user = useSelector(state => state.user);
+
+    useEffect(() => {
+        if (user === null)
+            navigate('/');
+    }, [user]);
+
     return(
         <>
             <Nav/>
@@ -15,9 +24,9 @@ function UserDashboard() {
                 <div className="dashboard-content">
                     <div className="welcome-container">
                         <h1 id="welcome">Welcome,</h1>  
-                        <h1 id="username">{username}</h1>
+                        <h1 id="username">{user?.username}</h1>
                     </div>
-                    <Menu />
+                    <Menu currentSplit={user?.currentSplit}/>
                     <MacrosWidget/>
                 </div>
                 <Background/>            

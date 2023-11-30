@@ -1,13 +1,16 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../../../styles/pages/Landing/components/Intro.css';
+import { useSelector } from 'react-redux';
 
 function Intro() {
 
     const navigate = useRef(useNavigate());
 
-    const goToSignup = () => {
-	    navigate.current('/user#signup');
+    const user = useSelector(state => state.user);
+
+    const goToPage = () => {
+	    navigate.current(user === null ? "/user#signup" : "/dashboard");
     };
 
     return(
@@ -17,7 +20,7 @@ function Intro() {
                     <h1 id="row-1">Track your fitness journey with</h1>
                     <h1 id="row-2">Shape Shift</h1>
                 </div>
-                <button className="get-started-btn" onClick={goToSignup}>Get Started</button>
+                <button className="get-started-btn" onClick={goToPage}>{user === null ? "Get Started" : "My Dashboard"}</button> 
             </div>
             <Background/>
         </section>

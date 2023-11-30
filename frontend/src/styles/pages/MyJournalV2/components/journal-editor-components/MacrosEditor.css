@@ -1,10 +1,73 @@
-.add-meal-button-container{
+.macros-editor-component {
+    margin-bottom: 20px;
+    width: 90%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.macros-editor-component > #macros-title {
+    align-self: center;
+    justify-self: center;
+    text-align: center;
+}
+
+.macros-editor-component > .calories-display {
+    background-color: var(--gray-1);
+    height: 70px;
+    width: 140px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+}
+
+.macros-display-container {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.individual-macro {
+    background-color: var(--gray-1);
+    height: 70px;
+    width: 140px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+}
+
+.individual-macro > #title {
+    text-transform: capitalize;
+}
+
+.macros-editor-component > .no-data {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    position: relative;
+}
+
+.macros-editor-component > .no-data > h1 {
+    position: relative;
+    bottom: 15%;
+}
+
+/* Addded */
+.add-meal-button-container {
+    margin-top: auto;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.add-meal-button-container > button{
+.add-meal-button-container > button {
     all: unset;
     background-color: var(--gray-1);
     padding: 10px 10%;
@@ -12,7 +75,7 @@
     cursor: pointer;
 }
 
-.add-meal-button-container > button:hover{
+.add-meal-button-container > button:hover {
     background-color: var(--primary-color);
     color: black;
 }

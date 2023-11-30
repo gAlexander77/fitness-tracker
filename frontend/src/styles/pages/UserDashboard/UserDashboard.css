@@ -30,3 +30,15 @@
     color: gray;
     cursor: pointer;
 }
+
+.wrapper {
+    width: 100%;
+    position: relative;
+}
+
+.Activity-Ring {
+    margin: 30px;
+    text-align: center;
+    display: flex;
+    justify-content: space-around;
+}

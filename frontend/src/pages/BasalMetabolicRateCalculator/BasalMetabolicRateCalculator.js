@@ -107,7 +107,7 @@ return(
     <div className="basal-metabolic-rate-calculator-calculator-component">
         <div className="basal-metabolic-rate-calculator-calculator-inner">
             <div className="basal-metabolic-rate-calculator-calculator-left-container">
-                <h1 id="title">Height</h1>
+                <h1 className="Height">Height</h1>
                 <div id="input-container">
                 <input
                     id="feet"
