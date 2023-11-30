@@ -47,16 +47,14 @@ function MacroEntries({ reloadJournal, goBack }) {
         setEntries(updatedEntries);
     };
 
-    // POST REQUEST HERE
     const addMacrosEntryToJournal = () => {
         entries.unshift({ type: 'calories', amount: calorieAmount, unit: 'KCal' });
-
         axios.post(`${process.env.REACT_APP_API_URL}/journal/macro`, { macros: entries.slice(0, -1) }, {withCredentials: true})
             .then(() => {
                 reloadJournal();
                 goBack();
             })
-            .catch(() => navigate('/'));        
+            .catch(() => navigate('/'));
     };
 
     return (

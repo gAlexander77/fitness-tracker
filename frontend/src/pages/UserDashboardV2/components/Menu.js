@@ -101,10 +101,17 @@ function WorkoutsBtn() {
     );
 }
 
-// Pops up a setting modual
+// Pops up a setting modal
 function SettingsBtn() {
+
+    const navigate = useRef(useNavigate());
+
+    const goToSettings = () => {
+	    navigate.current('/settings');
+    };
+
     return(
-        <button className="settings-btn" id="menu-btn">
+        <button className="settings-btn" id="menu-btn" onClick={goToSettings}>
             <>Settings</>
         </button>
     );

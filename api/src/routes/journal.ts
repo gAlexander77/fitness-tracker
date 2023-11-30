@@ -8,9 +8,11 @@ const route = Router();
 
 const loadJournalEntries = (request: Request) => {
     const journalEntries = request.user.journalEntries;
-    const todaysEntry = new JournalEntry();
 
-    if (journalEntries.length === 0 || journalEntries[0]?.date !== todaysEntry.date)
+    const todaysDate = (new Date().toLocaleDateString('en-us', {timeZone: request.user.settings.timezone})).replaceAll('/', '-');
+    const todaysEntry = new JournalEntry(todaysDate);
+
+    if (journalEntries.length === 0 || journalEntries[0]?.date !== todaysDate)
         journalEntries.unshift(todaysEntry); // add today if it's not the most recent
 
     return journalEntries;

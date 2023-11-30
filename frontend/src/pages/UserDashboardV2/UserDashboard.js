@@ -1,7 +1,7 @@
 import Nav from '../../components/Nav';
 import Footer from '../../components/Footer';
 import Menu from './components/Menu';
-import MacrosWidget from './dysc-components/macroswidget'
+import MacrosWidget from './dysc-components/macroswidget';
 import '../../styles/pages/UserDashboardV2/UserDashboard.css';
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
@@ -29,7 +29,7 @@ function UserDashboard() {
                     <Menu currentSplit={user?.currentSplit}/>
                     <MacrosWidget/>
                 </div>
-                <Background/>            
+                <Background/>      
             </div>
             <Footer/>
         </>

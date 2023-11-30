@@ -38,12 +38,12 @@ export class CalculatorResult {
 
 export class JournalEntry {
     constructor(
+        public date: string,
         public measurements: Array<Measurement> = [],
         public personalRecords: Array<PersonalRecord> = [],
         public calculatorResult: Array<CalculatorResult> = [],
         public macros: Array<Macro> = [ new Macro("calories", "0", "KCal") ],
         public notes: Array<Note> = [],
         public split: string = 'rest',
-        public date: string = new Date().toLocaleDateString('en-us').replaceAll('/', '-')
     ) {}
 };

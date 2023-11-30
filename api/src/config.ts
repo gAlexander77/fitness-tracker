@@ -1,10 +1,11 @@
-import { MongoClient, Collection } from 'mongodb';
+import { MongoClient, Collection, Db } from 'mongodb';
 import express, { Router, json } from 'express';
 import session from 'express-session';
 import dotenv from 'dotenv';
 import cors from 'cors';
+import fs from 'fs';
 
-import { authorized, requestLog } from './middleware';
+import { requestLog } from './middleware';
 
 import workouts from './routes/workouts';
 import journal from './routes/journal';
@@ -14,7 +15,7 @@ import index from './routes/index';
 
 export const collections: { users?: Collection, workouts?: Collection } = {}; // db tables (collections)
 
-const routes = [ // structured list of api endpoints and middleware
+const routes = [ // structured list of api endpoints
 	{ path: '/',         route: index    },
 	{ path: '/users',    route: users    },
 	{ path: '/split',    route: split    },
@@ -34,14 +35,12 @@ const db = {
 const address = {
 	host: process.env.API_HOST || '127.0.0.1',
 	port: parseInt(process.env.API_PORT) || 3001,
-	url() {
-		return `http://${this.host}:${this.port}/api`; 
-	}
+	url() { return `http://${this.host}:${this.port}/api`; }
 };
 
 const middleware = [ // global middleware array
 	requestLog, // globally enable request logging
-	cors({ origin: 'http://localhost:3000', credentials: true }),
+	cors({ credentials: true }),
 	json(),
 	session({
 		cookie: { httpOnly: false, path: null },
@@ -51,7 +50,32 @@ const middleware = [ // global middleware array
 	})
 ];
 
-export const httpConfig = async () => {
+export const deleteDb = async (cursor: Db) => {
+	for (let collection in collections)
+		await cursor.dropCollection(collection);
+};
+
+export const createDb = async (cursor: Db) => {
+
+	for (let collection in collections) {
+		const schema = fs.readFileSync(`./schema/${collection}.json`).toString();
+		await cursor.createCollection(collection, { validator: JSON.parse(schema) });
+	}
+
+	await cursor.createIndex("users", { username: 1 }, { unique: true });
+
+	if (fs.existsSync("./workouts.json")) {
+		const workouts = fs.readFileSync("./workouts.json").toString();
+		await collections.workouts.insertMany(JSON.parse(workouts));
+	}
+};
+
+export const refreshDb = async (cursor: Db) => {
+	await deleteDb(cursor);
+	await createDb(cursor);
+};
+
+export const httpServer = async () => {
 	const [ app, api ] = [ express(), Router() ];
 
 	const mongoClient = new MongoClient(`mongodb+srv://${db.username}:${db.password}@${db.host}/${db.namespace}`);
@@ -66,25 +90,5 @@ export const httpConfig = async () => {
 	routes.forEach(({ path, route }) => api.use(path, route));
 	app.use('/api', api);
 
-	return { app, db, address };
+	return { app, db, address, cursor };
 };
-
-// export const deleteCollections = async (db: Db) => {
-// 	for (let collection in collectionNames)
-// 		await db.dropCollection(collection);
-// };
-
-// export const createCollections = async (db: Db) => {
-
-// 	for (let collection in collectionNames) {
-// 		const schema = fs.readFileSync(`./schema/${collection}.json`).toString();
-// 		await db.createCollection(collection, { validator: JSON.parse(schema) });
-// 	}
-
-// 	await db.createIndex("users", { username: 1 }, { unique: true });
-
-// 	if (fs.existsSync("./workouts.json")) {
-// 		const workouts = fs.readFileSync("./workouts.json").toString();
-// 		await collections.workouts.insertMany(JSON.parse(workouts));
-// 	}
-// };

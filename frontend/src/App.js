@@ -5,8 +5,9 @@ import Login from './pages/Login/Login';
 import SignUp from './pages/SignUp/SignUp';
 import SignInSignUp from './pages/SignInSignUp/SignInSignUp';
 import UserDashboard from './pages/UserDashboardV2/UserDashboard';
+import Settings from './pages/Settings/Settings';
 //import MyJournal from './pages/MyJournal/MyJournal';
-import MyJournal from './pages/MyJournalV2/MyJournal'
+import MyJournal from './pages/MyJournalV2/MyJournal';
 import MyCalendar from './pages/MyCalendar/MyCalendar';
 import Workouts from './pages/Workouts/Workouts';
 import Workout from './pages/Workout/Workout';
@@ -27,6 +28,7 @@ function App() {
         <Route path="/signup" element={<SignUp/>}/>
         <Route path="/user" element={<SignInSignUp/>}/>
         <Route path="/dashboard" element={<UserDashboard/>}/>
+        <Route path="/settings" element={<Settings/>}/>
         <Route path="/my-journal/:dateFromUrl" element={<MyJournal/>}/>
         <Route path="/my-journal/" element={<MyJournal/>}/>
         <Route path="/my-calendar" element={<MyCalendar/>}/>

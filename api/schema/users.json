@@ -1,7 +1,7 @@
 {"$jsonSchema": {
     "bsonType": "object",
     "title": "Users",
-    "required": ["username", "password", "salt"],
+    "required": ["username", "password", "salt", "journalEntries", "workoutGroups", "workoutSplit"],
     "properties": {
         "username": {
             "bsonType": "string"
@@ -12,10 +12,16 @@
         "salt": {
             "bsonType": "string"
         },
+        "settings": {
+            "bsonType": "object"
+        },
         "journalEntries": {
             "bsonType": "array"
         },
         "workoutGroups": {
+            "bsonType": "array"
+        },
+        "workoutSplit": {
             "bsonType": "array"
         }
     }

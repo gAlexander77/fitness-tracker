@@ -4,6 +4,9 @@
   "description": "HTTP JSON API service for Shape Shift",
   "scripts": {
     "test": "mocha -r ts-node/register './src/tests/**/*.ts'",
+    "create": "ts-node ./src/app.ts create",
+    "delete": "ts-node ./src/app.ts delete",
+    "refresh": "ts-node ./src/app.ts refresh",
     "start": "ts-node ./src/app.ts",
     "clean": "rm -rf node_modules"
   },

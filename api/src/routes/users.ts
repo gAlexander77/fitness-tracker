@@ -18,6 +18,7 @@ route.post("/create", async (request: Request, response: Response) => {
                 	: response.status(500).json({ error: "unable to create user" });
 			} catch (error) {
 				response.status(400).json({ error: error || "username already exists" });
+                console.log(error);
 			}
         });
     } catch (error) {
