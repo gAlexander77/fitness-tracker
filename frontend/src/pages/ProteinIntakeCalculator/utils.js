@@ -13,9 +13,9 @@ export function calculateProtein(height, weight, gender, activityLevel, age) {
     let bmr;
 
     // calculate BMR between male and female
-    if (gender === 'male') {
+    if (gender === 5) {
       bmr = 88.362 + (13.397 * weight) + (4.799 * height) - (5.677 * age);
-    } else if (gender === 'female') {
+    } else if (gender === -161) {
       bmr = 447.593 + (9.247 * weight) + (3.098 * height) - (4.330 * age);
     }
     
