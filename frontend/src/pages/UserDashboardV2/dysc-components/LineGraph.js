@@ -42,7 +42,7 @@ function DatesReformat(Entries){
 
 	for (let i = 0; i < Entries.length; i++){
 		let validDate;
-		let dateString = Entries[i].journalEntry;
+		let dateString = Entries[i].date;
 		
 		let sections = dateString.split('-');
 		let year = parseInt(sections[2]),
@@ -55,12 +55,11 @@ function DatesReformat(Entries){
 	return validDatesArr;
 }
 
-const LineGraph = () => {
+const LineGraph = ({Entries}) => {
 	const [activeButton, setActiveButton] = useState(14);
 
 	const [daysToShow, setDaysToShow] = useState(14); // 3 is the initial number of days visible
 
-	var Entries = data.journalEntries;
 	var Macros = MacrosDivi(Entries);
 	var validDates = DatesReformat(Entries);
 	var calories = [], protein = [], carbs = [];

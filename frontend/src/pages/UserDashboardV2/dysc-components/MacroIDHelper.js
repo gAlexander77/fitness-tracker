@@ -10,7 +10,7 @@ function MacroIDHelper(JournalEntries) {
     const macrosToTrack = ['calories', 'protein', 'carbs'];
 
     if (Array.isArray(JournalEntries) && JournalEntries.length > 0) {
-        const lastEntry = JournalEntries[JournalEntries.length - 1];
+        const lastEntry = JournalEntries[0];
         
         for (let i = 0; i < macrosToTrack.length; i++) {
             const macroType = macrosToTrack[i];

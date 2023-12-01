@@ -9,13 +9,7 @@ import { useNavigate } from 'react-router-dom';
 
 function UserDashboard() {
         
-    const navigate = useNavigate();
     const user = useSelector(state => state.user);
-
-    useEffect(() => {
-        if (user === null)
-            navigate('/');
-    }, [user]);
 
     return(
         <>
@@ -27,7 +21,7 @@ function UserDashboard() {
                         <h1 id="username">{user?.username}</h1>
                     </div>
                     <Menu currentSplit={user?.currentSplit}/>
-                    <MacrosWidget/>
+                    <MacrosWidget />
                 </div>
                 <Background/>      
             </div>
