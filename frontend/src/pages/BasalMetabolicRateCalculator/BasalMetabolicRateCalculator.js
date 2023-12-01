@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Nav from '../../components/Nav';
+import Background from '../../components/Background';
+import Footer from '../../components/Footer';
 import '../../styles/pages/BasalMetabolicRateCalculator/BasalMetabolicRateCalculator.css';
 import { heightToCm, calculateBMR,  } from './utils';
 
@@ -21,22 +23,28 @@ function BasalMetabolicRateCalculator(){
     });
 
     return(
-        <div className="basal-metabolic-rate-calculator-page">
+        <>
             <Nav/>
-            <h1>BMR Calculator</h1>
-            <Calculator
-                input={input}
-                setInput={setInput} 
-                setResults={setResults}
-                results={results}
-                setShowResults={setShowResults}
-            />
-            <CalculatorResults
-                trigger={showResults}
-                setTiggers={setShowResults}
-                bmr={results.bmr}
-            />
-        </div>
+            <div className='basal-metabolic-rate-calculator-page'>
+                <div className='basal-metabolic-rate-calculator-content'>
+                    <h1>BMR Calculator</h1>
+                    <Calculator
+                        input={input}
+                        setInput={setInput} 
+                        setResults={setResults}
+                        results={results}
+                        setShowResults={setShowResults}
+                    />
+                    <CalculatorResults
+                        trigger={showResults}
+                        setTiggers={setShowResults}
+                        bmr={results.bmr}
+                    />
+                </div>
+                <Background/>
+            </div>
+            <Footer/>
+        </>            
     );
 }
 
@@ -181,7 +189,12 @@ function CalculatorResults(props){
                     <h2>{Math.floor(props.bmr)}</h2>
                     <h2> Calories</h2>
                 </div>
+                <div id='line'/>
+                <div id="display-container">
+                    <h1>{props.classification}</h1>
+                </div>
             </div>
+            {true ? <button class="saveButton">Save results to Journal</button> : ""}
         </div>
     ):'';
 }

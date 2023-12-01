@@ -4,10 +4,10 @@ export function heightToCm(feet, inches) {
     if (feet >= 0 && inches >= 0) {
         console.log(((feet * 12) + inches) * 2.54);
         return ((feet*12)+inches) * 2.54;
-    }    
+    }
     else {
         return -1;
-    } 
+    }
 }
 // men:  66.47 + (6.24 × weight in pounds) + (12.7 × height in inches) − (6.75 × age in years)
 export function calculateBMR(height, weight, age, genderModifier){
