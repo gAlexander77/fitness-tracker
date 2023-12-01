@@ -24,6 +24,8 @@
     display: flex;
     justify-content: center;
     position: relative;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5); 
+
 }
 
 .protein-intake-calculator-calculator-inner {
@@ -66,6 +68,8 @@
     width: 70px;
     border-radius: 5px;
     background-color: #414141;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5); 
+
 }
 
 .protein-intake-calculator-calculator-calculate-btn {
@@ -104,6 +108,8 @@
     flex-direction: column;
     align-items: center;
     gap: 10px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5); 
+
 }
 
 .protein-intake-calculator-calculator-results-component #line {
@@ -164,5 +170,19 @@
     display: flex;
     justify-content: center;
     width: 100%;
+}
+
+#activityLevel
+{
+    background-color: #414141;
+    color: white;
+    width: 150px;
+}
+
+/* remove arrows on input box */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0; 
 }
 
