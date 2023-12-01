@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Nav from '../../components/Nav';
 import '../../styles/pages/ProteinIntakeCalculator/ProteinIntakeCalculator.css';
 import { heightToInches, calculateProtein } from './utils';
+
+import axios from 'axios';
 
 function ProteinIntakeCalculator() {
   const [showResults, setShowResults] = useState(false);
@@ -41,6 +43,11 @@ function ProteinIntakeCalculator() {
 
 function Calculator(props) {
   const [currentGender, setCurrentGender] = useState(5);
+
+  useEffect(() => {
+    axios.get(`${process.env.REACT_APP_API_URL}/settings`, {withCredentials: true})
+        .then(response => setCurrentGender(response.data.settings.sex === 'male' ? 5 : -161))
+  }, [currentGender]);
 
   const handleGenderButtonClick = (genderModifier) => {
       setCurrentGender(genderModifier);

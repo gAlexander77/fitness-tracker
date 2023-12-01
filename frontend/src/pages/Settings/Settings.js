@@ -50,7 +50,7 @@ const Settings = () => {
             <div className="user-settings">
                 <div className='user-settings-content'>
                     <div className='user-settings-card'>
-                        <h2 className='user-settings-title'>Settings for <b>{ user?.username }</b></h2>
+                        <h2 className='user-settings-title'>Settings</h2>
                         <div className='user-settings-options'>
                             <div className='user-settings-option'>
                                 <h4>Sex</h4>

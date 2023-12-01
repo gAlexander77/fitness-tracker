@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Nav from '../../components/Nav';
 import '../../styles/pages/BasalMetabolicRateCalculator/BasalMetabolicRateCalculator.css';
 import { heightToCm, calculateBMR,  } from './utils';
 
+import axios from 'axios';
 
 function BasalMetabolicRateCalculator(){
 
@@ -41,6 +42,11 @@ function BasalMetabolicRateCalculator(){
 
 function Calculator(props){
     const [currentGender, setCurrentGender] = useState(5);
+
+    useEffect(() => {
+        axios.get(`${process.env.REACT_APP_API_URL}/settings`, {withCredentials: true})
+            .then(response => setCurrentGender(response.data.settings.sex === 'male' ? 5 : -161))
+    }, [currentGender]);
 
     const handleGenderButtonClick = (genderModifier) => {
         setCurrentGender(genderModifier);
