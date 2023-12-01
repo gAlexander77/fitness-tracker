@@ -7,6 +7,7 @@ import fs from 'fs';
 
 import { requestLog } from './middleware';
 
+import settings from './routes/settings';
 import workouts from './routes/workouts';
 import journal from './routes/journal';
 import split from './routes/split';
@@ -20,7 +21,8 @@ const routes = [ // structured list of api endpoints
 	{ path: '/users',    route: users    },
 	{ path: '/split',    route: split    },
 	{ path: '/journal',  route: journal  },
-	{ path: '/workouts', route: workouts }
+	{ path: '/workouts', route: workouts },
+	{ path: '/settings', route: settings }
 ];
 
 dotenv.config(); // pulls in the .env file
@@ -40,12 +42,12 @@ const address = {
 
 const middleware = [ // global middleware array
 	requestLog, // globally enable request logging
-	cors({ credentials: true }),
+	cors({ origin: "http://localhost:3000", credentials: true }),
 	json(),
 	session({
 		cookie: { httpOnly: false, path: null },
 		secret: '0123456789abcdef',
-		saveUninitialized: true,
+		saveUninitialized: true, 
 		resave: false
 	})
 ];

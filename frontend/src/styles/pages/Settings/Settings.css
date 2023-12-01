@@ -1,0 +1,73 @@
+.user-settings {
+    min-width: 100%;
+    min-height: calc(100vh - 75px);
+    background-color: #1b1b1b;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+.user-settings > .user-settings-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+
+.user-settings-card {
+    margin: 70px 0px;
+    width: 38vw;
+    padding: 20px;
+
+    background: rgba(0, 0, 0, 0.17);
+    backdrop-filter: blur(42.3px);
+    -webkit-backdrop-filter: blur(42.3px);
+    border: 1px solid var(--gray-2);
+    border-radius: 10px;
+
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
+.user-settings-options {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: center;
+    padding: 25px;
+}
+
+.user-settings-option > h4 {
+    margin-bottom: 16px;
+}
+
+.user-settings-option label {
+    margin-left: 8px;
+    margin-right: 16px;
+}
+
+.user-settings-save {
+    padding: 5px;
+    margin-top: auto;
+    background: #2dedf3;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.user-settings-save:hover {
+    background: #00f7ff;
+    color: black;
+}
+
+.user-settings-save:disabled {
+    color: grey;
+    background: #414141;
+    border: 1px solid transparent;
+    cursor: initial;
+}

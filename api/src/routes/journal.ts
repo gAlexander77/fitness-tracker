@@ -9,7 +9,7 @@ const route = Router();
 const loadJournalEntries = (request: Request) => {
     const journalEntries = request.user.journalEntries;
 
-    const todaysDate = (new Date().toLocaleDateString('en-us', {timeZone: request.user.settings.timezone})).replaceAll('/', '-');
+    const todaysDate = (new Date().toLocaleDateString('en-us', {timeZone: request.user.settings.tz})).replaceAll('/', '-');
     const todaysEntry = new JournalEntry(todaysDate);
 
     if (journalEntries.length === 0 || journalEntries[0]?.date !== todaysDate)
@@ -78,7 +78,7 @@ route.post('/personal-record', authorized, async (request: Request, response: Re
     }
 });
 
-route.post('/calculator-result', authorized, async (request: Request, response: Response) => {
+route.post('/calculator-result', authorized, async (_request: Request, response: Response) => {
     response.status(200).json({ ok: "nothing happens" });
 });
 
